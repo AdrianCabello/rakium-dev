@@ -1,17 +1,33 @@
-<header class="header">
-  <div class="header-container">
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md shadow-sm transition-colors duration-300">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
     <div class="logo">
-      <a href="/">Rakium</a>
+      <a href="/" class="text-2xl font-bold text-zinc-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Rakium</a>
     </div>
-    <nav class="nav">
-      <ul>
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#precios">Precios</a></li>
-        <li><a href="#contacto">Contacto</a></li>
+    
+    <nav class="hidden md:block">
+      <ul class="flex space-x-8">
+        <li><a href="#servicios" class="text-zinc-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Servicios</a></li>
+        <li><a href="#precios" class="text-zinc-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Precios</a></li>
+        <li><a href="#contacto" class="text-zinc-700 dark:text-zinc-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contacto</a></li>
       </ul>
     </nav>
-    <div class="cta">
-      <a href="#contacto" class="btn-primary">Solicitar Presupuesto</a>
+    
+    <div class="flex items-center space-x-4">
+      <button (click)="toggleDarkMode()" class="p-2 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors">
+        @if (!isDarkMode) {
+          <lucide-icon [name]="moonIcon" size="20"></lucide-icon>
+        } @else {
+          <lucide-icon [name]="sunIcon" size="20"></lucide-icon>
+        }
+      </button>
+      
+      <a href="#contacto" class="hidden md:inline-flex bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 py-2 rounded-md transition-all">
+        Solicitar Presupuesto
+      </a>
+      
+      <button class="md:hidden p-2 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors">
+        <lucide-icon [name]="menuIcon" size="20"></lucide-icon>
+      </button>
     </div>
   </div>
 </header>
