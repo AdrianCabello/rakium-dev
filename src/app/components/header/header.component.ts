@@ -1,7 +1,6 @@
 import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { LucideAngularModule } from 'lucide-angular';
-import { Moon, Sun, Menu } from 'lucide-angular';
+import { LucideAngularModule, Moon, Sun, Menu } from 'lucide-angular';
 
 @Component({
   selector: 'app-header',

@@ -10,7 +10,6 @@ import { ContactComponent } from './components/contact/contact.component';
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,
     HeaderComponent,
     HeroComponent,
     ServicesComponent,
