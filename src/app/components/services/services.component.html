@@ -20,7 +20,7 @@
         <div class="p-6">
           <div class="flex items-center gap-3 mb-4">
             <div class="bg-gradient-to-r from-blue-700 to-indigo-800 p-2 rounded-lg text-white">
-              <lucide-icon [name]="service.icon" class="h-5 w-5"></lucide-icon>
+              <fa-icon [icon]="service.icon" class="h-5 w-5"></fa-icon>
             </div>
             <div>
               <h3 class="text-xl font-bold">{{service.title}}</h3>
@@ -36,8 +36,12 @@
 
           <div class="mb-4">
             <div class="flex items-center mb-3">
-              <span class="text-zinc-700 dark:text-zinc-300 mr-2 font-medium">Precio inicial:</span>
-              <span class="text-blue-600 dark:text-blue-400 font-medium">${{service.precio}}</span>
+              <span class="text-zinc-700 dark:text-zinc-300 mr-2 font-medium">Página Estática:</span>
+              <span class="text-blue-600 dark:text-blue-400 font-medium">${{service.precioEstatico}}</span>
+            </div>
+            <div class="flex items-center">
+              <span class="text-zinc-700 dark:text-zinc-300 mr-2 font-medium">Autogestionable:</span>
+              <span class="text-blue-600 dark:text-blue-400 font-medium">${{service.precioAutogestionable}}</span>
             </div>
           </div>
 
@@ -46,26 +50,46 @@
             <ul class="space-y-1 mb-6">
               @for (item of service.incluye; track item) {
               <li class="flex items-start">
-                <lucide-icon [name]="checkIcon" class="h-5 w-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0"></lucide-icon>
+                <fa-icon [icon]="faCheck" class="h-5 w-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0"></fa-icon>
                 <span class="text-zinc-600 dark:text-zinc-400">{{item}}</span>
               </li>
               }
             </ul>
           </div>
 
-          <!-- Rubros ideales -->
-          @if (service.rubros) {
+          <!-- Ideal para -->
+          @if (service.idealFor && service.idealFor.length > 0) {
           <div class="mt-6">
             <h4 class="text-zinc-700 dark:text-zinc-300 mb-3 font-medium">Ideal para:</h4>
             <div class="flex flex-wrap gap-2">
-              @for (rubro of service.rubros; track rubro.name) {
+              @for (rubro of service.idealFor; track rubro) {
               <div
                 class="flex items-center bg-zinc-100 dark:bg-zinc-800/80 px-3 py-1.5 rounded-full text-zinc-700 dark:text-zinc-300 text-sm">
-                <lucide-icon [name]="rubro.icon" class="mr-1.5 h-4 w-4"></lucide-icon>
-                <span>{{rubro.name}}</span>
+                <span>{{rubro}}</span>
               </div>
               }
             </div>
+          </div>
+          }
+
+          <!-- Upgrades -->
+          @if (service.upgrades && service.upgrades.length > 0) {
+          <div class="mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-700">
+            <h4 class="text-zinc-700 dark:text-zinc-300 mb-3 font-medium">Upgrades disponibles:</h4>
+            <ul class="space-y-2">
+              @for (upgrade of service.upgrades; track upgrade.name) {
+              <li class="flex items-start">
+                <fa-icon [icon]="faCheck" class="h-5 w-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0"></fa-icon>
+                <div>
+                  <span class="text-zinc-700 dark:text-zinc-300 font-medium">{{upgrade.name}}</span>
+                  <span class="text-blue-600 dark:text-blue-400 ml-1">${{upgrade.price}}</span>
+                  @if (upgrade.description) {
+                  <p class="text-zinc-600 dark:text-zinc-400 text-sm">{{upgrade.description}}</p>
+                  }
+                </div>
+              </li>
+              }
+            </ul>
           </div>
           }
 
@@ -75,10 +99,76 @@
               target="_blank"
               class="w-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100 group-hover:bg-gradient-to-r group-hover:from-blue-700 group-hover:to-indigo-600 group-hover:text-white transition-all duration-300 py-2 px-4 rounded-lg flex items-center justify-center">
               Consultar por WhatsApp
-              <lucide-icon [name]="messageCircleIcon" class="ml-2 h-4 w-4"></lucide-icon>
+              <fa-icon [icon]="faWhatsapp" class="ml-2 h-5 w-5"></fa-icon>
             </a>
           </div>
         </div>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Hosting Services -->
+<section class="py-20 bg-zinc-50 dark:bg-zinc-900">
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mx-auto text-center mb-16">
+      <div
+        class="inline-block mb-4 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 font-medium text-sm">
+        Hosting y Mantenimiento
+      </div>
+      <h2 class="text-4xl font-bold mb-6">Soluciones de Hosting</h2>
+      <p class="text-lg text-zinc-600 dark:text-zinc-400">
+        Mantén tu sitio web funcionando de manera óptima con nuestros servicios de hosting y mantenimiento
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      @for (service of hostingServices; track service.id) {
+      <div
+        class="bg-white dark:bg-zinc-800 rounded-xl shadow-sm hover:shadow-md border border-zinc-200 dark:border-zinc-700 p-6 transition-all duration-300">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="bg-gradient-to-r from-blue-700 to-indigo-800 p-2 rounded-lg text-white">
+            <fa-icon [icon]="service.icon" class="h-5 w-5"></fa-icon>
+          </div>
+          <h3 class="text-xl font-bold">{{service.title}}</h3>
+        </div>
+        <p class="text-zinc-600 dark:text-zinc-400 mb-4">{{service.description}}</p>
+        <div class="text-blue-600 dark:text-blue-400 font-medium">${{service.price}}</div>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Extras -->
+<section class="py-20">
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mx-auto text-center mb-16">
+      <div
+        class="inline-block mb-4 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 font-medium text-sm">
+        Extras y Mejoras
+      </div>
+      <h2 class="text-4xl font-bold mb-6">Funcionalidades Adicionales</h2>
+      <p class="text-lg text-zinc-600 dark:text-zinc-400">
+        Mejora tu sitio web con estas funcionalidades adicionales
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      @for (extra of extras; track extra.id) {
+      <div
+        class="bg-white dark:bg-zinc-800 rounded-xl shadow-sm hover:shadow-md border border-zinc-200 dark:border-zinc-700 p-6 transition-all duration-300">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="bg-gradient-to-r from-blue-700 to-indigo-800 p-2 rounded-lg text-white">
+            <fa-icon [icon]="extra.icon" class="h-5 w-5"></fa-icon>
+          </div>
+          <h3 class="text-xl font-bold">{{extra.title}}</h3>
+        </div>
+        @if (extra.description) {
+        <p class="text-zinc-600 dark:text-zinc-400 mb-4">{{extra.description}}</p>
+        }
+        <div class="text-blue-600 dark:text-blue-400 font-medium">${{extra.price}}</div>
       </div>
       }
     </div>

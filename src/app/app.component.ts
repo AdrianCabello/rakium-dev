@@ -13,7 +13,6 @@ import { ContactComponent } from './components/contact/contact.component';
     HeaderComponent,
     HeroComponent,
     ServicesComponent,
-    PricingComponent,
     ContactComponent
   ],
   templateUrl: './app.component.html',
