@@ -256,7 +256,7 @@ export const services: Service[] = [
       'Diseño de banners promocionales o campañas estacionales'
     ]
   },
-  {
+/*   {
     id: 11,
     title: 'Intranet / Dashboard',
     subtitle: 'Centralizá tu gestión interna',
@@ -304,7 +304,7 @@ export const services: Service[] = [
       'Exportación de datos (CSV, Excel, PDF)',
       'Integración con Google Drive, Sheets o APIs externas'
     ]
-  }
+  } */
 ];
 
 export const hostingServices = [
