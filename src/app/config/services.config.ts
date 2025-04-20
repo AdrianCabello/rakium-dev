@@ -39,28 +39,39 @@ export interface Service {
   idealFor: string[];
   incluye: string[];
   upgrades?: ServiceUpgrade[];
+  incluyeWithBackend?: string[];
 }
 
 export const services: Service[] = [
   {
     id: 3,
-    title: 'Portfolio / CV Online',
+    title: 'Portfolio',
     subtitle: 'Tu experiencia profesional en línea',
     icon: faUserTie,
     description: 'Portfolios profesionales para mostrar tu trabajo y experiencia.',
-    precioEstatico: '180.000 – 220.000',
-    precioAutogestionable: '300.000 – 400.000',
+    precioEstatico: '250.000',
+    precioAutogestionable: '500.000 + 20.000/mes',
     idealFor: ['Freelancers', 'Artistas', 'Creativos'],
     incluye: [
-      'Hasta 6 proyectos',
-      'Galería fija',
-      'Contacto y redes'
+      'Home, Sobre mí, Experiencia, Contacto y Redes',
+      'Proyectos: 6 proyectos máximos',
+      'Galería fija (opcional)',
+      'Videos (opcional)',
+      'Testimonios (opcional)',
+      'SEO + Google Analytics',
+      'Dominio personalizado'
+    ],
+    incluyeWithBackend: [
+      'Todo lo anterior',
+      'Panel de administración para editar:',
+      'Proyectos (agregar, editar, eliminar)',
+      'Autenticación segura para acceso privado al panel'
     ],
     upgrades: [
       {
         name: 'Cambios puntuales',
         price: '5.000 por modificación',
-        description: 'Nuevo proyecto, reemplazo de imagen o texto, etc.'
+        description: 'reemplazo de imagen o texto, etc.'
       },
       {
         name: 'Mantenimiento mensual',
@@ -75,14 +86,81 @@ export const services: Service[] = [
     subtitle: 'Presencia profesional en línea',
     icon: faBuilding,
     description: 'Sitios web profesionales que representan tu marca y conectan con tu audiencia.',
-    precioEstatico: '220.000 – 300.000',
-    precioAutogestionable: '350.000 – 450.000',
+    precioEstatico: '250.000',
+    precioAutogestionable: '500.000 + 20.000/mes',
     idealFor: ['Empresas', 'Profesionales', 'Marcas personales'],
     incluye: [
-      'Inicio, Servicios, Nosotros, Contacto',
-      'Formulario de contacto funcional',
-      'Hosting estático',
-      'SEO básico + Google Analytics'
+      'Home, Nosotros, Servicios, Contacto y Redes',
+      'Proyectos: 6 proyectos máximos',
+      'Galería fija (opcional)',
+      'Videos (opcional)',
+      'Testimonios (opcional)',
+      'SEO + Google Analytics',
+      'Dominio personalizado'
+    ],
+    incluyeWithBackend: [
+      'Todo lo anterior',
+      'Panel de administración para editar:',
+      'Proyectos (agregar, editar, eliminar)',
+      'Autenticación segura para acceso privado al panel'
+    ],
+  },
+  {
+    id: 4,
+    title: 'Portfolio Artista / DJ',
+    subtitle: 'Tu identidad musical en una web',
+    icon: faMusic,
+    description: 'Una página profesional para mostrar tu música, estética, fechas y conectar con tu audiencia.',
+    precioEstatico: '250.000',
+    precioAutogestionable: '500.000 + 20.000/mes',
+    idealFor: ['DJs', 'Productores/as musicales', 'Músicos/as', 'Artistas Visuales'],
+    incluye: [
+      'Home con imagen de impacto y frase destacada',
+      'Biografía artística + redes sociales',
+      'Música: embeds de Spotify, SoundCloud, YouTube, etc.',
+      'Galería visual: fotos de eventos, sesiones, arte (opcional)',
+      'Videos (opcional): videoclips, live sets, backstage',
+      'Agenda fija de fechas o presentaciones (opcional)',
+      'Contacto profesional: bookeo, prensa, colaboraciones',
+      'SEO + Google Analytics',
+      'Dominio personalizado'
+    ],
+    incluyeWithBackend: [
+      'Todo lo anterior',
+      'Panel de administración para editar:',
+      'Eventos',
+      'Música y links externos (Spotify, YouTube, etc.)',
+      'Galería de fotos',
+      'Autenticación segura para acceso privado al panel'
+    ],
+    upgrades: [
+      {
+        name: 'Cambios puntuales',
+        price: '5.000 por modificación',
+        description: 'reemplazo de imagen, video, texto, o evento'
+      },
+      {
+        name: 'Mantenimiento mensual',
+        price: '20.000',
+        description: 'Cambios ilimitados dentro del alcance del diseño original'
+      }
+    ]
+  },
+
+  {
+    id: 9,
+    title: 'Sistema de Reservas',
+    subtitle: 'Agenda online',
+    icon: faCalendarCheck,
+    description: 'Sistemas para gestionar citas y reservas.',
+    precioEstatico: '350.000 – 500.000',
+    precioAutogestionable: '500.000 – 800.000',
+    idealFor: ['Consultorios', 'Peluquerías', 'Restaurantes'],
+    incluye: [
+      'Agenda editable',
+      'Reserva por día y hora',
+      'Confirmaciones automáticas',
+      'Dominio personalizado'
     ]
   },
   {
@@ -97,40 +175,11 @@ export const services: Service[] = [
     incluye: [
       'Listado de propiedades con filtros',
       'Panel para cargar nuevas unidades',
-      'Hosting backend'
+      'Hosting backend',
+      'Dominio personalizado'
     ]
   },
-  {
-    id: 5,
-    title: 'E-commerce Básico',
-    subtitle: 'Vende en línea',
-    icon: faShoppingCart,
-    description: 'Tiendas online para pequeños negocios y catálogos.',
-    precioEstatico: '280.000 – 350.000',
-    precioAutogestionable: '450.000 – 600.000',
-    idealFor: ['Pequeños negocios', 'Tiendas por catálogo'],
-    incluye: [
-      'Catálogo de productos',
-      'Contacto por WhatsApp',
-      'Hasta 10 productos cargados'
-    ]
-  },
-  {
-    id: 6,
-    title: 'E-commerce con Pagos',
-    subtitle: 'Ventas completas',
-    icon: faCreditCard,
-    description: 'Tiendas online con procesamiento de pagos integrado.',
-    precioEstatico: '400.000 – 600.000',
-    precioAutogestionable: '600.000 – 900.000',
-    idealFor: ['Negocios online', 'Tiendas retail'],
-    incluye: [
-      'Carrito, checkout, Mercado Pago / Stripe',
-      'Panel de administración',
-      'Hosting + backend 1 año incluido'
-    ]
-  },
-  {
+  /* {
     id: 7,
     title: 'Página para Eventos',
     subtitle: 'Promociona tu evento',
@@ -143,38 +192,40 @@ export const services: Service[] = [
       'Lineup, galería, ubicación',
       'Link a entradas o integración'
     ]
-  },
- 
+  }, */
+  /*   {
+      id: 5,
+      title: 'E-commerce Básico',
+      subtitle: 'Vende en línea',
+      icon: faShoppingCart,
+      description: 'Tiendas online para pequeños negocios y catálogos.',
+      precioEstatico: '280.000 – 350.000',
+      precioAutogestionable: '450.000 – 600.000',
+      idealFor: ['Pequeños negocios', 'Tiendas por catálogo'],
+      incluye: [
+        'Catálogo de productos',
+        'Contacto por WhatsApp',
+        'Hasta 10 productos cargados'
+      ]
+    }, */
   {
-    id: 9,
-    title: 'Sistema de Reservas',
-    subtitle: 'Agenda online',
-    icon: faCalendarCheck,
-    description: 'Sistemas para gestionar citas y reservas.',
-    precioEstatico: '350.000 – 500.000',
-    precioAutogestionable: '500.000 – 800.000',
-    idealFor: ['Consultorios', 'Peluquerías', 'Restaurantes'],
+    id: 6,
+    title: 'E-commerce con tienda nube',
+    subtitle: 'Ventas completas',
+    icon: faCreditCard,
+    description: 'Tiendas online con procesamiento de pagos integrado.',
+    precioEstatico: '400.000 – 600.000',
+    precioAutogestionable: '600.000 – 900.000',
+    idealFor: ['Negocios online', 'Tiendas retail'],
     incluye: [
-      'Agenda editable',
-      'Reserva por día y hora',
-      'Confirmaciones automáticas'
+      'Carrito, checkout, Mercado Pago / Stripe',
+      'Panel de administración',
+      'Hosting + backend 1 año incluido',
+      'Dominio personalizado'
     ]
   },
-  {
-    id: 10,
-    title: 'Página para Cursos',
-    subtitle: 'Educación online',
-    icon: faGraduationCap,
-    description: 'Plataformas para ofrecer cursos y formación online.',
-    precioEstatico: '300.000 – 500.000',
-    precioAutogestionable: '500.000 – 800.000',
-    idealFor: ['Academias', 'Educadores', 'Institutos'],
-    incluye: [
-      'Catálogo de cursos',
-      'Calendario, inscripción y pagos online',
-      'Panel para administración de contenido'
-    ]
-  },
+
+
   {
     id: 11,
     title: 'Intranet / Dashboard',
@@ -187,7 +238,8 @@ export const services: Service[] = [
     incluye: [
       'Login con roles',
       'Gestión de usuarios y métricas',
-      'Hosting dedicado'
+      'Hosting dedicado',
+      'Dominio personalizado'
     ]
   }
 ];
@@ -196,14 +248,14 @@ export const hostingServices = [
   {
     id: 1,
     title: 'Hosting Estático',
-    description: 'Netlify/Vercel',
+    description: 'Github Pages',
     price: 'Incluido (sin backend)',
     icon: faServer
   },
   {
     id: 2,
     title: 'Hosting Backend',
-    description: 'Firebase/VPS',
+    description: 'Hostinger/VPS',
     price: '10.000 – 25.000 /mes',
     icon: faDatabase
   },
@@ -214,39 +266,27 @@ export const hostingServices = [
     price: '20.000 – 50.000 /mes',
     icon: faCode
   },
-  {
-    id: 4,
-    title: 'Dominio Personalizado',
-    description: 'Anual',
-    price: '10.000 – 15.000 /año',
-    icon: faGlobe
-  }
 ];
 
 export const extras = [
-  {
-    id: 1,
-    title: 'SEO Avanzado',
-    price: '30.000 – 60.000',
-    icon: faChartLine
-  },
+
   {
     id: 2,
-    title: 'Multiidioma',
+    title: 'Multi idioma',
     price: '+50.000',
     icon: faGlobe
   },
   {
     id: 3,
     title: 'Integración con Sistemas Externos',
-    price: '+30.000 a 80.000',
+    price: '30.000 a 80.000',
     description: 'CRMs, WhatsApp, reservas',
     icon: faCode
   },
   {
     id: 4,
     title: 'Animaciones Personalizadas',
-    price: '+20.000 a 40.000',
+    price: '20.000 a 40.000',
     icon: faPalette
   }
 ]; 
