@@ -40,18 +40,24 @@ export interface Service {
   incluye: string[];
   upgrades?: ServiceUpgrade[];
   incluyeWithBackend?: string[];
+  modulesAvailable?: string[];
 }
 
 export const services: Service[] = [
   {
     id: 3,
-    title: 'Portfolio',
+    title: 'Portfolio Profesional',
     subtitle: 'Tu experiencia profesional en línea',
     icon: faUserTie,
     description: 'Portfolios profesionales para mostrar tu trabajo y experiencia.',
     precioEstatico: '250.000',
     precioAutogestionable: '500.000 + 20.000/mes',
-    idealFor: ['Freelancers', 'Artistas', 'Creativos'],
+    idealFor: ['Freelancers', 'Diseñadores graficos', 'Ilustradores',
+      'Fotógrafos', 'Arquitectos', 'Productores audiovisuales', 'Abogados',
+      'Contadores',
+      'Marketing',
+      'Consultores IT',
+    ],
     incluye: [
       'Home, Sobre mí, Experiencia, Contacto y Redes',
       'Proyectos: 6 proyectos máximos',
@@ -64,7 +70,7 @@ export const services: Service[] = [
     incluyeWithBackend: [
       'Todo lo anterior',
       'Panel de administración para editar:',
-      'Proyectos (agregar, editar, eliminar)',
+      'Proyectos ilimitados: (agregar, editar, eliminar)',
       'Autenticación segura para acceso privado al panel'
     ],
     upgrades: [
@@ -88,12 +94,30 @@ export const services: Service[] = [
     description: 'Sitios web profesionales que representan tu marca y conectan con tu audiencia.',
     precioEstatico: '250.000',
     precioAutogestionable: '500.000 + 20.000/mes',
-    idealFor: ['Empresas', 'Profesionales', 'Marcas personales'],
+    idealFor: ['Empresas',
+      'Profesionales',
+      'Marcas personales',
+      'Emprendimientos',
+      'Startups',
+      'Agencias de marketing',
+      'Estudios jurídicos',
+      'Consultoras',
+      'Clínicas y centros de salud',
+      'Arquitectos',
+      'Contadores',
+      'Abogados',
+      'Psicólogos',
+      'Entrenadores/as personales',
+      'Escuelas y academias', 'ONGs y fundaciones',
+      'Tiendas físicas que no venden online',
+      'Negocios gastronómicos',
+      'Salones de eventos',
+      'Barberías y peluquerías'],
     incluye: [
       'Home, Nosotros, Servicios, Contacto y Redes',
       'Proyectos: 6 proyectos máximos',
-      'Galería fija (opcional)',
-      'Videos (opcional)',
+      'Galería de fotos (opcional)',
+      'Videos de youtube(opcional)',
       'Testimonios (opcional)',
       'SEO + Google Analytics',
       'Dominio personalizado'
@@ -101,13 +125,13 @@ export const services: Service[] = [
     incluyeWithBackend: [
       'Todo lo anterior',
       'Panel de administración para editar:',
-      'Proyectos (agregar, editar, eliminar)',
+      'Proyectos ilimitados: (agregar, editar, eliminar)',
       'Autenticación segura para acceso privado al panel'
     ],
   },
   {
     id: 4,
-    title: 'Portfolio Artista / DJ',
+    title: 'Portfolio Artista',
     subtitle: 'Tu identidad musical en una web',
     icon: faMusic,
     description: 'Una página profesional para mostrar tu música, estética, fechas y conectar con tu audiencia.',
@@ -133,113 +157,152 @@ export const services: Service[] = [
       'Galería de fotos',
       'Autenticación segura para acceso privado al panel'
     ],
-    upgrades: [
-      {
-        name: 'Cambios puntuales',
-        price: '5.000 por modificación',
-        description: 'reemplazo de imagen, video, texto, o evento'
-      },
-      {
-        name: 'Mantenimiento mensual',
-        price: '20.000',
-        description: 'Cambios ilimitados dentro del alcance del diseño original'
-      }
-    ]
   },
-
   {
     id: 9,
     title: 'Sistema de Reservas',
-    subtitle: 'Agenda online',
+    subtitle: 'Agenda online profesional',
     icon: faCalendarCheck,
-    description: 'Sistemas para gestionar citas y reservas.',
-    precioEstatico: '350.000 – 500.000',
-    precioAutogestionable: '500.000 – 800.000',
-    idealFor: ['Consultorios', 'Peluquerías', 'Restaurantes'],
-    incluye: [
-      'Agenda editable',
-      'Reserva por día y hora',
-      'Confirmaciones automáticas',
-      'Dominio personalizado'
+    description: 'Plataformas web para gestionar citas, turnos y reservas con facilidad y eficiencia.',
+    precioEstatico: '',
+    precioAutogestionable: '800.000 + 20.000/mes',
+    idealFor: [
+      'Consultorios médicos y psicológicos',
+      'Peluquerías y centros de estética',
+      'Restaurantes y cafés',
+      'Salones de eventos',
+      'Estudios de yoga o pilates',
+      'Talleres y capacitaciones presenciales',
+      'Entrenadores personales'
+    ],
+    incluye: [],
+    incluyeWithBackend: [
+      'Agenda editable desde panel',
+      'Reservas online por día y hora',
+      'Cancelaciones y reprogramaciones simples',
+      'Visualización por días, semanas o mes',
+      'Dominio personalizado',
+      'SEO + Google Analytics',
+      'Panel de administración para gestionar reservas',
+      'Gestión de disponibilidad personalizada',
+      'Listado y edición de clientes',
+      'Autenticación segura para acceso privado al panel'
     ]
   },
   {
     id: 8,
     title: 'Sitio para Inmobiliarias',
-    subtitle: 'Propiedades online',
+    subtitle: 'Tus propiedades online, 24/7',
     icon: faHome,
-    description: 'Plataformas para mostrar y gestionar propiedades.',
-    precioEstatico: '400.000 – 600.000',
-    precioAutogestionable: '600.000 – 900.000',
-    idealFor: ['Inmobiliarias', 'Agentes inmobiliarios'],
+    description: 'Webs pensadas para mostrar y administrar propiedades de forma moderna y eficiente.',
+    precioEstatico: '600.000',
+    precioAutogestionable: '900.000 + 20.000/mes',
+    idealFor: [
+      'Inmobiliarias',
+      'Agentes inmobiliarios independientes',
+      'Desarrolladoras de proyectos',
+      'Barrios privados',
+      'Constructoras'
+    ],
     incluye: [
-      'Listado de propiedades con filtros',
-      'Panel para cargar nuevas unidades',
-      'Hosting backend',
-      'Dominio personalizado'
+      'Listado de hasta 10 propiedades con filtros (tipo, zona, precio, etc.)',
+      'Ficha de propiedad con imágenes, descripción, mapa, amenities y contacto',
+      'Galería de fotos y videos',
+      'Formulario de contacto y WhatsApp directo',
+      'Dominio personalizado',
+      'SEO + Google Analytics'
+    ],
+    incluyeWithBackend: [
+      'Todo lo anterior',
+      'Panel de administración para gestionar propiedades',
+      'Carga, edición y eliminación de unidades',
+      'Gestión de estados (Disponible, Reservado, Vendido)',
+      'Autenticación segura para acceso privado al panel',
+      'Hosting backend incluido'
     ]
   },
-  /* {
-    id: 7,
-    title: 'Página para Eventos',
-    subtitle: 'Promociona tu evento',
-    icon: faMusic,
-    description: 'Sitios web para eventos, festivales y shows.',
-    precioEstatico: '250.000 – 320.000',
-    precioAutogestionable: '400.000 – 500.000',
-    idealFor: ['DJs', 'Productoras', 'Festivales'],
-    incluye: [
-      'Lineup, galería, ubicación',
-      'Link a entradas o integración'
-    ]
-  }, */
-  /*   {
-      id: 5,
-      title: 'E-commerce Básico',
-      subtitle: 'Vende en línea',
-      icon: faShoppingCart,
-      description: 'Tiendas online para pequeños negocios y catálogos.',
-      precioEstatico: '280.000 – 350.000',
-      precioAutogestionable: '450.000 – 600.000',
-      idealFor: ['Pequeños negocios', 'Tiendas por catálogo'],
-      incluye: [
-        'Catálogo de productos',
-        'Contacto por WhatsApp',
-        'Hasta 10 productos cargados'
-      ]
-    }, */
+
   {
     id: 6,
-    title: 'E-commerce con tienda nube',
-    subtitle: 'Ventas completas',
+    title: 'E-commerce con Tiendanube',
+    subtitle: 'Tu tienda online lista para vender',
     icon: faCreditCard,
-    description: 'Tiendas online con procesamiento de pagos integrado.',
-    precioEstatico: '400.000 – 600.000',
-    precioAutogestionable: '600.000 – 900.000',
-    idealFor: ['Negocios online', 'Tiendas retail'],
+    description: 'Servicio profesional de configuración, diseño y optimización de tu tienda en Tiendanube. Nos encargamos de dejarla lista para que empieces a vender.',
+    precioEstatico: '400.000',
+    precioAutogestionable: '600.000 + 200.000/mes',
+    idealFor: [
+      'Negocios online',
+      'Tiendas físicas que quieren vender por internet',
+      'Emprendimientos de productos',
+      'Marcas personales',
+      'Tiendas retail'
+    ],
     incluye: [
-      'Carrito, checkout, Mercado Pago / Stripe',
-      'Panel de administración',
-      'Hosting + backend 1 año incluido',
-      'Dominio personalizado'
+      'Configuración inicial de Tiendanube',
+      'Carga de productos (hasta 30 unidades)',
+      'Diseño visual personalizado (logo, banners, paleta de colores)',
+      'Integración con medios de pago: Mercado Pago, Stripe o transferencia',
+      'Configuración de métodos de envío (Correo Argentino, retiro en local, etc.)',
+      'Conexión con redes sociales (Instagram, WhatsApp)',
+      'Dominio personalizado (si ya lo tenés o lo comprás)',
+      'Optimización para buscadores (SEO básico)',
+      'Asesoramiento en estructura de categorías y fichas de producto',
+      'Tutorial básico para gestión de pedidos y productos'
+    ],
+    incluyeWithBackend: [
+      'Todo lo anterior',
+      'Soporte técnico mensual por cambios menores',
+      'Carga adicional de productos o categorías (hasta 100)',
+      'Diseño de banners promocionales o campañas estacionales'
     ]
   },
-
-
   {
     id: 11,
     title: 'Intranet / Dashboard',
-    subtitle: 'Gestión interna',
+    subtitle: 'Centralizá tu gestión interna',
     icon: faChartLine,
-    description: 'Sistemas administrativos para gestión interna.',
+    description: 'Sistemas web personalizados para gestionar usuarios, datos, reportes y procesos internos de forma segura y eficiente.',
     precioEstatico: '500.000 – 900.000',
-    precioAutogestionable: '800.000 – 1.200.000',
-    idealFor: ['Empresas', 'Organizaciones'],
+    precioAutogestionable: '800.000 – 1.200.000 + 30.000/mes',
+    idealFor: [
+      'Empresas',
+      'Organizaciones',
+      'Startups',
+      'Equipos de trabajo con procesos internos',
+      'Áreas administrativas, RRHH, ventas o soporte'
+    ],
     incluye: [
-      'Login con roles',
-      'Gestión de usuarios y métricas',
+      'Inicio de sesión con roles y permisos (admin, usuario, etc.)',
+      'Gestión de usuarios: alta, baja, edición',
+      'Dashboard de métricas personalizado',
+      'Carga y consulta de información interna',
+      'Dominio personalizado',
       'Hosting dedicado',
-      'Dominio personalizado'
+      'SEO básico y seguridad SSL'
+    ],
+    incluyeWithBackend: [
+      'Todo lo anterior',
+      'Panel de administración completo',
+      'Filtros, búsquedas y exportación de datos (CSV, PDF, etc.)',
+      'Módulos personalizados: reportes, tareas, inventario, turnos, etc.',
+      'Notificaciones internas (email o en app)',
+      'Autenticación segura y cifrado de datos',
+      'Soporte técnico y actualizaciones mensuales'
+    ],
+    modulesAvailable: [
+      'Gestión de usuarios y permisos',
+      'Panel de métricas e informes personalizados',
+      'Carga de facturas y gestión de pagos',
+      'Gestión de empleados y asistencia',
+      'Registro de stock e inventario',
+      'Asignación de tareas y seguimiento de proyectos',
+      'Carga y descarga de documentos internos',
+      'Mesa de ayuda y soporte interno',
+      'Módulo de capacitaciones internas',
+      'Agenda de turnos o reuniones',
+      'Notificaciones por email o dentro del sistema',
+      'Exportación de datos (CSV, Excel, PDF)',
+      'Integración con Google Drive, Sheets o APIs externas'
     ]
   }
 ];
@@ -256,14 +319,14 @@ export const hostingServices = [
     id: 2,
     title: 'Hosting Backend',
     description: 'Hostinger/VPS',
-    price: '10.000 – 25.000 /mes',
+    price: '$10.000 – $25.000 /mes',
     icon: faDatabase
   },
   {
     id: 3,
     title: 'Mantenimiento Mensual',
     description: 'Soporte y actualizaciones',
-    price: '20.000 – 50.000 /mes',
+    price: '$20.000 – $50.000 /mes',
     icon: faCode
   },
 ];
@@ -273,7 +336,7 @@ export const extras = [
   {
     id: 2,
     title: 'Multi idioma',
-    price: '+50.000',
+    price: '50.000',
     icon: faGlobe
   },
   {
