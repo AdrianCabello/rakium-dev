@@ -1,7 +1,6 @@
 import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { LucideAngularModule } from 'lucide-angular';
-import { Sparkles, ArrowRight, Code, Globe } from 'lucide-angular';
+import { LucideAngularModule, Palette, Code, Search, Settings, Sparkles, ArrowRight, Globe } from 'lucide-angular';
 
 @Component({
   selector: 'app-hero',
@@ -14,10 +13,13 @@ export class HeroComponent implements OnInit {
   isLoaded = false;
   isBrowser: boolean;
   
-  // Define the icons for use in the template
+  // Iconos
+  paletteIcon = Palette;
+  codeIcon = Code;
+  searchIcon = Search;
+  settingsIcon = Settings;
   sparklesIcon = Sparkles;
   arrowRightIcon = ArrowRight;
-  codeIcon = Code;
   globeIcon = Globe;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
