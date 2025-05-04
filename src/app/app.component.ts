@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+
 import { HeroComponent } from './components/hero/hero.component';
 import { ServicesComponent } from './components/services/services.component';
 import { PricingComponent } from './components/pricing/pricing.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { SeoService } from './services/seo.service';
-
+import { HeaderComponent } from './components/header/header.component';
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,
+    HeaderComponent,
     HeroComponent,
     ServicesComponent,
-    PricingComponent,
+
     ContactComponent
   ],
   templateUrl: './app.component.html',
@@ -22,7 +22,7 @@ import { SeoService } from './services/seo.service';
 export class AppComponent implements OnInit {
   title = 'rakium-dev';
 
-  constructor(private seoService: SeoService) {}
+  constructor(private seoService: SeoService) { }
 
   ngOnInit() {
     // Configurar metadatos para la página principal

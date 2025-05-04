@@ -50,8 +50,8 @@ export const services: Service[] = [
     subtitle: 'Tu experiencia profesional en línea',
     icon: faUserTie,
     description: 'Portfolios profesionales para mostrar tu trabajo y experiencia.',
-    precioEstatico: '250.000',
-    precioAutogestionable: '500.000 + 20.000/mes',
+    precioEstatico: '$250',
+    precioAutogestionable: '$500 + $20/mes',
     idealFor: ['Freelancers', 'Diseñadores graficos', 'Ilustradores',
       'Fotógrafos', 'Arquitectos', 'Productores audiovisuales', 'Abogados',
       'Contadores',
@@ -76,12 +76,12 @@ export const services: Service[] = [
     upgrades: [
       {
         name: 'Cambios puntuales',
-        price: '5.000 por modificación',
+        price: '$5 por modificación',
         description: 'reemplazo de imagen o texto, etc.'
       },
       {
         name: 'Mantenimiento mensual',
-        price: '20.000',
+        price: '$20',
         description: 'Cambios ilimitados dentro del alcance del diseño original'
       }
     ]
@@ -92,8 +92,8 @@ export const services: Service[] = [
     subtitle: 'Presencia profesional en línea',
     icon: faBuilding,
     description: 'Sitios web profesionales que representan tu marca y conectan con tu audiencia.',
-    precioEstatico: '250.000',
-    precioAutogestionable: '500.000 + 20.000/mes',
+    precioEstatico: '$250',
+    precioAutogestionable: '$500 + $20/mes',
     idealFor: ['Empresas',
       'Profesionales',
       'Marcas personales',
@@ -127,8 +127,8 @@ export const services: Service[] = [
     subtitle: 'Tu identidad musical en una web',
     icon: faMusic,
     description: 'Una página profesional para mostrar tu música, estética, fechas y conectar con tu audiencia.',
-    precioEstatico: '250.000',
-    precioAutogestionable: '500.000 + 20.000/mes',
+    precioEstatico: '$250',
+    precioAutogestionable: '$500 + $20/mes',
     idealFor: ['DJs', 'Productores/as musicales', 'Músicos/as', 'Artistas Visuales'],
     incluye: [
       'Home con imagen de impacto y frase destacada',
@@ -157,7 +157,7 @@ export const services: Service[] = [
     icon: faCalendarCheck,
     description: 'Plataformas web para gestionar citas, turnos y reservas con facilidad y eficiencia.',
     precioEstatico: '',
-    precioAutogestionable: '800.000 + 20.000/mes',
+    precioAutogestionable: '$800 + $20/mes',
     idealFor: [
       'Consultorios médicos y psicológicos',
       'Peluquerías y centros de estética',
@@ -187,8 +187,8 @@ export const services: Service[] = [
     subtitle: 'Tus propiedades online, 24/7',
     icon: faHome,
     description: 'Webs pensadas para mostrar y administrar propiedades de forma moderna y eficiente.',
-    precioEstatico: '600.000',
-    precioAutogestionable: '900.000 + 20.000/mes',
+    precioEstatico: '$600',
+    precioAutogestionable: '$900 + $20/mes',
     idealFor: [
       'Inmobiliarias',
       'Agentes inmobiliarios independientes',
@@ -220,8 +220,8 @@ export const services: Service[] = [
     subtitle: 'Tu tienda online lista para vender',
     icon: faCreditCard,
     description: 'Servicio profesional de configuración, diseño y optimización de tu tienda en Tiendanube. Nos encargamos de dejarla lista para que empieces a vender.',
-    precioEstatico: '400.000',
-    precioAutogestionable: '600.000 + 200.000/mes',
+    precioEstatico: '$400',
+    precioAutogestionable: '$600 + $200/mes',
     idealFor: [
       'Negocios online',
       'Tiendas físicas que quieren vender por internet',

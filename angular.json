@@ -27,7 +27,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "CNAME"
             ],
             "styles": [
               "src/styles.scss"
@@ -58,19 +59,22 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
-              "baseHref": "/"
+              "baseHref": "/rakium-dev/"
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "rakium-dev:build"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "rakium-dev:build:production"
+              "buildTarget": "rakium-dev:build:production"
             },
             "development": {
-              "browserTarget": "rakium-dev:build:development"
+              "buildTarget": "rakium-dev:build:development"
             }
           },
           "defaultConfiguration": "development"
