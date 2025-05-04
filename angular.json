@@ -50,7 +50,7 @@
                 }
               ],
               "outputHashing": "all",
-              "baseHref": "/rakium-dev/"
+              "baseHref": "/"
             },
             "development": {
               "buildOptimizer": false,
@@ -59,7 +59,7 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
-              "baseHref": "/rakium-dev/"
+              "baseHref": "/"
             }
           },
           "defaultConfiguration": "production"
@@ -104,45 +104,6 @@
             "scripts": []
           }
         },
-        "server": {
-          "builder": "@angular-devkit/build-angular:server",
-          "options": {
-            "outputPath": "dist/rakium-dev/server",
-            "main": "server.ts",
-            "tsConfig": "tsconfig.server.json"
-          },
-          "configurations": {
-            "production": {
-              "outputHashing": "media",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ]
-            },
-            "development": {
-              "optimization": false,
-              "sourceMap": true,
-              "extractLicenses": false
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve-ssr": {
-          "builder": "@nguniversal/builders:ssr-dev-server",
-          "configurations": {
-            "development": {
-              "browserTarget": "rakium-dev:build:development",
-              "serverTarget": "rakium-dev:server:development"
-            },
-            "production": {
-              "browserTarget": "rakium-dev:build:production",
-              "serverTarget": "rakium-dev:server:production"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
         "prerender": {
           "builder": "@nguniversal/builders:prerender",
           "options": {
@@ -152,12 +113,10 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "rakium-dev:build:production",
-              "serverTarget": "rakium-dev:server:production"
+              "browserTarget": "rakium-dev:build:production"
             },
             "development": {
-              "browserTarget": "rakium-dev:build:development",
-              "serverTarget": "rakium-dev:server:development"
+              "browserTarget": "rakium-dev:build:development"
             }
           },
           "defaultConfiguration": "production"
