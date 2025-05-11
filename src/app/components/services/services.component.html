@@ -34,13 +34,16 @@
           <p class="text-zinc-600 dark:text-zinc-400 mb-6">{{service.description}}</p>
           }
 
+          @if (service.precioEstatico) {  
           <div class="mb-4">
             <div class="flex items-center mb-3">
               <span class="text-zinc-700 dark:text-zinc-300 mr-2 font-medium">Página Estática:</span>
-              <span class="text-blue-600 dark:text-blue-400 font-medium">${{service.precioEstatico}}</span>
+              <span class="text-blue-600 dark:text-blue-400 font-medium">{{service.precioEstatico}}</span>
             </div>
           </div>
+          }
 
+          @if (service.precioEstatico) {
           <div>
             <h4 class="text-zinc-700 dark:text-zinc-300 mb-2 font-medium">Incluye:</h4>
             <ul class="space-y-1 mb-6">
@@ -52,11 +55,12 @@
               }
             </ul>
           </div>
+          }
 
           <div class="mb-4">
             <div class="flex items-center">
               <span class="text-zinc-700 dark:text-zinc-300 mr-2 font-medium">Autogestionable:</span>
-              <span class="text-blue-600 dark:text-blue-400 font-medium">${{service.precioAutogestionable}}</span>
+              <span class="text-blue-600 dark:text-blue-400 font-medium">{{service.precioAutogestionable}}</span>
             </div>
           </div>
 
@@ -87,9 +91,9 @@
           </div>
           }
 
-         
 
-        
+
+
         </div>
       </div>
       }
