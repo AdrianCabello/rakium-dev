@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import { services, hostingServices, extras } from '../../config/services.config';
+import { services, hostingServices, extras } from '../../core/config/services.config';
 
 @Component({
   selector: 'app-services',

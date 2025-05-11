@@ -4,7 +4,7 @@ import { HeroComponent } from './components/hero/hero.component';
 import { ServicesComponent } from './components/services/services.component';
 import { PricingComponent } from './components/pricing/pricing.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { SeoService } from './services/seo.service';
+import { SeoService } from './core/services/seo.service';
 import { HeaderComponent } from './components/header/header.component';
 @Component({
   selector: 'app-root',
