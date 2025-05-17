@@ -220,8 +220,8 @@ export const services: Service[] = [
     subtitle: 'Tu tienda online lista para vender',
     icon: faCreditCard,
     description: 'Servicio profesional de configuración, diseño y optimización de tu tienda en Tiendanube. Nos encargamos de dejarla lista para que empieces a vender.',
-    precioEstatico: '$400 USD',
-    precioAutogestionable: 'A partir de $1000 USD',
+    precioEstatico: 'Precio: Sujeto a cantidad de productos',
+    precioAutogestionable: '',
     idealFor: [
       'Negocios online',
       'Tiendas físicas que quieren vender por internet',
@@ -231,22 +231,13 @@ export const services: Service[] = [
     ],
     incluye: [
       'Configuración inicial de Tiendanube',
-      'Carga de productos (hasta 30 unidades)',
+      'Carga de productos (precio según cantidad)',
       'Diseño visual personalizado (logo, banners, paleta de colores)',
-      'Integración con medios de pago: Mercado Pago, Stripe o transferencia',
-      'Configuración de métodos de envío (Correo Argentino, retiro en local, etc.)',
-      'Conexión con redes sociales (Instagram, WhatsApp)',
-      'Dominio personalizado (si ya lo tenés o lo comprás)',
+      'Configuración de dominio personalizado',
       'Optimización para buscadores (SEO básico)',
-      'Asesoramiento en estructura de categorías y fichas de producto',
-      'Tutorial básico para gestión de pedidos y productos'
+      'Asesoramiento en estructura de categorías y fichas de producto'
     ],
-    incluyeWithBackend: [
-      'Todo lo anterior',
-      'Soporte técnico mensual por cambios menores',
-      'Carga adicional de productos o categorías (hasta 100)',
-      'Diseño de banners promocionales o campañas estacionales'
-    ]
+    incluyeWithBackend: []
   },
 /*   {
     id: 11,
@@ -344,4 +335,4 @@ export const extras = [
     price: '20.000 a 40.000',
     icon: faPalette
   }
-]; 
+];
