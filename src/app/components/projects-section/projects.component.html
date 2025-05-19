@@ -1,4 +1,4 @@
-<section class="w-full bg-zinc-100 dark:bg-zinc-950 py-20 transition-colors duration-300">
+<section id="projects" class="w-full bg-zinc-100 dark:bg-zinc-950 py-20 transition-colors duration-300">
   <div class="container px-4 mx-auto">
     <div class="max-w-3xl mx-auto text-center mb-16">
       <div class="inline-block mb-4 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 font-medium text-sm">
@@ -19,18 +19,18 @@
               />
               <div class="absolute inset-0 flex items-center justify-between p-4">
                 <button
-                  class="w-12 h-12 rounded-full bg-white/80 text-black flex items-center justify-center text-4xl font-bold border border-zinc-200"
+                  class="w-12 h-12 rounded-full bg-white/80 text-black flex items-center justify-center text-2xl border border-zinc-200"
                   aria-label="Anterior"
                   (click)="prevImage(project.id)"
                 >
-                  <span>&#8249;</span>
+                  <span class="flex items-center justify-center w-full h-full">&#8249;</span>
                 </button>
                 <button
-                  class="w-12 h-12 rounded-full bg-white/80 text-black flex items-center justify-center text-4xl font-bold border border-zinc-200"
+                  class="w-12 h-12 rounded-full bg-white/80 text-black flex items-center justify-center text-2xl border border-zinc-200"
                   aria-label="Siguiente"
                   (click)="nextImage(project.id)"
                 >
-                  <span>&#8250;</span>
+                  <span class="flex items-center justify-center w-full h-full">&#8250;</span>
                 </button>
               </div>
               <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
@@ -49,16 +49,11 @@
             </div>
             <!-- Info -->
             <div class="p-8 flex flex-col">
-              <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mb-4">{{ project.name }}</h3>
+              <h3 class="text-2xl font-bold text-zinc-900 dark:text-white">{{ project.name }}</h3>
+              <span *ngIf="project.type" class="inline-block mt-2 mb-4 px-3 py-1 rounded-full bg-blue-600 text-white text-xs font-semibold" style="width: auto; display: inline-block; min-width: 0; max-width: max-content;">
+                {{ project.type }}
+              </span>
               <p class="text-zinc-600 dark:text-zinc-400 mb-6">{{ project.description }}</p>
-              <div class="flex flex-wrap gap-2 mb-8">
-                <span
-                  *ngFor="let tech of project.technologies"
-                  class="px-3 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 rounded-full text-sm"
-                >
-                  {{ tech }}
-                </span>
-              </div>
               <div class="mt-auto space-y-3">
                 <a
                   *ngIf="project.website"

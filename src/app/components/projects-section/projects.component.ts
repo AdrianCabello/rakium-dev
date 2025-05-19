@@ -5,6 +5,7 @@ import { LucideAngularModule, Globe, Instagram } from 'lucide-angular';
 interface Project {
   id: number;
   name: string;
+  type: string;
   description: string;
   technologies: string[];
   images: string[];
@@ -21,34 +22,27 @@ interface Project {
 export class ProjectsComponent {
   // Mock de proyectos (reemplazar por llamada a API en el futuro)
   projects: Project[] = [
-/*     {
+
+    {
       id: 1,
-      name: 'EcoStore',
-      description: 'Tienda online para productos ecológicos y sostenibles. Incluye catálogo de productos, carrito de compras, pasarela de pagos y panel de administración personalizado.',
-      technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Supabase'],
+      name: 'Eventloop',
+      type: 'Sistema de gestión de eventos',
+      description: 'Plataforma integral para la gestión y venta de tickets de eventos. Permite a productoras y organizadores administrar entradas, equipos, ventas, roles y estadísticas en tiempo real. Incluye app móvil, escaneo de tickets, pagos instantáneos y múltiples canales de venta. Desarrollada con tecnologías modernas para máxima escalabilidad y seguridad.',
+      technologies: ['Angular', 'Golang', 'Tailwind CSS', 'PostgreSQL', 'REST API', 'PWA'],
       images: [
-        '/assets/projects/ecostore-1.png',
-        '/assets/projects/ecostore-2.png',
-        '/assets/projects/ecostore-3.png',
+        '/assets/clients/eventloop/1.png',
+        '/assets/clients/eventloop/2.png',
+        '/assets/clients/eventloop/3.png',
+        '/assets/clients/eventloop/4.png',
+        '/assets/clients/eventloop/5.jpeg',
       ],
-      website: 'https://ecostore-example.com',
-      instagram: 'instagram.com/ecostore',
+      website: 'https://eventloop.club/',
+      instagram: 'instagram.com/eventloop.club',
     },
     {
       id: 2,
-      name: 'LegalPro',
-      description: 'Plataforma para gestión de estudios jurídicos. Permite administrar clientes, expedientes, agenda y facturación.',
-      technologies: ['Angular', 'NestJS', 'PostgreSQL', 'Docker'],
-      images: [
-        '/assets/projects/legalpro-1.png',
-        '/assets/projects/legalpro-2.png',
-      ],
-      website: 'https://legalpro.com',
-      instagram: 'instagram.com/legalpro',
-    }, */
-    {
-      id: 3,
       name: 'JC Cosmetology',
+      type: 'Landing institucional',
       description: 'Landing page profesional para cosmetóloga y centro de estética. Presenta servicios, galería de resultados, contacto directo y testimonios de clientes. Diseño moderno, optimizado para dispositivos móviles y SEO.',
       technologies: ['Angular', 'Tailwind CSS', 'TypeScript'],
       images: [
@@ -60,23 +54,41 @@ export class ProjectsComponent {
         '/assets/clients/jc-cosmetology/6.png',
       ],
       website: 'https://jc-cosmetology.com/',
-      instagram: '',
+      instagram: 'www.instagram.com/jc_cosmetologia',
+    },
+    {
+      id: 3,
+      name: 'Lautaro Vulcano',
+      type: 'Portafolio profesional',
+      description: 'Portafolio profesional para diseñador gráfico. Presenta trabajos destacados, información personal, contacto y enlaces a redes sociales. Diseño visual atractivo, enfocado en la presentación de proyectos y la identidad del cliente.',
+      technologies: ['Angular', 'Tailwind CSS', 'TypeScript'],
+      images: [
+        '/assets/clients/lautaro-vulcano-portfolio/1.png',
+        '/assets/clients/lautaro-vulcano-portfolio/2.png',
+        '/assets/clients/lautaro-vulcano-portfolio/3.png',
+        '/assets/clients/lautaro-vulcano-portfolio/4.png',
+        '/assets/clients/lautaro-vulcano-portfolio/6.png',
+        '/assets/clients/lautaro-vulcano-portfolio/7.png',
+        '/assets/clients/lautaro-vulcano-portfolio/8.png',
+
+      ],
+      website: 'https://lautarovulcano.com/',
+      instagram: 'www.instagram.com/lautaro_vulcano',
     },
     {
       id: 4,
-      name: 'EventLoop',
-      description: 'Plataforma integral para la gestión y venta de tickets de eventos. Permite a productoras y organizadores administrar entradas, equipos, ventas, roles y estadísticas en tiempo real. Incluye app móvil, escaneo de tickets, pagos instantáneos y múltiples canales de venta. Desarrollada con tecnologías modernas para máxima escalabilidad y seguridad.',
-      technologies: ['Angular', 'Golang', 'Tailwind CSS', 'PostgreSQL', 'REST API', 'PWA'],
+      name: 'NecoTec',
+      type: 'E-commerce Tiendanube',
+      description: 'E-commerce mayorista desarrollado en Tiendanube para NecoTec. Se respetó el diseño solicitado por la marca, utilizando su paleta de colores y estilo visual. El proyecto incluyó la carga y organización de más de 1600 productos, diseño de banners, creación de iconos personalizados y categorización avanzada para facilitar la navegación y la experiencia de compra.',
+      technologies: ['Tiendanube', 'Diseño personalizado', 'Carga masiva de productos'],
       images: [
-        '/assets/clients/eventloop/1.png',
-        '/assets/clients/eventloop/2.png',
-        '/assets/clients/eventloop/3.png',
-        '/assets/clients/eventloop/4.png',
+        '/assets/clients/necotec/1.png',
+        '/assets/clients/necotec/2.png',
+        '/assets/clients/necotec/3.png',
       ],
-      website: 'https://eventloop.club/',
-      instagram: 'instagram.com/eventloop.club',
+      website: 'https://necotecmayorista.com.ar/',
+      instagram: 'www.instagram.com/necotec_',
     },
-    // Agrega más proyectos aquí...
   ];
 
   // Estado del slider para cada proyecto

@@ -6,7 +6,6 @@ import { SolutionsComponent } from './components/solutions/solutions.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { SeoService } from './core/services/seo.service';
 import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { LucideAngularModule } from 'lucide-angular';
 import { ProjectsComponent } from './components/projects-section/projects.component';
 
@@ -21,7 +20,6 @@ import { ProjectsComponent } from './components/projects-section/projects.compon
     SolutionsComponent,
     ProjectsComponent,
     ContactComponent,
-    FooterComponent,
     LucideAngularModule,
   ],
   templateUrl: './app.component.html',
