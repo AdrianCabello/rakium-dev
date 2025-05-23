@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faCalendarCheck, faHome, faCreditCard } from '@fortawesome/free-solid-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { services, hostingServices, extras } from '../../core/config/services.config';
 
@@ -16,8 +16,11 @@ export class ServicesComponent {
   services = services;
   hostingServices = hostingServices;
   extras = extras;
-  
+
   // Define icons for use in template
   faCheck = faCheck;
   faWhatsapp = faWhatsapp;
+  faCalendarCheck = faCalendarCheck;
+  faHome = faHome;
+  faCreditCard = faCreditCard;
 }
