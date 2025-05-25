@@ -33,9 +33,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // Configurar metadatos para la página principal
     this.seoService.updateMetadata({
-      title: 'Inicio',
+      title: 'Rakium - Soluciones Web Profesionales ',
       description: 'Creamos sitios web y aplicaciones que destacan tu marca, conectan con tu audiencia y potencian tu presencia digital.',
-      url: 'https://adriancabello.github.io/rakium-dev/'
+
     });
   }
 
