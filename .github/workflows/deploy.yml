@@ -26,7 +26,11 @@ jobs:
         run: npm run build
 
       - name: List build output
-        run: ls -la dist/rakium-dev/browser/
+        run: |
+          echo "Contents of dist/rakium-dev/browser:"
+          ls -la dist/rakium-dev/browser/
+          echo "Contents of dist/rakium-dev/browser/assets:"
+          ls -la dist/rakium-dev/browser/assets/
 
       - name: Copy CNAME
         run: cp src/assets/CNAME dist/rakium-dev/browser/
@@ -38,4 +42,5 @@ jobs:
           publish_dir: ./dist/rakium-dev/browser
           cname: rakium.dev
           commit_message: "Deploy to GitHub Pages"
-          force_orphan: true 
+          force_orphan: true
+          enable_jekyll: false 
