@@ -14,7 +14,7 @@ export class ContactComponent {
   whatsappUrl = `https://wa.me/${this.whatsappNumber}?text=Hola!%20Quería%20asesoramiento%20para%20crear%20un%20proyecto%20digital%20con%20Rakium.`;
 
   // Social media links
-  instagramUrl = 'https://instagram.com/rakium'; // Replace with your Instagram
+  instagramUrl = 'https://instagram.com/rakium.dev'; // Replace with your Instagram
   linkedinUrl = 'https://linkedin.com/company/rakium'; // Replace with your LinkedIn
 
   // Icons
