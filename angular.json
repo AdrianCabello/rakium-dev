@@ -26,15 +26,24 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/assets/"
+              },
+              {
+                "glob": "favicon.ico",
+                "input": "src",
+                "output": "/"
+              }
             ],
             "styles": [
               "src/styles.scss"
             ],
             "scripts": [],
             "baseHref": "/",
-            "outputHashing": "none"
+            "outputHashing": "none",
+            "deployUrl": "/"
           },
           "configurations": {
             "production": {
@@ -51,7 +60,8 @@
                 }
               ],
               "outputHashing": "none",
-              "baseHref": "/"
+              "baseHref": "/",
+              "deployUrl": "/"
             },
             "development": {
               "buildOptimizer": false,
@@ -61,7 +71,8 @@
               "sourceMap": true,
               "namedChunks": true,
               "baseHref": "/",
-              "outputHashing": "none"
+              "outputHashing": "none",
+              "deployUrl": "/"
             }
           },
           "defaultConfiguration": "production"
