@@ -1,84 +1,96 @@
 <div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
-  <p-card class="w-full max-w-md bg-slate-800/50 border-slate-700 backdrop-blur-sm">
-    <!-- Header -->
-    <div class="text-center p-6">
-      <div class="flex items-center justify-center mb-4">
-        <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-          <span class="text-white font-bold text-xl">R</span>
-        </div>
-      </div>
-      <h1 class="text-2xl font-bold text-white mb-2">Rakium Dashboard</h1>
-      <p class="text-slate-400 text-sm">
-        Ingresa tus credenciales para acceder al panel administrativo
-      </p>
-    </div>
-
-    <!-- Form -->
-    <div class="p-6">
-      <form (ngSubmit)="onSubmit()" class="space-y-4">
-        <!-- Email -->
-        <div class="space-y-2">
-          <label for="email" class="block text-sm font-medium text-slate-200">
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            placeholder="admin@rakium.com"
-            [(ngModel)]="email"
-            name="email"
-            required
-            pInputText
-            class="w-full"
-          />
-        </div>
-
-        <!-- Password -->
-        <div class="space-y-2">
-          <label for="password" class="block text-sm font-medium text-slate-200">
-            Contraseña
-          </label>
-          <div class="relative">
-            <input
-              id="password"
-              [type]="showPassword ? 'text' : 'password'"
-              placeholder="••••••••"
-              [(ngModel)]="password"
-              name="password"
-              required
-              pInputText
-              class="w-full pr-12"
-            />
-            <button
-              type="button"
-              class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-200"
-              (click)="togglePasswordVisibility()"
-            >
-              <i-lucide 
-                [name]="showPassword ? eyeOffIcon : eyeIcon" 
-                class="w-5 h-5"
-              ></i-lucide>
-            </button>
+  <div class="w-full max-w-md">
+    <p-card class="shadow-2xl border-0 overflow-hidden">
+      <!-- Header with gradient background -->
+      <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 text-center -m-6 mb-6">
+        <div class="flex items-center justify-center mb-4">
+          <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+            <span class="text-white font-bold text-2xl">R</span>
           </div>
         </div>
+        <h1 class="text-3xl font-bold mb-2">Rakium Dashboard</h1>
+        <p class="text-blue-100 text-sm">
+          Accede al panel administrativo
+        </p>
+      </div>
 
-        <!-- Error Message -->
-        <p-message
-          *ngIf="error"
-          [text]="error"
-          severity="error"
-          class="bg-red-900/20 border-red-800 text-red-200"
-        ></p-message>
+      <!-- Form -->
+      <div class="px-8 pb-8">
+        <form (ngSubmit)="onSubmit()" class="space-y-6">
+          <!-- Email -->
+          <div class="space-y-2">
+            <label for="email" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">
+              Email
+            </label>
+            <div class="relative">
+              <input
+                id="email"
+                type="email"
+                placeholder="admin@rakium.com"
+                [(ngModel)]="email"
+                name="email"
+                required
+                pInputText
+                class="w-full pl-4 pr-4 py-3 border-2 border-slate-200 dark:border-slate-600 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 transition-all duration-200"
+              />
+            </div>
+          </div>
 
-        <!-- Submit Button -->
-        <p-button
-          type="submit"
-          label="Iniciar Sesión"
-          [loading]="isLoading"
-          [disabled]="isLoading"
-          class="w-full"
-        ></p-button>
-      </form>
-    </div>
-  </p-card>
+          <!-- Password -->
+          <div class="space-y-2">
+            <label for="password" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">
+              Contraseña
+            </label>
+            <div class="relative">
+              <input
+                id="password"
+                [type]="showPassword ? 'text' : 'password'"
+                placeholder="••••••••"
+                [(ngModel)]="password"
+                name="password"
+                required
+                pInputText
+                class="w-full pl-4 pr-12 py-3 border-2 border-slate-200 dark:border-slate-600 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 transition-all duration-200"
+              />
+              <button
+                type="button"
+                class="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                (click)="togglePasswordVisibility()"
+              >
+                <i-lucide 
+                  [name]="showPassword ? eyeOffIcon : eyeIcon" 
+                  class="w-5 h-5"
+                ></i-lucide>
+              </button>
+            </div>
+          </div>
+
+          <!-- Error Message -->
+          <p-message
+            *ngIf="error"
+            [text]="error"
+            severity="error"
+            class="border-0 rounded-xl"
+          ></p-message>
+
+          <!-- Submit Button -->
+          <p-button
+            type="submit"
+            label="Iniciar Sesión"
+            [loading]="isLoading"
+            [disabled]="isLoading"
+            class="w-full py-3 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+            styleClass="p-button-lg p-button-raised"
+          ></p-button>
+        </form>
+
+        <!-- Footer -->
+        <div class="mt-8 text-center">
+          <p class="text-sm text-slate-500 dark:text-slate-400">
+            © 2024 Rakium. Todos los derechos reservados.
+          </p>
+        </div>
+      </div>
+    </p-card>
+  </div>
 </div>
