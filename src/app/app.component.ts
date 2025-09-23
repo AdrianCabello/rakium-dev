@@ -1,21 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
-import { HeroComponent } from './components/hero/hero.component';
-import { ServicesComponent } from './components/services/services.component';
-import { PricingComponent } from './components/pricing/pricing.component';
-import { ContactComponent } from './components/contact/contact.component';
+import { RouterOutlet } from '@angular/router';
 import { SeoService } from './core/services/seo.service';
-import { HeaderComponent } from './components/header/header.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    HeaderComponent,
-    HeroComponent,
-    ServicesComponent,
-
-    ContactComponent
-  ],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
