@@ -1,44 +1,38 @@
 <div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
   <div class="w-full max-w-md">
-    <p-card class="shadow-2xl border-0 overflow-hidden">
+    <div class="bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded-2xl shadow-2xl overflow-hidden">
       <!-- Header with gradient background -->
-      <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 text-center -m-6 mb-6">
+      <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 text-center">
         <div class="flex items-center justify-center mb-4">
-          <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
-            <span class="text-white font-bold text-2xl">R</span>
-          </div>
+          <img src="/assets/logos/Logotipo - Blanco.svg" alt="Rakium Logo" class="h-12 w-auto" />
         </div>
-        <h1 class="text-3xl font-bold mb-2">Rakium Dashboard</h1>
         <p class="text-blue-100 text-sm">
           Accede al panel administrativo
         </p>
       </div>
 
       <!-- Form -->
-      <div class="px-8 pb-8">
+      <div class="p-8 pb-10">
         <form (ngSubmit)="onSubmit()" class="space-y-6">
           <!-- Email -->
           <div class="space-y-2">
-            <label for="email" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">
+            <label for="email" class="block text-sm font-semibold text-slate-200">
               Email
             </label>
-            <div class="relative">
-              <input
-                id="email"
-                type="email"
-                placeholder="admin@rakium.com"
-                [(ngModel)]="email"
-                name="email"
-                required
-                pInputText
-                class="w-full pl-4 pr-4 py-3 border-2 border-slate-200 dark:border-slate-600 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 transition-all duration-200"
-              />
-            </div>
+            <input
+              id="email"
+              type="email"
+              placeholder="admin@rakium.com"
+              [(ngModel)]="email"
+              name="email"
+              required
+              class="w-full px-4 py-3 bg-slate-700/60 border border-slate-500/50 rounded-xl text-white placeholder-slate-400 focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 transition-all duration-200"
+            />
           </div>
 
           <!-- Password -->
           <div class="space-y-2">
-            <label for="password" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">
+            <label for="password" class="block text-sm font-semibold text-slate-200">
               Contraseña
             </label>
             <div class="relative">
@@ -49,16 +43,15 @@
                 [(ngModel)]="password"
                 name="password"
                 required
-                pInputText
-                class="w-full pl-4 pr-12 py-3 border-2 border-slate-200 dark:border-slate-600 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 transition-all duration-200"
+                class="w-full px-4 py-3 pr-12 bg-slate-700/60 border border-slate-500/50 rounded-xl text-white placeholder-slate-400 focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 transition-all duration-200"
               />
               <button
                 type="button"
-                class="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                class="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-200 transition-colors"
                 (click)="togglePasswordVisibility()"
               >
-                <i-lucide 
-                  [name]="showPassword ? eyeOffIcon : eyeIcon" 
+                <i-lucide
+                  [name]="showPassword ? eyeOffIcon : eyeIcon"
                   class="w-5 h-5"
                 ></i-lucide>
               </button>
@@ -70,27 +63,33 @@
             *ngIf="error"
             [text]="error"
             severity="error"
-            class="border-0 rounded-xl"
+            class="bg-red-900/20 border-red-800 text-red-200 rounded-xl"
           ></p-message>
 
           <!-- Submit Button -->
-          <p-button
+          <button
             type="submit"
-            label="Iniciar Sesión"
-            [loading]="isLoading"
             [disabled]="isLoading"
-            class="w-full py-3 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
-            styleClass="p-button-lg p-button-raised"
-          ></p-button>
+            class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:from-slate-600 disabled:to-slate-700 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center mt-2"
+          >
+            <span *ngIf="!isLoading">Iniciar Sesión</span>
+            <span *ngIf="isLoading" class="flex items-center">
+              <i-lucide
+                [name]="loaderIcon"
+                class="animate-spin mr-2 h-5 w-5"
+              ></i-lucide>
+              Iniciando sesión...
+            </span>
+          </button>
         </form>
 
         <!-- Footer -->
         <div class="mt-8 text-center">
-          <p class="text-sm text-slate-500 dark:text-slate-400">
+          <p class="text-sm text-slate-400">
             © 2024 Rakium. Todos los derechos reservados.
           </p>
         </div>
       </div>
-    </p-card>
+    </div>
   </div>
 </div>

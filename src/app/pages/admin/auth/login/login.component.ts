@@ -28,7 +28,7 @@ interface LoginResponse {
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  email = 'admin@rakium.com';
+  email = '';
   password = '';
   isLoading = false;
   error = '';
