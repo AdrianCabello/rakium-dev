@@ -4,6 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { LucideAngularModule, Eye, EyeOff, Loader2 } from 'lucide-angular';
+import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'primeng/message';
 import { environment } from '../../../../../environments/environment';
 
 interface LoginResponse {
@@ -19,7 +23,7 @@ interface LoginResponse {
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule],
+  imports: [CommonModule, FormsModule, LucideAngularModule, CardModule, InputTextModule, ButtonModule, MessageModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

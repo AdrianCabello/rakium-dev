@@ -1,5 +1,5 @@
 <div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
-  <div class="w-full max-w-md bg-slate-800/50 border border-slate-700 rounded-lg backdrop-blur-sm">
+  <p-card class="w-full max-w-md bg-slate-800/50 border-slate-700 backdrop-blur-sm">
     <!-- Header -->
     <div class="text-center p-6">
       <div class="flex items-center justify-center mb-4">
@@ -28,7 +28,8 @@
             [(ngModel)]="email"
             name="email"
             required
-            class="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            pInputText
+            class="w-full"
           />
         </div>
 
@@ -45,15 +46,16 @@
               [(ngModel)]="password"
               name="password"
               required
-              class="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-12"
+              pInputText
+              class="w-full pr-12"
             />
             <button
               type="button"
               class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-200"
               (click)="togglePasswordVisibility()"
             >
-              <i-lucide
-                [name]="showPassword ? eyeOffIcon : eyeIcon"
+              <i-lucide 
+                [name]="showPassword ? eyeOffIcon : eyeIcon" 
                 class="w-5 h-5"
               ></i-lucide>
             </button>
@@ -61,26 +63,22 @@
         </div>
 
         <!-- Error Message -->
-        <div *ngIf="error" class="p-3 bg-red-900/20 border border-red-800 rounded-lg text-red-200 text-sm">
-          {{ error }}
-        </div>
+        <p-message
+          *ngIf="error"
+          [text]="error"
+          severity="error"
+          class="bg-red-900/20 border-red-800 text-red-200"
+        ></p-message>
 
         <!-- Submit Button -->
-        <button
+        <p-button
           type="submit"
+          label="Iniciar Sesión"
+          [loading]="isLoading"
           [disabled]="isLoading"
-          class="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center"
-        >
-          <span *ngIf="!isLoading">Iniciar Sesión</span>
-                <span *ngIf="isLoading" class="flex items-center">
-                  <i-lucide
-                    [name]="loaderIcon"
-                    class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                  ></i-lucide>
-                  Iniciando sesión...
-                </span>
-        </button>
+          class="w-full"
+        ></p-button>
       </form>
     </div>
-  </div>
+  </p-card>
 </div>
