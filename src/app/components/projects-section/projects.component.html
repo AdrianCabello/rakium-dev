@@ -1,0 +1,84 @@
+<section id="projects" class="w-full bg-zinc-100 dark:bg-zinc-950 py-20 transition-colors duration-300">
+  <div class="container px-4 mx-auto">
+    <div class="max-w-3xl mx-auto text-center mb-16">
+
+      <h2 class="text-4xl font-bold mb-6 text-zinc-900 dark:text-white">Casos de Éxito</h2>
+      <p class="text-lg text-zinc-600 dark:text-zinc-400">
+        Soluciones innovadoras que han marcado la diferencia para nuestros clientes
+      </p>
+    </div>
+    <div class="space-y-12">
+      <ng-container *ngFor="let project of projects">
+        <div class="bg-white dark:bg-zinc-900 rounded-xl overflow-hidden shadow-lg border border-zinc-200 dark:border-zinc-800 transition-colors duration-300">
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- Slider -->
+            <div class="relative h-[300px] md:h-[400px] overflow-hidden">
+              <img
+                [src]="project.images[currentImageIndex[project.id]] || '/assets/fallback.svg'"
+                class="absolute inset-0 w-full h-full object-cover transition-all duration-500"
+                [alt]="project.name + ' screenshot'"
+              />
+              <div class="absolute inset-0 flex items-center justify-between p-4">
+                <button
+                  class="w-12 h-12 rounded-full bg-white/80 text-black flex items-center justify-center text-2xl border border-zinc-200"
+                  aria-label="Anterior"
+                  (click)="prevImage(project.id)"
+                >
+                  <span class="flex items-center justify-center w-full h-full">&#8249;</span>
+                </button>
+                <button
+                  class="w-12 h-12 rounded-full bg-white/80 text-black flex items-center justify-center text-2xl border border-zinc-200"
+                  aria-label="Siguiente"
+                  (click)="nextImage(project.id)"
+                >
+                  <span class="flex items-center justify-center w-full h-full">&#8250;</span>
+                </button>
+              </div>
+              <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+                <ng-container *ngFor="let img of project.images; let index = index">
+                  <button
+                    class="w-2.5 h-2.5 rounded-full transition-colors"
+                    [ngClass]="{
+                      'bg-white': index === currentImageIndex[project.id],
+                      'bg-white/40': index !== currentImageIndex[project.id]
+                    }"
+                    (click)="goToImage(project.id, index)"
+                    [attr.aria-label]="'Ir a imagen ' + (index + 1)"
+                  ></button>
+                </ng-container>
+              </div>
+            </div>
+            <!-- Info -->
+            <div class="p-8 flex flex-col">
+              <h3 class="text-2xl font-bold text-zinc-900 dark:text-white">{{ project.name }}</h3>
+              <span *ngIf="project.type" class="inline-block mt-2 mb-4 px-3 py-1 rounded-full bg-blue-600 text-white text-xs font-semibold" style="width: auto; display: inline-block; min-width: 0; max-width: max-content;">
+                {{ project.type }}
+              </span>
+              <p class="text-zinc-600 dark:text-zinc-400 mb-6">{{ project.description }}</p>
+              <div class="mt-auto space-y-3">
+                <a
+                  *ngIf="project.website"
+                  [href]="project.website"
+                  target="_blank"
+                  class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-2 text-base"
+                >
+                  <i-lucide [name]="globeIcon" class="w-5 h-5"></i-lucide>
+                  <span>{{ project.website.replace('https://', '').replace('http://', '') }}</span>
+                </a>
+                <a
+                  *ngIf="project.instagram"
+                  [href]="'https://' + project.instagram"
+                  target="_blank"
+                  class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-2 text-base"
+                >
+                  <i-lucide [name]="instagramIcon" class="w-5 h-5"></i-lucide>
+                  <span>{{ project.instagram.replace('www.', '') }}</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</section>

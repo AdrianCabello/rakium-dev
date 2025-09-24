@@ -9,16 +9,8 @@ import { ContactComponent } from '../../components/contact/contact.component';
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule, HeaderComponent, HeroComponent, ServicesComponent, ContactComponent],
-  template: `
-    <div class="min-h-screen bg-gradient-to-b from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-950 transition-colors duration-300 font-sans antialiased">
-      <app-header></app-header>
-      <main class="flex-1 w-full">
-        <app-hero></app-hero>
-        <app-services></app-services>
-        <app-contact></app-contact>
-      </main>
-    </div>
-  `
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss'
 })
 export class HomeComponent {
 }

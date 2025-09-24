@@ -1,24 +1,46 @@
-<section id="contacto"
-  class="py-20 md:py-32 bg-gradient-to-b from-zinc-50 to-white dark:from-zinc-950 dark:to-zinc-900 relative overflow-hidden">
-  <div class="container mx-auto px-4 md:px-6 relative z-10">
-    <h2 class="text-4xl md:text-5xl font-bold text-center mb-4 text-zinc-900 dark:text-white">Contáctanos</h2>
-    <p class="text-lg text-zinc-600 dark:text-zinc-400 text-center max-w-2xl mx-auto mb-16 md:mb-20">Estamos aquí para
-      ayudarte. Envíanos un mensaje por WhatsApp y te responderemos lo antes posible.</p>
+<section id="contact" class="w-full bg-zinc-100 dark:bg-zinc-950 py-16 transition-colors duration-300">
+  <div class="container px-4 py-16 mx-auto">
+    <h2 class="text-4xl font-bold text-zinc-900 dark:text-white text-center mb-2">Contáctanos</h2>
+    <p class="text-zinc-600 dark:text-zinc-400 text-center mb-12 max-w-2xl mx-auto">
+      ¿Tienes un proyecto en mente? Estamos aquí para ayudarte a hacerlo realidad. Envíanos un mensaje y te responderemos lo antes posible.
+    </p>
 
-    <div class="max-w-xl mx-auto">
-      <div
-        class="bg-white dark:bg-zinc-800 p-8 rounded-xl shadow-lg border border-zinc-200 dark:border-zinc-700 text-center">
-        <div class="mb-8">
-
-          <h3 class="text-2xl font-semibold mb-2 text-zinc-900 dark:text-white">Chatea con nosotros</h3>
-          <p class="text-zinc-600 dark:text-zinc-400">Respondemos en menos de 24 horas</p>
+    <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+      <!-- WhatsApp Presupuesto Card -->
+      <div id="contacto-wpp" class="bg-white dark:bg-zinc-900 rounded-xl p-8 flex flex-col items-center text-center shadow-lg border border-zinc-200 dark:border-zinc-800">
+        <div class="w-16 h-16 bg-zinc-100 dark:bg-zinc-800 rounded-full flex items-center justify-center mb-6">
+          <i-lucide [name]="messageIcon" class="w-8 h-8 text-zinc-900 dark:text-white"></i-lucide>
         </div>
-
-        <a href="https://wa.me/5492262497993" target="_blank"
-          class="inline-flex items-center justify-center bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-8 py-4 rounded-lg font-medium transition-all">
-          Enviar mensaje por WhatsApp
-          <fa-icon [icon]="faWhatsapp" class="ml-2 h-6 w-6"></fa-icon>
+        <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mb-3">Contáctanos por WhatsApp</h3>
+        <p class="text-zinc-600 dark:text-zinc-400 mb-6">
+          ¿Querés cotizar tu web, app o proyecto digital? Escribinos por WhatsApp y recibí una propuesta profesional y personalizada en menos de 24 horas.
+        </p>
+        <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer"
+          class="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-full transition-colors w-full max-w-xs">
+          <i-lucide [name]="messageIcon" class="w-5 h-5"></i-lucide>
+          Pedir presupuesto
         </a>
+      </div>
+
+      <!-- Social Media Card -->
+      <div class="bg-white dark:bg-zinc-900 rounded-xl p-8 flex flex-col items-center text-center shadow-lg border border-zinc-200 dark:border-zinc-800">
+        <div class="w-16 h-16 bg-zinc-100 dark:bg-zinc-800 rounded-full flex items-center justify-center mb-6">
+          <i-lucide [name]="hashIcon" class="w-8 h-8 text-zinc-900 dark:text-white"></i-lucide>
+        </div>
+        <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mb-3">Redes Sociales</h3>
+        <p class="text-zinc-600 dark:text-zinc-400 mb-6">
+          Seguinos para conocer nuestros proyectos, novedades y tendencias en desarrollo digital.
+        </p>
+        <div class="flex gap-4 justify-center">
+          <a [href]="instagramUrl" target="_blank" rel="noopener noreferrer"
+            class="w-12 h-12 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-full flex items-center justify-center transition-colors">
+            <i-lucide [name]="instagramIcon" class="w-6 h-6 text-zinc-900 dark:text-white"></i-lucide>
+          </a>
+          <a [href]="linkedinUrl" target="_blank" rel="noopener noreferrer"
+            class="w-12 h-12 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-full flex items-center justify-center transition-colors">
+            <i-lucide [name]="linkedinIcon" class="w-6 h-6 text-zinc-900 dark:text-white"></i-lucide>
+          </a>
+        </div>
       </div>
     </div>
   </div>

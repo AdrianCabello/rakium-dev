@@ -1,168 +1,266 @@
 <!-- Services -->
-<section class="py-20">
+<section id="services" class="py-20">
   <div class="container mx-auto px-4">
     <div class="max-w-3xl mx-auto text-center mb-16">
-      <div
-        class="inline-block mb-4 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 font-medium text-sm">
-        Nuestros Servicios
-      </div>
+
       <h2 class="text-4xl font-bold mb-6">Soluciones Personalizadas</h2>
       <p class="text-lg text-zinc-600 dark:text-zinc-400">
         Desarrollamos soluciones web a medida para impulsar tu negocio
       </p>
     </div>
 
-    <!-- Services Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      @for (service of services; track service.id) {
+    <!-- Bloque unificado Portafolio / Web Institucional -->
+    <div class="max-w-5xl mx-auto mb-12">
       <div
-        class="group bg-white dark:bg-zinc-800 rounded-2xl shadow-sm hover:shadow-xl border border-zinc-200 dark:border-zinc-700 overflow-hidden transition-all duration-300 hover:-translate-y-1">
-        <div class="p-6">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="bg-gradient-to-r from-blue-700 to-indigo-800 p-2 rounded-lg text-white">
-              <fa-icon [icon]="service.icon" class="h-5 w-5"></fa-icon>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold">{{service.title}}</h3>
-              @if (service.subtitle) {
-              <p class="text-sm text-zinc-500 dark:text-zinc-400">{{service.subtitle}}</p>
-              }
-            </div>
+        class="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-700 overflow-hidden transition-all duration-300">
+        <div class="px-8 pt-10 pb-6 text-center">
+          <div
+            class="inline-block mb-4 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 font-medium text-sm">
+            Portafolio / Web Institucional
           </div>
-
-          @if (service.description) {
-          <p class="text-zinc-600 dark:text-zinc-400 mb-6">{{service.description}}</p>
-          }
-
-          @if (service.precioEstatico) {  
-          <div class="mb-4">
-            <div class="flex items-center mb-3">
-              <span class="text-zinc-700 dark:text-zinc-300 mr-2 font-medium">Página Estática:</span>
-              <span class="text-blue-600 dark:text-blue-400 font-medium">{{service.precioEstatico}}</span>
-            </div>
-          </div>
-          }
-
-          @if (service.precioEstatico) {
-          <div>
-            <h4 class="text-zinc-700 dark:text-zinc-300 mb-2 font-medium">Incluye:</h4>
-            <ul class="space-y-1 mb-6">
-              @for (item of service.incluye; track item) {
-              <li class="flex items-start">
-                <fa-icon [icon]="faCheck" class="h-5 w-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0"></fa-icon>
-                <span class="text-zinc-600 dark:text-zinc-400">{{item}}</span>
-              </li>
-              }
-            </ul>
-          </div>
-          }
-
-          <div class="mb-4">
-            <div class="flex items-center">
-              <span class="text-zinc-700 dark:text-zinc-300 mr-2 font-medium">Autogestionable:</span>
-              <span class="text-blue-600 dark:text-blue-400 font-medium">{{service.precioAutogestionable}}</span>
-            </div>
-          </div>
-
-          <div>
-            <h4 class="text-zinc-700 dark:text-zinc-300 mb-2 font-medium">Incluye:</h4>
-            <ul class="space-y-1 mb-6">
-              @for (item of service.incluyeWithBackend; track item) {
-              <li class="flex items-start">
-                <fa-icon [icon]="faCheck" class="h-5 w-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0"></fa-icon>
-                <span class="text-zinc-600 dark:text-zinc-400">{{item}}</span>
-              </li>
-              }
-            </ul>
-          </div>
-
-          <!-- Ideal para -->
-          @if (service.idealFor && service.idealFor.length > 0) {
-          <div class="mt-6">
-            <h4 class="text-zinc-700 dark:text-zinc-300 mb-3 font-medium">Ideal para:</h4>
-            <div class="flex flex-wrap gap-2">
-              @for (rubro of service.idealFor; track rubro) {
-              <div
-                class="flex items-center bg-zinc-100 dark:bg-zinc-800/80 px-3 py-1.5 rounded-full text-zinc-700 dark:text-zinc-300 text-sm">
-                <span>{{rubro}}</span>
+          <h2 class="text-3xl md:text-4xl font-bold mb-2 text-zinc-900 dark:text-white">Tu presencia profesional en
+            línea</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-zinc-200 dark:border-zinc-800">
+          <!-- Página Estática -->
+          <div class="p-8 flex flex-col border-b md:border-b-0 md:border-r border-zinc-200 dark:border-zinc-800">
+            <h3 class="text-xl font-bold mb-2 text-zinc-900 dark:text-white">Página Estática</h3>
+            <p class="text-zinc-600 dark:text-zinc-400 mb-4">Ideal para quienes buscan una web profesional, moderna y
+              rápida, sin necesidad de autogestión. Perfecta para mostrar información institucional, servicios y
+              contacto.</p>
+            <div class="mb-2">
+              <span class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Ideal para:</span>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Empresas</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Marcas
+                  personales</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Emprendimientos</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Freelancers</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Artistas</span>
               </div>
-              }
             </div>
+            <div class="mt-4">
+              <span class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Incluye:</span>
+              <ul class="list-disc list-inside text-zinc-600 dark:text-zinc-400 text-sm space-y-1">
+                <li>Home, Nosotros/Sobre mí, Servicios, Proyectos, Contacto y Redes</li>
+                <li>Galería de fotos o visual (opcional)</li>
+                <li>Videos (opcional)</li>
+                <li>Testimonios (opcional)</li>
+                <li>SEO + Google Analytics</li>
+                <li>Dominio personalizado</li>
+              </ul>
+            </div>
+            <div class="mt-6 text-xs text-zinc-500 dark:text-zinc-400 italic">Presupuesto personalizado según
+              necesidades y alcance.</div>
           </div>
-          }
-
-
-
-
+          <!-- Autogestionable -->
+          <div class="p-8 flex flex-col">
+            <h3 class="text-xl font-bold mb-2 text-zinc-900 dark:text-white">Autogestionable</h3>
+            <p class="text-zinc-600 dark:text-zinc-400 mb-4">Ideal para quienes desean actualizar contenidos, proyectos,
+              agenda o galería de manera simple y segura desde un panel de administración.</p>
+            <div class="mb-2">
+              <span class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Ideal para:</span>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Empresas</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Profesionales</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Artistas</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Consultores</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Emprendimientos</span>
+              </div>
+            </div>
+            <div class="mt-4">
+              <span class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Incluye:</span>
+              <ul class="list-disc list-inside text-zinc-600 dark:text-zinc-400 text-sm space-y-1">
+                <li>Todo lo anterior</li>
+                <li>Panel de administración para editar contenidos</li>
+                <li>Proyectos y galería ilimitados</li>
+                <li>Agenda y eventos (opcional)</li>
+                <li>Autenticación segura para acceso privado al panel</li>
+              </ul>
+            </div>
+            <div class="mt-6 text-xs text-zinc-500 dark:text-zinc-400 italic">Presupuesto personalizado según
+              necesidades y alcance.</div>
+          </div>
         </div>
       </div>
-      }
     </div>
+    <!-- Fin bloque unificado -->
+
+    <!-- Bloque unificado Sistema de Reservas / Sitio para Inmobiliarias -->
+    <div class="max-w-5xl mx-auto mb-12">
+      <div
+        class="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-700 overflow-hidden transition-all duration-300">
+        <div class="px-8 pt-10 pb-6 text-center">
+          <div
+            class="inline-block mb-4 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 font-medium text-sm">
+            Soluciones Especializadas
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-2 text-zinc-900 dark:text-white">Sistemas a medida para tu
+            negocio</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-zinc-200 dark:border-zinc-800">
+          <!-- Sistema de Reservas -->
+          <div class="p-8 flex flex-col border-b md:border-b-0 md:border-r border-zinc-200 dark:border-zinc-800">
+            <h3 class="text-xl font-bold mb-2 text-zinc-900 dark:text-white">Sistema de Reservas</h3>
+            <p class="text-zinc-600 dark:text-zinc-400 mb-4">Gestión online de turnos, citas y reservas para
+              profesionales y negocios. Agenda editable, reservas por día y hora, y panel de administración seguro.</p>
+            <div class="mb-2">
+              <span class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Ideal para:</span>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Consultorios</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Estéticas</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Salones</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Restaurantes</span>
+              </div>
+            </div>
+            <div class="mt-4">
+              <span class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Incluye:</span>
+              <ul class="list-disc list-inside text-zinc-600 dark:text-zinc-400 text-sm space-y-1">
+                <li>Agenda editable y reservas online</li>
+                <li>Panel de administración seguro</li>
+                <li>Gestión de disponibilidad y clientes</li>
+                <li>SEO + Google Analytics</li>
+                <li>Dominio personalizado</li>
+              </ul>
+            </div>
+            <div class="mt-6 text-xs text-zinc-500 dark:text-zinc-400 italic">Presupuesto personalizado según
+              necesidades.</div>
+          </div>
+          <!-- Sitio para Inmobiliarias -->
+          <div class="p-8 flex flex-col">
+            <h3 class="text-xl font-bold mb-2 text-zinc-900 dark:text-white">Sitio para Inmobiliarias</h3>
+            <p class="text-zinc-600 dark:text-zinc-400 mb-4">Web moderna para mostrar y administrar propiedades, con
+              filtros, galería, contacto y panel de gestión.</p>
+            <div class="mb-2">
+              <span class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Ideal para:</span>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Inmobiliarias</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Agentes</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Constructoras</span>
+              </div>
+            </div>
+            <div class="mt-4">
+              <span class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Incluye:</span>
+              <ul class="list-disc list-inside text-zinc-600 dark:text-zinc-400 text-sm space-y-1">
+                <li>Listado y ficha de propiedades</li>
+                <li>Galería de fotos y videos</li>
+                <li>Formulario de contacto y WhatsApp</li>
+                <li>Panel de administración</li>
+                <li>SEO + Google Analytics</li>
+                <li>Dominio personalizado</li>
+              </ul>
+            </div>
+            <div class="mt-6 text-xs text-zinc-500 dark:text-zinc-400 italic">Presupuesto personalizado según
+              necesidades.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fin bloque unificado -->
+
+    <!-- Bloque unificado E-commerce -->
+    <div class="max-w-5xl mx-auto">
+      <div
+        class="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-700 overflow-hidden transition-all duration-300">
+        <div class="px-8 pt-10 pb-6 text-center">
+          <div
+            class="inline-block mb-4 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 font-medium text-sm">
+            E-commerce
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-2 text-zinc-900 dark:text-white">Soluciones de E-commerce</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-zinc-200 dark:border-zinc-800">
+          <!-- E-commerce con Tiendanube -->
+          <div class="p-8 flex flex-col border-b md:border-b-0 md:border-r border-zinc-200 dark:border-zinc-800">
+            <h3 class="text-xl font-bold mb-2 text-zinc-900 dark:text-white">E-commerce con Tiendanube</h3>
+            <p class="text-zinc-600 dark:text-zinc-400 mb-4">Tienda online lista para vender, con carga de productos,
+              diseño personalizado y optimización para buscadores. Ideal para negocios que buscan una solución rápida y
+              confiable.</p>
+            <div class="mb-2">
+              <span class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Ideal para:</span>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Negocios
+                  online</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Tiendas
+                  físicas</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Emprendimientos</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Marcas
+                  personales</span>
+              </div>
+            </div>
+            <div class="mt-4">
+              <span class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Incluye:</span>
+              <ul class="list-disc list-inside text-zinc-600 dark:text-zinc-400 text-sm space-y-1">
+                <li>Configuración inicial y carga de productos</li>
+                <li>Diseño visual personalizado</li>
+                <li>Optimización SEO básica</li>
+                <li>Panel de administración</li>
+                <li>Asesoramiento en estructura de tienda</li>
+                <li>Dominio personalizado</li>
+              </ul>
+            </div>
+            <div class="mt-6 text-xs text-zinc-500 dark:text-zinc-400 italic">Presupuesto personalizado según
+              necesidades.</div>
+          </div>
+          <!-- E-commerce Personalizado -->
+          <div class="p-8 flex flex-col">
+            <h3 class="text-xl font-bold mb-2 text-zinc-900 dark:text-white">E-commerce Personalizado</h3>
+            <p class="text-zinc-600 dark:text-zinc-400 mb-4">Solución a medida para negocios que requieren
+              funcionalidades avanzadas, integración con sistemas existentes y gestión compleja de inventario y ventas.
+            </p>
+            <div class="mb-2">
+              <span class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Ideal para:</span>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Distribuidores</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Mayoristas</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Empresas
+                  B2B</span>
+                <span
+                  class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-3 py-1 text-xs">Cadenas
+                  comerciales</span>
+              </div>
+            </div>
+            <div class="mt-4">
+              <span class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">Incluye:</span>
+              <ul class="list-disc list-inside text-zinc-600 dark:text-zinc-400 text-sm space-y-1">
+                <li>Desarrollo personalizado a medida</li>
+                <li>Integración con sistemas ERP/CRM</li>
+                <li>Gestión de stock centralizado</li>
+                <li>Panel de administración avanzado</li>
+                <li>Ventas mayoristas y minoristas</li>
+                <li>Reportes y analíticas avanzadas</li>
+              </ul>
+            </div>
+            <div class="mt-6 text-xs text-zinc-500 dark:text-zinc-400 italic">Presupuesto personalizado según
+              necesidades.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fin bloque unificado E-commerce -->
   </div>
 </section>
-
-<!-- Hosting Services --><!-- 
-<section class="py-20 bg-zinc-50 dark:bg-zinc-900">
-  <div class="container mx-auto px-4">
-    <div class="max-w-3xl mx-auto text-center mb-16">
-      <div
-        class="inline-block mb-4 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 font-medium text-sm">
-        Hosting y Mantenimiento
-      </div>
-      <h2 class="text-4xl font-bold mb-6">Soluciones de Hosting</h2>
-      <p class="text-lg text-zinc-600 dark:text-zinc-400">
-        Mantén tu sitio web funcionando de manera óptima con nuestros servicios de hosting y mantenimiento
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      @for (service of hostingServices; track service.id) {
-      <div
-        class="bg-white dark:bg-zinc-800 rounded-xl shadow-sm hover:shadow-md border border-zinc-200 dark:border-zinc-700 p-6 transition-all duration-300">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="bg-gradient-to-r from-blue-700 to-indigo-800 p-2 rounded-lg text-white">
-            <fa-icon [icon]="service.icon" class="h-5 w-5"></fa-icon>
-          </div>
-          <h3 class="text-xl font-bold">{{service.title}}</h3>
-        </div>
-        <p class="text-zinc-600 dark:text-zinc-400 mb-4">{{service.description}}</p>
-        <div class="text-blue-600 dark:text-blue-400 font-medium">{{service.price}}</div>
-      </div>
-      }
-    </div>
-  </div>
-</section> -->
-
-<!-- Extras --><!-- 
-<section class="py-20">
-  <div class="container mx-auto px-4">
-    <div class="max-w-3xl mx-auto text-center mb-16">
-      <div
-        class="inline-block mb-4 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 font-medium text-sm">
-        Extras y Mejoras
-      </div>
-      <h2 class="text-4xl font-bold mb-6">Funcionalidades Adicionales</h2>
-      <p class="text-lg text-zinc-600 dark:text-zinc-400">
-        Mejora tu sitio web con estas funcionalidades adicionales
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      @for (extra of extras; track extra.id) {
-      <div
-        class="bg-white dark:bg-zinc-800 rounded-xl shadow-sm hover:shadow-md border border-zinc-200 dark:border-zinc-700 p-6 transition-all duration-300">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="bg-gradient-to-r from-blue-700 to-indigo-800 p-2 rounded-lg text-white">
-            <fa-icon [icon]="extra.icon" class="h-5 w-5"></fa-icon>
-          </div>
-          <h3 class="text-xl font-bold">{{extra.title}}</h3>
-        </div>
-        @if (extra.description) {
-        <p class="text-zinc-600 dark:text-zinc-400 mb-4">{{extra.description}}</p>
-        }
-        <div class="text-blue-600 dark:text-blue-400 font-medium">${{extra.price}}</div>
-      </div>
-      }
-    </div>
-  </div>
-</section> -->

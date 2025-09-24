@@ -45,112 +45,6 @@ export interface Service {
 
 export const services: Service[] = [
   {
-    id: 3,
-    title: 'Portfolio Profesional',
-    subtitle: 'Tu experiencia profesional en línea',
-    icon: faUserTie,
-    description: 'Portfolios profesionales para mostrar tu trabajo y experiencia.',
-    precioEstatico: '$250 USD',
-    precioAutogestionable: 'A partir de $1000 USD',
-    idealFor: ['Freelancers', 'Diseñadores graficos', 'Ilustradores',
-      'Fotógrafos', 'Arquitectos', 'Productores audiovisuales', 'Abogados',
-      'Contadores',
-      'Marketing',
-      'Consultores IT',
-    ],
-    incluye: [
-      'Home, Sobre mí, Experiencia, Contacto y Redes',
-      'Proyectos: 6 proyectos máximos',
-      'Galería fija (opcional)',
-      'Videos (opcional)',
-      'Testimonios (opcional)',
-      'SEO + Google Analytics',
-      'Dominio personalizado'
-    ],
-    incluyeWithBackend: [
-      'Todo lo anterior',
-      'Panel de administración para editar:',
-      'Proyectos ilimitados: (agregar, editar, eliminar)',
-      'Autenticación segura para acceso privado al panel'
-    ],
-    upgrades: [
-      {
-        name: 'Cambios puntuales',
-        price: '$5 por modificación',
-        description: 'reemplazo de imagen o texto, etc.'
-      },
-      {
-        name: 'Mantenimiento mensual',
-        price: '$20',
-        description: 'Cambios ilimitados dentro del alcance del diseño original'
-      }
-    ]
-  },
-  {
-    id: 1,
-    title: 'Web Institucional',
-    subtitle: 'Presencia profesional en línea',
-    icon: faBuilding,
-    description: 'Sitios web profesionales que representan tu marca y conectan con tu audiencia.',
-    precioEstatico: '$250 USD',
-    precioAutogestionable: 'A partir de $1000 USD',
-    idealFor: ['Empresas',
-      'Profesionales',
-      'Marcas personales',
-      'Emprendimientos',
-      'Agencias de marketing',
-      'Estudios jurídicos',
-      'Consultoras',
-      'Arquitectos',
-      'Contadores',
-      'Psicólogos',
-   ],
-    incluye: [
-      'Home, Nosotros, Servicios, Contacto y Redes',
-      'Proyectos: 6 proyectos máximos',
-      'Galería de fotos (opcional)',
-      'Videos de youtube(opcional)',
-      'Testimonios (opcional)',
-      'SEO + Google Analytics',
-      'Dominio personalizado'
-    ],
-    incluyeWithBackend: [
-      'Todo lo anterior',
-      'Panel de administración para editar:',
-      'Proyectos ilimitados: (agregar, editar, eliminar)',
-      'Autenticación segura para acceso privado al panel'
-    ],
-  },
-  {
-    id: 4,
-    title: 'Portfolio Artista',
-    subtitle: 'Tu identidad musical en una web',
-    icon: faMusic,
-    description: 'Una página profesional para mostrar tu música, estética, fechas y conectar con tu audiencia.',
-    precioEstatico: '$250 USD',
-    precioAutogestionable: 'A partir de $1000 USD',
-    idealFor: ['DJs', 'Productores/as musicales', 'Músicos/as', 'Artistas Visuales'],
-    incluye: [
-      'Home con imagen de impacto y frase destacada',
-      'Biografía artística + redes sociales',
-      'Música: embeds de Spotify, SoundCloud, YouTube, etc.',
-      'Galería visual: fotos de eventos, sesiones, arte (opcional)',
-      'Videos (opcional): videoclips, live sets, backstage',
-      'Agenda fija de fechas o presentaciones (opcional)',
-      'Contacto profesional: bookeo, prensa, colaboraciones',
-      'SEO + Google Analytics',
-      'Dominio personalizado'
-    ],
-    incluyeWithBackend: [
-      'Todo lo anterior',
-      'Panel de administración para editar:',
-      'Eventos',
-      'Música y links externos (Spotify, YouTube, etc.)',
-      'Galería de fotos',
-      'Autenticación segura para acceso privado al panel'
-    ],
-  },
-  {
     id: 9,
     title: 'Sistema de Reservas',
     subtitle: 'Agenda online profesional',
@@ -220,8 +114,8 @@ export const services: Service[] = [
     subtitle: 'Tu tienda online lista para vender',
     icon: faCreditCard,
     description: 'Servicio profesional de configuración, diseño y optimización de tu tienda en Tiendanube. Nos encargamos de dejarla lista para que empieces a vender.',
-    precioEstatico: '$400 USD',
-    precioAutogestionable: 'A partir de $1000 USD',
+    precioEstatico: 'Precio: Sujeto a cantidad de productos',
+    precioAutogestionable: '',
     idealFor: [
       'Negocios online',
       'Tiendas físicas que quieren vender por internet',
@@ -231,22 +125,13 @@ export const services: Service[] = [
     ],
     incluye: [
       'Configuración inicial de Tiendanube',
-      'Carga de productos (hasta 30 unidades)',
+      'Carga de productos (precio según cantidad)',
       'Diseño visual personalizado (logo, banners, paleta de colores)',
-      'Integración con medios de pago: Mercado Pago, Stripe o transferencia',
-      'Configuración de métodos de envío (Correo Argentino, retiro en local, etc.)',
-      'Conexión con redes sociales (Instagram, WhatsApp)',
-      'Dominio personalizado (si ya lo tenés o lo comprás)',
+      'Configuración de dominio personalizado',
       'Optimización para buscadores (SEO básico)',
-      'Asesoramiento en estructura de categorías y fichas de producto',
-      'Tutorial básico para gestión de pedidos y productos'
+      'Asesoramiento en estructura de categorías y fichas de producto'
     ],
-    incluyeWithBackend: [
-      'Todo lo anterior',
-      'Soporte técnico mensual por cambios menores',
-      'Carga adicional de productos o categorías (hasta 100)',
-      'Diseño de banners promocionales o campañas estacionales'
-    ]
+    incluyeWithBackend: []
   },
 /*   {
     id: 11,
@@ -344,4 +229,4 @@ export const extras = [
     price: '20.000 a 40.000',
     icon: faPalette
   }
-]; 
+];
