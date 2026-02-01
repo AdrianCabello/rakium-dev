@@ -1,43 +1,11 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-
-import { HeroComponent } from './components/hero/hero.component';
-import { ServicesComponent } from './components/services/services.component';
-import { SolutionsComponent } from './components/solutions/solutions.component';
-import { ContactComponent } from './components/contact/contact.component';
-import { SeoService } from './core/services/seo.service';
-import { HeaderComponent } from './components/header/header.component';
-import { LucideAngularModule } from 'lucide-angular';
-import { ProjectsComponent } from './components/projects-section/projects.component';
-
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    HeaderComponent,
-    HeroComponent,
-    ServicesComponent,
-    SolutionsComponent,
-    ProjectsComponent,
-    ContactComponent,
-    LucideAngularModule,
-  ],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
-  title = 'rakium-dev';
-
-  constructor(private seoService: SeoService) { }
-
-  ngOnInit() {
-    // Configurar metadatos para la página principal
-    this.seoService.updateMetadata({
-      title: 'Rakium - Soluciones Web Profesionales ',
-      description: 'Creamos sitios web y aplicaciones que destacan tu marca, conectan con tu audiencia y potencian tu presencia digital.',
-
-    });
-  }
-
-
-}
+export class AppComponent {}

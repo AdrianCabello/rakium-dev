@@ -1,0 +1,108 @@
+/**
+ * Rakium theme overrides for PrimeNG (login / admin).
+ * Colores: azul primario #639BF0, fondo #1A1C20 / #1E1E1E, cards #2C3550.
+ */
+
+/* Fondo y superficie para rutas admin/login */
+.surface-ground {
+  background-color: #1A1C20 !important;
+}
+
+/* Asegurar que cards y menubar usen el azul oscuro Rakium */
+.p-card {
+  background-color: #2C3550 !important;
+  border-color: #666666 !important;
+  color: #ffffff !important;
+
+  .p-card-title,
+  .p-card-header,
+  .p-card-body,
+  .p-card-content,
+  .p-card-footer {
+    color: #ffffff !important;
+  }
+
+  .p-card-subtitle,
+  .text-color-secondary {
+    color: #A0A0A0 !important;
+  }
+}
+
+.p-menubar {
+  background-color: #2C3550 !important;
+  border-color: #666666 !important;
+  border-radius: 0 !important;
+
+  .p-menubar-root-list > .p-menubar-item > .p-menubar-item-content {
+    color: #ffffff !important;
+  }
+
+  .p-menubar-item-content:hover,
+  .p-menubar-item-content:focus {
+    background: rgba(99, 155, 240, 0.15) !important;
+    color: #639BF0 !important;
+  }
+
+  .p-menubar-start,
+  .p-menubar-end {
+    color: #ffffff !important;
+  }
+}
+
+/* Botón primario = ese azul */
+.p-button.p-button-primary,
+.p-button:not([class*="p-button-"]) {
+  background: #639BF0 !important;
+  border-color: #639BF0 !important;
+  color: #ffffff !important;
+}
+.p-button.p-button-primary:hover,
+.p-button:not([class*="p-button-"]):hover {
+  background: #7aa8f2 !important;
+  border-color: #7aa8f2 !important;
+  color: #ffffff !important;
+}
+
+/* Inputs en login/admin */
+.p-inputtext {
+  background-color: #1E1E1E !important;
+  border-color: #666666 !important;
+  color: #ffffff !important;
+}
+.p-inputtext::placeholder {
+  color: #A0A0A0 !important;
+}
+.p-inputtext:enabled:focus {
+  border-color: #639BF0 !important;
+  box-shadow: 0 0 0 1px #639BF0 !important;
+}
+
+/* Enlaces */
+.text-primary,
+a.text-primary {
+  color: #639BF0 !important;
+}
+a.text-primary:hover {
+  color: #7aa8f2 !important;
+}
+
+/* Tags */
+.p-tag.p-tag-success {
+  background: #5ACD80 !important;
+  color: #1A1C20 !important;
+}
+
+/* Mensajes */
+.p-message.p-message-error {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border-color: #ef4444 !important;
+  color: #fca5a5 !important;
+}
+
+/* Iconos de tarjetas en admin */
+.bg-primary-100 { background-color: rgba(99, 155, 240, 0.2) !important; }
+.text-primary { color: #639BF0 !important; }
+.bg-blue-100 { background-color: rgba(99, 155, 240, 0.2) !important; }
+.text-blue-600 { color: #639BF0 !important; }
+.bg-green-100 { background-color: rgba(90, 205, 128, 0.2) !important; }
+.text-green-600 { color: #5ACD80 !important; }

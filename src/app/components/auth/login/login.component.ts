@@ -1,60 +1,92 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, signal, effect, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { MessageModule } from 'primeng/message';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterLink,
+    CardModule,
+    ButtonModule,
+    InputTextModule,
+    MessageModule,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="min-h-screen bg-gray-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div class="max-w-md w-full space-y-8">
-        <div>
-          <h2 class="mt-6 text-center text-3xl font-extrabold text-white">
-            Iniciar sesión
-          </h2>
-          <p class="mt-2 text-center text-sm text-gray-400">
-            Accede al panel de administración
-          </p>
-        </div>
-        <form class="mt-8 space-y-6" (ngSubmit)="onSubmit()">
-          <div class="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label for="email" class="sr-only">Email</label>
+    <div class="login-screen surface-ground">
+      <div class="login-card-wrapper">
+        <p-card styleClass="shadow-4 login-card">
+          <ng-template pTemplate="header">
+            <div class="text-center pt-4">
+              <h2 class="m-0 text-3xl font-bold text-color">Iniciar sesión</h2>
+              <p class="text-color-secondary mt-2 mb-0">Accede al panel de administración</p>
+            </div>
+          </ng-template>
+          @if (errorMessage()) {
+            <p-message severity="error" [text]="errorMessage()" styleClass="w-full mb-3" />
+          }
+          <form (ngSubmit)="onSubmit()" class="login-form">
+            <div class="login-field">
+              <label for="email" class="font-medium text-color">Email</label>
               <input
+                pInputText
                 id="email"
-                name="email"
                 type="email"
                 [(ngModel)]="email"
+                name="email"
                 required
-                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-700 bg-gray-800 text-white placeholder-gray-400 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Email"
+                class="w-full block"
               />
             </div>
-            <div>
-              <label for="password" class="sr-only">Contraseña</label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                [(ngModel)]="password"
-                required
-                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-700 bg-gray-800 text-white placeholder-gray-400 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Contraseña"
-              />
+            <div class="login-field">
+              <label for="password" class="font-medium text-color">Contraseña</label>
+              <div class="password-input-wrapper">
+                <input
+                  pInputText
+                  id="password"
+                  [type]="showPassword() ? 'text' : 'password'"
+                  [(ngModel)]="password"
+                  name="password"
+                  required
+                  placeholder="Contraseña"
+                  class="w-full block"
+                />
+                <button
+                  type="button"
+                  class="password-toggle"
+                  (click)="toggleShowPassword()"
+                  [attr.aria-label]="showPassword() ? 'Ocultar contraseña' : 'Ver contraseña'"
+                  tabindex="-1"
+                >
+                  <i [class]="showPassword() ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+                </button>
+              </div>
             </div>
-          </div>
-
-          <div>
-            <button
+            <p-button
               type="submit"
-              class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Iniciar sesión
-            </button>
-          </div>
-        </form>
+              label="Iniciar sesión"
+              icon="pi pi-sign-in"
+              [loading]="loading()"
+              [disabled]="loading()"
+              styleClass="w-full block"
+            />
+          </form>
+          <ng-template pTemplate="footer">
+            <div class="text-center">
+              <a [routerLink]="['/']" class="text-primary hover:underline cursor-pointer">Volver al inicio</a>
+            </div>
+          </ng-template>
+        </p-card>
       </div>
     </div>
   `,
@@ -62,29 +94,99 @@ import { Router } from '@angular/router';
     :host {
       display: block;
     }
+    .login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .login-card-wrapper {
+      width: 100%;
+      max-width: 28rem;
+    }
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      width: 100%;
+    }
+    .login-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+    }
+    .login-field input,
+    .login-form .p-button {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .password-input-wrapper {
+      position: relative;
+      display: flex;
+      width: 100%;
+    }
+    .password-input-wrapper input {
+      padding-right: 2.5rem;
+    }
+    .password-toggle {
+      position: absolute;
+      right: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--p-text-muted-color, #A0A0A0);
+      cursor: pointer;
+      padding: 0.25rem;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .password-toggle:hover {
+      color: var(--p-primary-color, #639BF0);
+    }
+    .password-toggle i {
+      font-size: 1rem;
+    }
   `]
 })
-export class LoginComponent implements OnInit {
-  email: string = '';
-  password: string = '';
+export class LoginComponent {
+  private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
 
-  constructor(private router: Router) {}
+  email = '';
+  password = '';
+  readonly showPassword = signal(false);
+  readonly loading = signal(false);
+  readonly errorMessage = signal('');
 
-  ngOnInit() {
-    // Check if user is already logged in
-    if (localStorage.getItem('isAuthenticated')) {
-      this.router.navigate(['/admin']);
-    }
+  constructor() {
+    effect(() => {
+      if (this.authService.isLoggedIn()) {
+        this.router.navigate(['/admin']);
+      }
+    }, { allowSignalWrites: false });
   }
 
-  onSubmit() {
-    // Here you would typically validate credentials against your backend
-    // For demo purposes, we'll use a simple check
-    if (this.email === 'admin@rakium.com' && this.password === 'admin123') {
-      localStorage.setItem('isAuthenticated', 'true');
-      this.router.navigate(['/admin']);
-    } else {
-      alert('Credenciales inválidas');
-    }
+  toggleShowPassword(): void {
+    this.showPassword.update(v => !v);
   }
-} 
+
+  onSubmit(): void {
+    this.errorMessage.set('');
+    this.loading.set(true);
+    this.authService.login(this.email, this.password).subscribe({
+      next: () => {
+        this.loading.set(false);
+        this.router.navigate(['/admin']);
+      },
+      error: (err) => {
+        this.loading.set(false);
+        this.errorMessage.set(err?.error?.message || err?.status === 401 ? 'Credenciales inválidas' : 'Error al iniciar sesión');
+      },
+    });
+  }
+}
