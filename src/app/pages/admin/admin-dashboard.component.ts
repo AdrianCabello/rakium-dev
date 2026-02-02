@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
+import { Component, inject, signal, computed, effect, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -230,16 +230,22 @@ export class AdminDashboardComponent {
   search = '';
 
   constructor() {
-    this.loadStats();
-    this.loadProjects();
+    effect(() => {
+      const user = this.authService.currentUser();
+      if (user) {
+        this.loadStats();
+        this.loadProjects();
+      }
+    });
   }
 
   private loadStats(): void {
     const user = this.authService.currentUser();
-    const isClientAdmin = user?.role === 'CLIENT_ADMIN' && user?.clientId;
-    const projectParams: Record<string, string | number | undefined> = { limit: 500 };
-    if (isClientAdmin) {
-      projectParams['clientId'] = user.clientId!;
+    const clientId = user?.clientId ?? (user as { client?: { id: string } })?.client?.id;
+    const isClientAdmin = user?.role === 'CLIENT_ADMIN' && !!clientId;
+    const projectParams: Record<string, string | number | undefined> = { limit: 100 };
+    if (isClientAdmin && clientId) {
+      projectParams['clientId'] = clientId;
     }
     this.api.get<Paginated<Project>>('projects', projectParams).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (res) => {
@@ -270,10 +276,11 @@ export class AdminDashboardComponent {
   private loadProjects(): void {
     this.loading.set(true);
     const user = this.authService.currentUser();
-    const isClientAdmin = user?.role === 'CLIENT_ADMIN' && user?.clientId;
+    const clientId = user?.clientId ?? (user as { client?: { id: string } })?.client?.id;
+    const isClientAdmin = user?.role === 'CLIENT_ADMIN' && !!clientId;
     const params: Record<string, string | number | undefined> = { limit: 50, search: this.search || undefined };
-    if (isClientAdmin) {
-      params['clientId'] = user.clientId!;
+    if (isClientAdmin && clientId) {
+      params['clientId'] = clientId;
     }
     this.api
       .get<Paginated<Project>>('projects', params)
