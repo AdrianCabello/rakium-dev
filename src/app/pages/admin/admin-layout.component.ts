@@ -1,31 +1,86 @@
 import { Component, inject, computed, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
-import { MenubarModule } from 'primeng/menubar';
-import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, MenubarModule, ButtonModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="min-h-screen surface-ground">
-      <p-menubar [model]="menuItems()" [styleClass]="'border-none rounded-none shadow-sm'">
-        <ng-template pTemplate="start">
-          <a [routerLink]="['/admin']" class="font-bold text-xl text-primary no-underline">Rakium Admin</a>
-          <a [routerLink]="['/']" class="ml-4 p-menubar-item-link flex align-items-center cursor-pointer text-color hover:text-primary no-underline">
-            Inicio
-          </a>
-        </ng-template>
-        <ng-template pTemplate="end">
-          <span class="text-color-secondary mr-3">{{ currentUserEmail() }}</span>
-          <p-button label="Cerrar sesión" icon="pi pi-sign-out" severity="danger" (onClick)="logout()" />
-        </ng-template>
-      </p-menubar>
+    <div class="min-h-screen bg-zinc-900 text-white">
+      <!-- Top Navigation Bar -->
+      <div class="bg-zinc-800 border-b border-zinc-700">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <!-- Left: Logo -->
+          <div class="flex items-center space-x-3">
+            <a [routerLink]="['/admin']" class="flex items-center space-x-2 no-underline text-white hover:text-zinc-300">
+              <span class="text-zinc-400">&lt; /&gt;</span>
+              <span class="text-lg font-semibold">Rakium Dashboard</span>
+            </a>
+            <a [routerLink]="['/']" class="ml-4 text-zinc-400 hover:text-white text-sm no-underline">Inicio</a>
+          </div>
 
-      <main class="p-4 md:p-6 max-w-7xl mx-auto">
+          <!-- Center: Navigation Tabs -->
+          <div class="flex space-x-1">
+            <a
+              [routerLink]="['/admin']"
+              routerLinkActive="bg-blue-600 text-white"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="px-4 py-2 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-700 transition-colors no-underline"
+            >
+              Dashboard
+            </a>
+            @if (isAdmin()) {
+              <a
+                [routerLink]="['/admin/clients']"
+                routerLinkActive="bg-blue-600 text-white"
+                class="px-4 py-2 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-700 transition-colors no-underline"
+              >
+                Gestión de Clientes
+              </a>
+              <a
+                [routerLink]="['/admin/users']"
+                routerLinkActive="bg-blue-600 text-white"
+                class="px-4 py-2 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-700 transition-colors no-underline"
+              >
+                Usuarios
+              </a>
+              <a
+                [routerLink]="['/admin/categories']"
+                routerLinkActive="bg-blue-600 text-white"
+                class="px-4 py-2 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-700 transition-colors no-underline"
+              >
+                Categorías
+              </a>
+            }
+            <a
+              [routerLink]="['/admin/projects']"
+              routerLinkActive="bg-blue-600 text-white"
+              class="px-4 py-2 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-700 transition-colors no-underline"
+            >
+              Proyectos
+            </a>
+          </div>
+
+          <!-- Right: User and Logout -->
+          <div class="flex items-center space-x-4">
+            <span class="text-sm text-zinc-400">{{ currentUserEmail() }}</span>
+            <button
+              (click)="logout()"
+              class="flex items-center space-x-2 px-3 py-1 bg-red-600 hover:bg-red-700 rounded text-sm transition-colors"
+            >
+              <span>Cerrar Sesión</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <main class="max-w-7xl mx-auto p-6">
         <router-outlet />
       </main>
     </div>
@@ -35,25 +90,7 @@ import { ButtonModule } from 'primeng/button';
 export class AdminLayoutComponent {
   readonly authService = inject(AuthService);
   readonly currentUserEmail = () => this.authService.currentUser()?.email ?? '';
-
-  readonly menuItems = computed(() => {
-    const role = this.authService.currentUser()?.role;
-    const isAdmin = role === 'ADMIN';
-    const base = [
-      { label: 'Dashboard', icon: 'pi pi-home', routerLink: '/admin' },
-      { label: 'Proyectos', icon: 'pi pi-folder', routerLink: '/admin/projects' },
-    ];
-    if (isAdmin) {
-      return [
-        { label: 'Dashboard', icon: 'pi pi-home', routerLink: '/admin' },
-        { label: 'Usuarios', icon: 'pi pi-users', routerLink: '/admin/users' },
-        { label: 'Clientes', icon: 'pi pi-building', routerLink: '/admin/clients' },
-        { label: 'Categorías', icon: 'pi pi-tags', routerLink: '/admin/categories' },
-        { label: 'Proyectos', icon: 'pi pi-folder', routerLink: '/admin/projects' },
-      ];
-    }
-    return base;
-  });
+  readonly isAdmin = computed(() => this.authService.currentUser()?.role === 'ADMIN');
 
   logout(): void {
     this.authService.logout();

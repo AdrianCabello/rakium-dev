@@ -51,7 +51,7 @@ interface Paginated<T> {
   template: `
     <p-toast />
     <p-confirmDialog />
-    <p-card header="Clientes">
+    <p-card header="Clientes" styleClass="shadow-2">
       <div class="flex flex-wrap gap-2 mb-4 align-items-center">
         <span class="p-input-icon-left flex-1 min-w-200">
           <i class="pi pi-search"></i>

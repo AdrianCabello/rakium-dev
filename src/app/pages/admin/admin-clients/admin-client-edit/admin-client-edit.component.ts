@@ -50,7 +50,7 @@ interface Client {
       } @else if (errorMessage()) {
         <p-message severity="error" [text]="errorMessage()" styleClass="w-full" />
       } @else {
-        <p-card styleClass="form-card">
+        <p-card styleClass="shadow-2 form-card">
           <form (ngSubmit)="save()" class="client-form">
             <div class="form-field">
               <label for="name">Nombre</label>
@@ -80,7 +80,7 @@ interface Client {
     :host ::ng-deep .form-card .p-card-content { padding: 0; }
     .client-form { display: flex; flex-direction: column; gap: 1.25rem; }
     .form-field { display: flex; flex-direction: column; gap: 0.375rem; }
-    .form-field label { font-size: 0.8125rem; font-weight: 500; color: var(--p-text-muted-color); }
+    .form-field label { font-size: 0.8125rem; font-weight: 500; color: #A0A0A0; }
     .form-field input { width: 100%; }
     .form-actions { display: flex; justify-content: flex-end; padding-top: 0.5rem; }
     :host ::ng-deep .w-full { width: 100%; }

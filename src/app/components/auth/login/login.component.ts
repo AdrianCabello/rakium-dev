@@ -1,157 +1,111 @@
 import { Component, inject, signal, effect, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
+import { LucideAngularModule, Eye, EyeOff, Loader2 } from 'lucide-angular';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterLink,
-    CardModule,
-    ButtonModule,
-    InputTextModule,
-    MessageModule,
-  ],
+  imports: [CommonModule, FormsModule, MessageModule, LucideAngularModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="login-screen surface-ground">
-      <div class="login-card-wrapper">
-        <p-card styleClass="shadow-4 login-card">
-          <ng-template pTemplate="header">
-            <div class="text-center pt-4">
-              <h2 class="m-0 text-3xl font-bold text-color">Iniciar sesión</h2>
-              <p class="text-color-secondary mt-2 mb-0">Accede al panel de administración</p>
+    <div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
+      <div class="w-full max-w-md">
+        <div class="bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded-2xl shadow-2xl overflow-hidden">
+          <!-- Header with gradient background -->
+          <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 text-center">
+            <div class="flex items-center justify-center">
+              <img src="/assets/logos/Logotipo - Blanco.svg" alt="Rakium Logo" class="h-12 w-auto" />
             </div>
-          </ng-template>
-          @if (errorMessage()) {
-            <p-message severity="error" [text]="errorMessage()" styleClass="w-full mb-3" />
-          }
-          <form (ngSubmit)="onSubmit()" class="login-form">
-            <div class="login-field">
-              <label for="email" class="font-medium text-color">Email</label>
-              <input
-                pInputText
-                id="email"
-                type="email"
-                [(ngModel)]="email"
-                name="email"
-                required
-                placeholder="Email"
-                class="w-full block"
-              />
-            </div>
-            <div class="login-field">
-              <label for="password" class="font-medium text-color">Contraseña</label>
-              <div class="password-input-wrapper">
+          </div>
+
+          <!-- Form -->
+          <div class="p-8 pb-10">
+            <form (ngSubmit)="onSubmit()" class="space-y-6">
+              <!-- Email -->
+              <div class="space-y-2">
+                <label for="email" class="block text-sm font-semibold text-slate-200">
+                  Email
+                </label>
                 <input
-                  pInputText
-                  id="password"
-                  [type]="showPassword() ? 'text' : 'password'"
-                  [(ngModel)]="password"
-                  name="password"
+                  id="email"
+                  type="email"
+                  placeholder="admin@rakium.com"
+                  [(ngModel)]="email"
+                  name="email"
                   required
-                  placeholder="Contraseña"
-                  class="w-full block"
+                  class="w-full px-4 py-3 bg-slate-700/60 border border-slate-500/50 rounded-xl text-white placeholder-slate-400 focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 transition-all duration-200"
                 />
-                <button
-                  type="button"
-                  class="password-toggle"
-                  (click)="toggleShowPassword()"
-                  [attr.aria-label]="showPassword() ? 'Ocultar contraseña' : 'Ver contraseña'"
-                  tabindex="-1"
-                >
-                  <i [class]="showPassword() ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
-                </button>
               </div>
+
+              <!-- Password -->
+              <div class="space-y-2">
+                <label for="password" class="block text-sm font-semibold text-slate-200">
+                  Contraseña
+                </label>
+                <div class="relative">
+                  <input
+                    id="password"
+                    [type]="showPassword() ? 'text' : 'password'"
+                    placeholder="••••••••"
+                    [(ngModel)]="password"
+                    name="password"
+                    required
+                    class="w-full px-4 py-3 pr-12 bg-slate-700/60 border border-slate-500/50 rounded-xl text-white placeholder-slate-400 focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30 transition-all duration-200"
+                  />
+                  <button
+                    type="button"
+                    class="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-200 transition-colors"
+                    (click)="toggleShowPassword()"
+                    [attr.aria-label]="showPassword() ? 'Ocultar contraseña' : 'Ver contraseña'"
+                    tabindex="-1"
+                  >
+                    <lucide-icon [name]="showPassword() ? eyeOffIcon : eyeIcon" size="20"></lucide-icon>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Error Message -->
+              @if (errorMessage()) {
+                <p-message
+                  [text]="errorMessage()"
+                  severity="error"
+                  styleClass="w-full !bg-red-900/20 !border-red-800 !text-red-200 rounded-xl"
+                />
+              }
+
+              <!-- Submit Button -->
+              <button
+                type="submit"
+                [disabled]="loading()"
+                class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:from-slate-600 disabled:to-slate-700 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center mt-2 disabled:cursor-not-allowed"
+              >
+                @if (!loading()) {
+                  <span>Iniciar Sesión</span>
+                } @else {
+                  <span class="flex items-center">
+                    <lucide-icon [name]="loaderIcon" size="20" class="animate-spin mr-2"></lucide-icon>
+                    Iniciando sesión...
+                  </span>
+                }
+              </button>
+            </form>
+
+            <!-- Footer -->
+            <div class="mt-8 text-center">
+              <p class="text-sm text-slate-400">
+                © 2024 Rakium. Todos los derechos reservados.
+              </p>
             </div>
-            <p-button
-              type="submit"
-              label="Iniciar sesión"
-              icon="pi pi-sign-in"
-              [loading]="loading()"
-              [disabled]="loading()"
-              styleClass="w-full block"
-            />
-          </form>
-          <ng-template pTemplate="footer">
-            <div class="text-center">
-              <a [routerLink]="['/']" class="text-primary hover:underline cursor-pointer">Volver al inicio</a>
-            </div>
-          </ng-template>
-        </p-card>
+          </div>
+        </div>
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    .login-screen {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-    }
-    .login-card-wrapper {
-      width: 100%;
-      max-width: 28rem;
-    }
-    .login-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      width: 100%;
-    }
-    .login-field {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      width: 100%;
-    }
-    .login-field input,
-    .login-form .p-button {
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .password-input-wrapper {
-      position: relative;
-      display: flex;
-      width: 100%;
-    }
-    .password-input-wrapper input {
-      padding-right: 2.5rem;
-    }
-    .password-toggle {
-      position: absolute;
-      right: 0.5rem;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: var(--p-text-muted-color, #A0A0A0);
-      cursor: pointer;
-      padding: 0.25rem;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .password-toggle:hover {
-      color: var(--p-primary-color, #639BF0);
-    }
-    .password-toggle i {
-      font-size: 1rem;
-    }
-  `]
+  styles: [`:host { display: block; }`],
 })
 export class LoginComponent {
   private readonly router = inject(Router);
@@ -163,6 +117,10 @@ export class LoginComponent {
   readonly loading = signal(false);
   readonly errorMessage = signal('');
 
+  readonly eyeIcon = Eye;
+  readonly eyeOffIcon = EyeOff;
+  readonly loaderIcon = Loader2;
+
   constructor() {
     effect(() => {
       if (this.authService.isLoggedIn()) {
@@ -172,7 +130,7 @@ export class LoginComponent {
   }
 
   toggleShowPassword(): void {
-    this.showPassword.update(v => !v);
+    this.showPassword.update((v) => !v);
   }
 
   onSubmit(): void {
@@ -185,7 +143,7 @@ export class LoginComponent {
       },
       error: (err) => {
         this.loading.set(false);
-        this.errorMessage.set(err?.error?.message || err?.status === 401 ? 'Credenciales inválidas' : 'Error al iniciar sesión');
+        this.errorMessage.set(err?.error?.message || (err?.status === 401 ? 'Credenciales inválidas' : 'Error al iniciar sesión'));
       },
     });
   }

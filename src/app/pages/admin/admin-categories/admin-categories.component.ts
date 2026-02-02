@@ -41,7 +41,7 @@ interface Category {
   template: `
     <p-toast />
     <p-confirmDialog />
-    <p-card header="Categorías">
+    <p-card header="Categorías" styleClass="shadow-2">
       <div class="flex flex-wrap gap-2 mb-4 align-items-center">
         <p-button label="Nueva categoría" icon="pi pi-plus" (onClick)="goToNew()" />
       </div>

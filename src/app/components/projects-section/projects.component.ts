@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, Globe, Instagram } from 'lucide-angular';
+import { LucideAngularModule, Globe, Instagram, ImageOff } from 'lucide-angular';
 import { ApiService } from '../../core/services/api.service';
 
 const LAUTAROVULCANO_CLIENT_ID = '8aa1986b-544c-41b2-b999-25256e483261';
@@ -45,6 +45,7 @@ export class ProjectsComponent implements OnInit {
 
   globeIcon = Globe;
   instagramIcon = Instagram;
+  imageOffIcon = ImageOff;
 
   private readonly api = inject(ApiService);
 
@@ -81,7 +82,7 @@ export class ProjectsComponent implements OnInit {
       type: p.type || p.category || '',
       description: p.description || p.longDescription || '',
       technologies: tech,
-      images: images.length ? images : ['/assets/fallback.svg'],
+      images,
       website: p.url,
     };
   }

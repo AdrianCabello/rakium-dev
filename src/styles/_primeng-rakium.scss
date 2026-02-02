@@ -106,3 +106,85 @@ a.text-primary:hover {
 .text-blue-600 { color: #639BF0 !important; }
 .bg-green-100 { background-color: rgba(90, 205, 128, 0.2) !important; }
 .text-green-600 { color: #5ACD80 !important; }
+
+/* TabView en admin */
+.p-tabview {
+  .p-tabview-nav {
+    background: #2C3550 !important;
+    border-color: #666666 !important;
+  }
+  .p-tabview-nav-link {
+    background: transparent !important;
+    border-color: transparent !important;
+    color: #A0A0A0 !important;
+  }
+  .p-tabview-nav-link:hover {
+    background: rgba(99, 155, 240, 0.15) !important;
+    color: #639BF0 !important;
+  }
+  .p-highlight .p-tabview-nav-link {
+    background: rgba(99, 155, 240, 0.2) !important;
+    color: #639BF0 !important;
+    border-color: #639BF0 !important;
+  }
+}
+
+/* Dialog en admin */
+.p-dialog {
+  .p-dialog-header {
+    background: #2C3550 !important;
+    border-color: #666666 !important;
+    color: #ffffff !important;
+  }
+  .p-dialog-content {
+    background: #2C3550 !important;
+    border-color: #666666 !important;
+    color: #ffffff !important;
+  }
+  .p-dialog-footer {
+    background: #2C3550 !important;
+    border-color: #666666 !important;
+  }
+}
+
+/* Dropdown en admin */
+.p-dropdown {
+  background-color: #1E1E1E !important;
+  border-color: #666666 !important;
+  color: #ffffff !important;
+}
+
+/* Tablas en admin (p-datatable) */
+.p-datatable {
+  .p-datatable-header,
+  .p-datatable-thead > tr > th {
+    background-color: #252830 !important;
+    border-color: #666666 !important;
+    color: #ffffff !important;
+  }
+  .p-datatable-tbody > tr {
+    background-color: #2C3550 !important;
+    color: #ffffff !important;
+    border-color: #666666 !important;
+  }
+  .p-datatable-tbody > tr:hover {
+    background-color: #353d55 !important;
+  }
+  .p-paginator {
+    background-color: #2C3550 !important;
+    border-color: #666666 !important;
+    color: #ffffff !important;
+    .p-paginator-element {
+      color: #ffffff !important;
+    }
+    .p-paginator-element:hover:not(.p-disabled) {
+      background: rgba(99, 155, 240, 0.15) !important;
+      color: #639BF0 !important;
+    }
+    .p-paginator-current,
+    .p-highlight {
+      background: #639BF0 !important;
+      color: #ffffff !important;
+    }
+  }
+}

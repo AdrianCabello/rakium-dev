@@ -90,36 +90,6 @@ const PROJECT_STATUSES = [
         <textarea pInputText id="longDescription" [(ngModel)]="form.longDescription" name="longDescription" rows="5" placeholder="Texto completo del proyecto para la ficha pública" class="textarea-resize"></textarea>
       </div>
 
-      <h3 class="form-subtitle">Desafío y solución</h3>
-      <div class="form-field">
-        <label for="challenge">Desafío</label>
-        <textarea pInputText id="challenge" [(ngModel)]="form.challenge" name="challenge" rows="2" placeholder="Qué reto o problema abordaba el proyecto" class="textarea-resize"></textarea>
-      </div>
-      <div class="form-field">
-        <label for="solution">Solución</label>
-        <textarea pInputText id="solution" [(ngModel)]="form.solution" name="solution" rows="2" placeholder="Cómo se resolvió" class="textarea-resize"></textarea>
-      </div>
-
-      <h3 class="form-subtitle">Ubicación</h3>
-      <div class="form-row form-row--4">
-        <div class="form-field">
-          <label for="country">País</label>
-          <input pInputText id="country" [(ngModel)]="form.country" name="country" placeholder="Ej. Argentina" />
-        </div>
-        <div class="form-field">
-          <label for="state">Provincia / Estado</label>
-          <input pInputText id="state" [(ngModel)]="form.state" name="state" placeholder="Ej. Buenos Aires" />
-        </div>
-        <div class="form-field">
-          <label for="city">Ciudad</label>
-          <input pInputText id="city" [(ngModel)]="form.city" name="city" placeholder="Ej. CABA" />
-        </div>
-        <div class="form-field">
-          <label for="area">Área / Superficie</label>
-          <input pInputText id="area" [(ngModel)]="form.area" name="area" placeholder="Ej. 500 m²" />
-        </div>
-      </div>
-
       <h3 class="form-subtitle">Fechas y duración</h3>
       <div class="form-row form-row--4">
         <div class="form-field">
@@ -137,38 +107,6 @@ const PROJECT_STATUSES = [
         <div class="form-field">
           <label for="endDate">Fecha fin</label>
           <input type="date" id="endDate" [(ngModel)]="form.endDate" name="endDate" class="p-inputtext p-component w-full" />
-        </div>
-      </div>
-
-      <h3 class="form-subtitle">Enlaces</h3>
-      <div class="form-row form-row--3">
-        <div class="form-field">
-          <label for="url">URL del proyecto</label>
-          <input pInputText id="url" [(ngModel)]="form.url" name="url" placeholder="https://..." />
-        </div>
-        <div class="form-field">
-          <label for="githubUrl">GitHub</label>
-          <input pInputText id="githubUrl" [(ngModel)]="form.githubUrl" name="githubUrl" placeholder="https://github.com/..." />
-        </div>
-        <div class="form-field">
-          <label for="demoUrl">Demo / Preview</label>
-          <input pInputText id="demoUrl" [(ngModel)]="form.demoUrl" name="demoUrl" placeholder="https://..." />
-        </div>
-      </div>
-
-      <h3 class="form-subtitle">Contacto del proyecto</h3>
-      <div class="form-row form-row--3">
-        <div class="form-field">
-          <label for="contactName">Nombre de contacto</label>
-          <input pInputText id="contactName" [(ngModel)]="form.contactName" name="contactName" placeholder="Persona de referencia" />
-        </div>
-        <div class="form-field">
-          <label for="contactEmail">Email de contacto</label>
-          <input pInputText id="contactEmail" [(ngModel)]="form.contactEmail" name="contactEmail" type="email" placeholder="contacto@..." />
-        </div>
-        <div class="form-field">
-          <label for="contactPhone">Teléfono</label>
-          <input pInputText id="contactPhone" [(ngModel)]="form.contactPhone" name="contactPhone" placeholder="+54 11 ..." />
         </div>
       </div>
 
@@ -285,22 +223,10 @@ export class ProjectEditFormComponent {
     status: string;
     description?: string;
     longDescription?: string;
-    challenge?: string;
-    solution?: string;
-    country?: string;
-    state?: string;
-    city?: string;
-    area?: string;
     duration?: string;
     date?: string;
-    url?: string;
     startDate?: string;
     endDate?: string;
-    contactName?: string;
-    contactEmail?: string;
-    contactPhone?: string;
-    githubUrl?: string;
-    demoUrl?: string;
     technologies?: string;
   } = { name: '', clientId: '', status: 'DRAFT' };
 
@@ -328,22 +254,10 @@ export class ProjectEditFormComponent {
           status: p.status ?? 'DRAFT',
           description: p.description ?? '',
           longDescription: p.longDescription ?? '',
-          challenge: p.challenge ?? '',
-          solution: p.solution ?? '',
-          country: p.country ?? '',
-          state: p.state ?? '',
-          city: p.city ?? '',
-          area: p.area ?? '',
           duration: p.duration ?? '',
           date: p.date ?? '',
-          url: p.url ?? '',
           startDate: this.formatDateForInput(p.startDate),
           endDate: this.formatDateForInput(p.endDate),
-          contactName: p.contactName ?? '',
-          contactEmail: p.contactEmail ?? '',
-          contactPhone: p.contactPhone ?? '',
-          githubUrl: p.githubUrl ?? '',
-          demoUrl: p.demoUrl ?? '',
           technologies: this.formatTechnologies(p.technologies),
         };
         this.categoryForTypes.set(this.form.category);
@@ -363,22 +277,10 @@ export class ProjectEditFormComponent {
       status: this.form.status,
       description: this.form.description || undefined,
       longDescription: this.form.longDescription || undefined,
-      challenge: this.form.challenge || undefined,
-      solution: this.form.solution || undefined,
-      country: this.form.country || undefined,
-      state: this.form.state || undefined,
-      city: this.form.city || undefined,
-      area: this.form.area || undefined,
       duration: this.form.duration || undefined,
       date: this.form.date || undefined,
-      url: this.form.url || undefined,
       startDate: this.form.startDate ? `${this.form.startDate}T00:00:00.000Z` : undefined,
       endDate: this.form.endDate ? `${this.form.endDate}T23:59:59.999Z` : undefined,
-      contactName: this.form.contactName || undefined,
-      contactEmail: this.form.contactEmail || undefined,
-      contactPhone: this.form.contactPhone || undefined,
-      githubUrl: this.form.githubUrl || undefined,
-      demoUrl: this.form.demoUrl || undefined,
       technologies: this.form.technologies?.trim() || undefined,
     };
     const request = creating

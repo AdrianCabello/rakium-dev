@@ -1,21 +1,16 @@
-import { Component, inject, signal, computed, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
+import { Component, inject, signal, computed, ChangeDetectionStrategy, DestroyRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from '../../../../core/services/api.service';
 import { AuthService } from '../../../../core/services/auth.service';
 import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
-import { TabViewModule } from 'primeng/tabview';
 import { MessageService } from 'primeng/api';
 import { ProjectFull } from '../project-edit.types';
-import { ProjectEditFormComponent } from '../project-edit-form/project-edit-form.component';
-import { ProjectPresupuestoFormComponent } from '../project-presupuesto-form/project-presupuesto-form.component';
-import { ProjectGalleryEditorComponent } from '../project-gallery-editor/project-gallery-editor.component';
-import { ProjectVideosEditorComponent } from '../project-videos-editor/project-videos-editor.component';
+import { ProjectEditContextService } from '../project-edit-context.service';
 
 @Component({
   selector: 'app-admin-project-edit',
@@ -23,96 +18,96 @@ import { ProjectVideosEditorComponent } from '../project-videos-editor/project-v
   imports: [
     CommonModule,
     RouterLink,
+    RouterLinkActive,
+    RouterOutlet,
     ButtonModule,
-    CardModule,
     ProgressSpinnerModule,
     MessageModule,
     ToastModule,
-    TabViewModule,
-    ProjectEditFormComponent,
-    ProjectPresupuestoFormComponent,
-    ProjectGalleryEditorComponent,
-    ProjectVideosEditorComponent,
   ],
-  providers: [MessageService],
+  providers: [MessageService, ProjectEditContextService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p-toast />
     <div class="edit-project-page">
       <div class="flex align-items-center gap-3 mb-4">
-        <p-button icon="pi pi-arrow-left" [rounded]="true" [text]="true" [routerLink]="['/admin/projects']" />
-        <h1 class="m-0 text-2xl font-semibold text-color">{{ pageTitle() }}</h1>
+        <p-button icon="pi pi-arrow-left" [rounded]="true" [text]="true" [routerLink]="['/admin/projects']" styleClass="text-zinc-400 hover:text-white" />
+        <h1 class="m-0 text-2xl font-semibold text-white">{{ pageTitle() }}</h1>
       </div>
 
       <div *ngIf="loading()" class="flex justify-content-center align-items-center py-8">
         <p-progressSpinner strokeWidth="4" />
       </div>
       <p-message *ngIf="errorMessage() && !loading()" severity="error" [text]="errorMessage()" styleClass="w-full" />
-      <p-tabView *ngIf="project() && !loading() && !errorMessage()" class="edit-tabs">
-          <p-tabPanel header="Información">
-            <section class="section-card">
-              <app-project-edit-form
-                [project]="project()!"
-                [clients]="clients()"
-                [canChangeClient]="canChangeClient()"
-                (saved)="onProjectSaved($event)"
-              />
-            </section>
-          </p-tabPanel>
+      <ng-container *ngIf="project() && !loading() && !errorMessage()">
+        <nav class="edit-tabs-nav">
+          <a
+            [routerLink]="['/admin/projects', projectId(), 'edit', 'informacion']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: false }"
+            class="tab-link"
+          >
+            Información
+          </a>
           <ng-container *ngIf="!isNew()">
-            <p-tabPanel header="Presupuesto">
-              <section class="section-card">
-                <app-project-presupuesto-form
-                  [project]="project()!"
-                  (saved)="onProjectSaved($event)"
-                />
-              </section>
-            </p-tabPanel>
-            <p-tabPanel header="Galería">
-              <section class="section-card">
-                <app-project-gallery-editor
-                  [projectId]="projectId()"
-                  [gallery]="project()!.gallery ?? []"
-                  (updated)="loadProject()"
-                />
-              </section>
-            </p-tabPanel>
-            <p-tabPanel header="Videos">
-              <section class="section-card">
-                <app-project-videos-editor
-                  [projectId]="projectId()"
-                  [videos]="project()!.videos ?? []"
-                  (updated)="loadProject()"
-                />
-              </section>
-            </p-tabPanel>
+            <a [routerLink]="['/admin/projects', projectId(), 'edit', 'desafio-solucion']" routerLinkActive="active" class="tab-link">Desafío y solución</a>
+            <a [routerLink]="['/admin/projects', projectId(), 'edit', 'ubicacion']" routerLinkActive="active" class="tab-link">Ubicación</a>
+            <a [routerLink]="['/admin/projects', projectId(), 'edit', 'enlaces']" routerLinkActive="active" class="tab-link">Enlaces</a>
+            <a [routerLink]="['/admin/projects', projectId(), 'edit', 'contacto']" routerLinkActive="active" class="tab-link">Contacto</a>
+            <a [routerLink]="['/admin/projects', projectId(), 'edit', 'presupuesto']" routerLinkActive="active" class="tab-link">Presupuesto</a>
+            <a [routerLink]="['/admin/projects', projectId(), 'edit', 'galeria']" routerLinkActive="active" class="tab-link">Galería</a>
+            <a [routerLink]="['/admin/projects', projectId(), 'edit', 'videos']" routerLinkActive="active" class="tab-link">Videos</a>
           </ng-container>
-        </p-tabView>
+        </nav>
+        <router-outlet />
+      </ng-container>
     </div>
   `,
   styles: [`
     .edit-project-page { max-width: 56rem; margin: 0 auto; }
-    .edit-tabs :deep(.p-tabview-panels) { padding: 0; }
-    .edit-tabs .section-card { margin-top: 0.5rem; }
-    .section-card {
-      background: var(--p-card-background, #2C3550);
+    .edit-tabs-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid rgb(63 63 70);
+      padding-bottom: 0.5rem;
+    }
+    .tab-link {
+      padding: 0.5rem 1rem;
       border-radius: 8px;
-      padding: 1.5rem;
-      border: 1px solid var(--p-card-border-color, #666);
+      text-decoration: none;
+      color: rgb(161 161 170);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .tab-link:hover {
+      background: rgb(63 63 70);
+      color: white;
+    }
+    .tab-link.active {
+      background: rgb(37 99 235);
+      color: white;
     }
   `],
 })
-export class AdminProjectEditComponent {
+export class AdminProjectEditComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly api = inject(ApiService);
   private readonly authService = inject(AuthService);
   private readonly message = inject(MessageService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly ctx = inject(ProjectEditContextService);
 
   readonly projectId = computed(() => this.route.snapshot.paramMap.get('id') ?? '');
   readonly isNew = computed(() => this.projectId() === 'new');
-  readonly pageTitle = computed(() => (this.isNew() ? 'Nuevo proyecto' : 'Editar proyecto'));
+  readonly pageTitle = computed(() => {
+    if (this.isNew()) return 'Nuevo proyecto';
+    const p = this.project();
+    return p?.name ? `Editar: ${p.name}` : 'Editar proyecto';
+  });
   readonly canChangeClient = computed(() => {
     if (!this.isNew()) return true;
     return this.authService.currentUser()?.role === 'ADMIN';
@@ -121,6 +116,7 @@ export class AdminProjectEditComponent {
   readonly loading = signal(true);
   readonly errorMessage = signal('');
   readonly clients = signal<{ id: string; name: string; email: string }[]>([]);
+  private lastLoadedId: string | null = null;
 
   private static emptyProject(clientId?: string): ProjectFull {
     return {
@@ -134,12 +130,28 @@ export class AdminProjectEditComponent {
   }
 
   constructor() {
-    this.loadProject();
     this.loadClients();
+    this.ctx.onReloadProject = () => this.loadProject();
+    this.ctx.onProjectCreated = (updated) => {
+      this.router.navigate(['/admin/projects', updated.id, 'edit', 'informacion'], { replaceUrl: true });
+      this.message.add({ severity: 'success', summary: 'Proyecto creado' });
+    };
+    this.ctx.onProjectUpdated = () => {
+      this.message.add({ severity: 'success', summary: 'Proyecto actualizado' });
+    };
+  }
+
+  ngOnInit(): void {
+    this.loadProject();
+    this.route.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      const id = this.route.snapshot.paramMap.get('id') ?? '';
+      if (id !== this.lastLoadedId) this.loadProject();
+    });
   }
 
   loadProject(): void {
     const id = this.projectId();
+    this.lastLoadedId = id;
     if (id === 'new') {
       const role = this.authService.currentUser()?.role;
       if (role !== 'ADMIN' && role !== 'CLIENT_ADMIN') {
@@ -147,7 +159,11 @@ export class AdminProjectEditComponent {
         return;
       }
       const defaultClientId = role === 'CLIENT_ADMIN' ? this.authService.currentUser()?.clientId : undefined;
-      this.project.set(AdminProjectEditComponent.emptyProject(defaultClientId));
+      const p = AdminProjectEditComponent.emptyProject(defaultClientId);
+      this.project.set(p);
+      this.ctx.setProject(p);
+      this.ctx.setClients(this.clients());
+      this.ctx.setCanChangeClient(this.canChangeClient());
       this.loading.set(false);
       this.errorMessage.set('');
       return;
@@ -165,6 +181,9 @@ export class AdminProjectEditComponent {
       .subscribe({
         next: (p) => {
           this.project.set(p);
+          this.ctx.setProject(p);
+          this.ctx.setClients(this.clients());
+          this.ctx.setCanChangeClient(this.canChangeClient());
           this.loading.set(false);
         },
         error: (err) => {
@@ -179,18 +198,12 @@ export class AdminProjectEditComponent {
       .get<{ data: { id: string; name: string; email: string }[] }>('clients', { limit: 100 })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (res) => this.clients.set(res.data),
+        next: (res) => {
+          this.clients.set(res.data);
+          this.ctx.setClients(res.data);
+        },
         error: () => {},
       });
   }
 
-  onProjectSaved(updated: ProjectFull): void {
-    if (this.isNew()) {
-      this.router.navigate(['/admin/projects', updated.id, 'edit'], { replaceUrl: true });
-      this.message.add({ severity: 'success', summary: 'Proyecto creado' });
-    } else {
-      this.project.set(updated);
-      this.message.add({ severity: 'success', summary: 'Proyecto actualizado' });
-    }
-  }
 }

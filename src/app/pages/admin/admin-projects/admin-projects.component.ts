@@ -87,7 +87,7 @@ interface Paginated<T> {
   template: `
     <p-toast />
     <p-confirmDialog />
-    <p-card header="Proyectos">
+    <p-card header="Proyectos" styleClass="shadow-2">
       <div class="flex flex-wrap gap-2 mb-4 align-items-center">
         <span class="p-input-icon-left search-bar">
           <i class="pi pi-search"></i>
@@ -231,15 +231,11 @@ interface Paginated<T> {
     :host ::ng-deep .search-bar .p-inputtext,
     :host ::ng-deep .search-bar input.search-input {
       width: 100%;
-      background: var(--p-input-background, #1e2433);
-      border: 1px solid var(--p-input-border-color, #495057);
-      border-radius: var(--p-border-radius, 6px);
     }
     :host ::ng-deep .search-bar.p-input-icon-left i {
       left: 0.75rem;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--p-text-muted-color, #a0aec0);
     }
     :host ::ng-deep .search-bar.p-input-icon-left .p-inputtext {
       padding-left: 2.25rem;
