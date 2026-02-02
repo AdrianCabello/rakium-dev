@@ -54,7 +54,7 @@
               <span *ngIf="project.type" class="inline-block mt-2 mb-4 px-3 py-1 rounded-full bg-blue-600 text-white text-xs font-semibold" style="width: auto; display: inline-block; min-width: 0; max-width: max-content;">
                 {{ project.type }}
               </span>
-              <p class="text-zinc-600 dark:text-zinc-400 mb-6">{{ project.description }}</p>
+              <p class="text-zinc-600 dark:text-zinc-400 mb-6 line-clamp-4">{{ project.description }}</p>
               <div class="mt-auto space-y-3">
                 <a
                   *ngIf="project.website"

@@ -10,6 +10,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CardModule } from 'primeng/card';
 
@@ -42,6 +43,7 @@ interface Paginated<T> {
     MessageModule,
     ConfirmDialogModule,
     ToastModule,
+    TooltipModule,
     CardModule,
   ],
   providers: [ConfirmationService, MessageService],
@@ -93,6 +95,7 @@ interface Paginated<T> {
             <td>{{ c.name }}</td>
             <td>{{ c.email }}</td>
             <td>
+              <p-button icon="pi pi-copy" [rounded]="true" [text]="true" pTooltip="Copiar ID" (onClick)="copyClientId(c)" />
               <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" severity="info" (onClick)="goToEdit(c)" />
               <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" (onClick)="confirmDelete(c)" />
             </td>
@@ -169,6 +172,13 @@ export class AdminClientsComponent {
 
   goToEdit(client: Client): void {
     this.router.navigate(['/admin/clients', client.id, 'edit']);
+  }
+
+  copyClientId(client: Client): void {
+    navigator.clipboard.writeText(client.id).then(
+      () => this.message.add({ severity: 'success', summary: 'ID copiado', detail: client.id }),
+      () => this.message.add({ severity: 'error', summary: 'No se pudo copiar' })
+    );
   }
 
   confirmDelete(client: Client): void {
