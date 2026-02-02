@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script>
+    // GitHub Pages SPA fix: when user navigates directly to /admin, /login, etc,
+    // GitHub serves this 404.html. We store the path and redirect to / so
+    // index.html (with Angular) loads. index.html will restore the URL.
+    var path = location.pathname + location.search + location.hash;
+    if (path !== '/' && path !== '/index.html') {
+      sessionStorage.redirect = path;
+    }
+    location.replace('/');
+  </script>
+</head>
+<body>
+  <p>Redirecting...</p>
+</body>
+</html>

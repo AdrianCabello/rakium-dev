@@ -1,11 +1,12 @@
 import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { LucideAngularModule, Moon, Sun, Menu } from 'lucide-angular';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, RouterLink, LucideAngularModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
