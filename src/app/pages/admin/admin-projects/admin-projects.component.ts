@@ -414,10 +414,13 @@ export class AdminProjectsComponent {
       });
     } else {
       this.api.post<Project>('projects', payload).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-        next: () => {
+        next: (created) => {
           this.message.add({ severity: 'success', summary: 'Proyecto creado' });
           this.closeDialog();
           this.fetch();
+          if (created?.id) {
+            this.router.navigate(['/admin/projects', created.id, 'edit']);
+          }
         },
         error: (err) => this.message.add({ severity: 'error', summary: err?.error?.message || 'Error al crear' }),
       });
