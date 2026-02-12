@@ -8,6 +8,8 @@ export interface ProjectFull {
   longDescription?: string;
   clientId: string;
   client?: { id: string; name: string; email: string };
+  coverImageId?: string | null;
+  coverImage?: { id: string; url: string } | null;
   gallery?: GalleryItem[];
   videos?: VideoItem[];
   challenge?: string;

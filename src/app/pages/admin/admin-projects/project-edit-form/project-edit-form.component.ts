@@ -116,6 +116,22 @@ const PROJECT_STATUSES = [
         <input pInputText id="technologies" [(ngModel)]="form.technologies" name="technologies" placeholder="Angular, TypeScript, Firebase" />
       </div>
 
+      <h3 class="form-subtitle">Enlaces</h3>
+      <div class="form-row form-row--3">
+        <div class="form-field">
+          <label for="url">URL del proyecto</label>
+          <input pInputText id="url" [(ngModel)]="form.url" name="url" placeholder="https://..." />
+        </div>
+        <div class="form-field">
+          <label for="githubUrl">GitHub</label>
+          <input pInputText id="githubUrl" [(ngModel)]="form.githubUrl" name="githubUrl" placeholder="https://github.com/..." />
+        </div>
+        <div class="form-field">
+          <label for="demoUrl">Demo / Preview</label>
+          <input pInputText id="demoUrl" [(ngModel)]="form.demoUrl" name="demoUrl" placeholder="https://..." />
+        </div>
+      </div>
+
       <div class="form-actions">
         <p-button type="submit" [label]="isNew() ? 'Crear proyecto' : 'Guardar cambios'" icon="pi pi-check" [loading]="saving()" [disabled]="saving()" />
       </div>
@@ -228,6 +244,9 @@ export class ProjectEditFormComponent {
     startDate?: string;
     endDate?: string;
     technologies?: string;
+    url?: string;
+    githubUrl?: string;
+    demoUrl?: string;
   } = { name: '', clientId: '', status: 'DRAFT' };
 
   private formatDateForInput(iso?: string | null): string {
@@ -259,6 +278,9 @@ export class ProjectEditFormComponent {
           startDate: this.formatDateForInput(p.startDate),
           endDate: this.formatDateForInput(p.endDate),
           technologies: this.formatTechnologies(p.technologies),
+          url: p.url ?? '',
+          githubUrl: p.githubUrl ?? '',
+          demoUrl: p.demoUrl ?? '',
         };
         this.categoryForTypes.set(this.form.category);
       }
@@ -282,6 +304,9 @@ export class ProjectEditFormComponent {
       startDate: this.form.startDate ? `${this.form.startDate}T00:00:00.000Z` : undefined,
       endDate: this.form.endDate ? `${this.form.endDate}T23:59:59.999Z` : undefined,
       technologies: this.form.technologies?.trim() || undefined,
+      url: this.form.url?.trim() || undefined,
+      githubUrl: this.form.githubUrl?.trim() || undefined,
+      demoUrl: this.form.demoUrl?.trim() || undefined,
     };
     const request = creating
       ? this.api.post<ProjectFull>('projects', payload)

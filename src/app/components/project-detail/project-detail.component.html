@@ -1,0 +1,184 @@
+<div class="min-h-screen flex flex-col bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
+  <app-header></app-header>
+  <div class="container mx-auto px-4 py-8 flex-grow pt-24 md:pt-28">
+    <a
+      routerLink="/"
+      fragment="projects"
+      class="inline-flex items-center gap-2 text-zinc-600 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors mb-8"
+    >
+      <lucide-icon [name]="arrowLeftIcon" [size]="20"></lucide-icon>
+      Volver a Casos de Éxito
+    </a>
+
+    <ng-container *ngIf="project(); else notFound">
+      <article class="max-w-4xl mx-auto">
+        <h1 class="!text-3xl md:!text-4xl font-bold text-zinc-900 dark:text-white mb-4">{{ project()!.name }}</h1>
+        <p class="text-xl text-zinc-600 dark:text-zinc-400 mb-6" *ngIf="project()!.category">
+          <span class="text-blue-600 dark:text-blue-400 font-medium">{{ getCategoryLabel(project()!.category!) }}</span>
+        </p>
+
+        <div class="flex flex-wrap gap-2 mb-8">
+          <span
+            *ngFor="let tag of tags()"
+            class="inline-flex items-center px-2.5 py-1 bg-blue-600/10 text-blue-600 dark:text-blue-400 text-sm font-medium rounded-full"
+          >
+            {{ tag }}
+          </span>
+        </div>
+
+        <div class="mb-8" *ngIf="projectUrl()">
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 break-all">
+            <span class="font-medium text-zinc-600 dark:text-zinc-300">URL:</span>
+            <a [href]="projectUrl()!" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline ml-1">{{ projectUrl() }}</a>
+          </p>
+        </div>
+
+        <div class="prose prose-zinc dark:prose-invert max-w-none mb-10">
+          <p class="text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed" *ngIf="project()!.description">
+            {{ project()!.description }}
+          </p>
+          <p class="text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4" *ngIf="project()!.longDescription">
+            {{ project()!.longDescription }}
+          </p>
+        </div>
+
+        <!-- Imágenes del proyecto (antes/después) -->
+        <section class="mb-12" *ngIf="project()!.imageAfter || project()!.imageBefore">
+          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white mb-4">Imágenes del proyecto</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <figure
+              class="rounded-lg overflow-hidden bg-zinc-200 dark:bg-zinc-800 cursor-pointer aspect-square"
+              *ngIf="project()!.imageBefore"
+              (click)="openLightbox(0)"
+            >
+              <img
+                [src]="project()!.imageBefore!"
+                [alt]="project()!.name + ' - Antes'"
+                class="w-full h-full object-cover"
+              />
+              <figcaption class="p-2 text-sm text-zinc-500 dark:text-zinc-400 text-center">Antes</figcaption>
+            </figure>
+            <figure
+              class="rounded-lg overflow-hidden bg-zinc-200 dark:bg-zinc-800 cursor-pointer aspect-square"
+              *ngIf="project()!.imageAfter"
+              (click)="openLightbox(project()!.imageBefore ? 1 : 0)"
+            >
+              <img
+                [src]="project()!.imageAfter!"
+                [alt]="project()!.name + ' - Después'"
+                class="w-full h-full object-cover"
+              />
+              <figcaption class="p-2 text-sm text-zinc-500 dark:text-zinc-400 text-center">Después</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- Galería (cuadrados) -->
+        <section class="mb-12" *ngIf="gallerySorted().length">
+          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white mb-4">Galería</h2>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            <figure
+              *ngFor="let img of gallerySorted(); let i = index"
+              class="rounded-lg overflow-hidden bg-zinc-200 dark:bg-zinc-800 cursor-pointer aspect-square"
+              (click)="openLightbox(galleryStartIndex() + i)"
+            >
+              <img
+                [src]="img.url"
+                [alt]="project()!.name + ' - ' + img.id"
+                class="w-full h-full object-cover"
+              />
+            </figure>
+          </div>
+        </section>
+
+        <!-- Vídeos -->
+        <section class="mb-12" *ngIf="videoUrls().length">
+          <h2 class="text-xl font-semibold text-zinc-900 dark:text-white mb-4">Vídeos</h2>
+          <div class="space-y-6">
+            <div
+              *ngFor="let videoUrl of videoUrls()"
+              class="rounded-lg overflow-hidden bg-zinc-200 dark:bg-zinc-800 aspect-video max-w-3xl"
+            >
+              <video
+                *ngIf="isVideoUrl(videoUrl)"
+                [src]="videoUrl"
+                controls
+                class="w-full h-full object-contain"
+              ></video>
+              <iframe
+                *ngIf="!isVideoUrl(videoUrl) && isEmbedUrl(videoUrl)"
+                [src]="getSafeVideoUrl(videoUrl)"
+                class="w-full h-full"
+                allowfullscreen
+              ></iframe>
+              <a
+                *ngIf="!isVideoUrl(videoUrl) && !isEmbedUrl(videoUrl)"
+                [href]="videoUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-center h-full text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                Ver vídeo externo
+              </a>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <!-- Modal simple: imagen con flechas para navegar -->
+      <p-dialog
+        [visible]="lightboxVisible()"
+        (visibleChange)="lightboxVisible.set($event)"
+        [modal]="true"
+        [dismissableMask]="true"
+        [closable]="true"
+        [style]="{ width: '90vw', maxWidth: '900px' }"
+        [contentStyle]="{ overflow: 'visible', padding: 0 }"
+        styleClass="p-dialog-image-preview"
+      >
+        <div class="relative flex items-center justify-center min-h-[200px]">
+          <button
+            *ngIf="allImages().length > 1"
+            type="button"
+            (click)="lightboxPrev()"
+            class="absolute left-2 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-black/50 hover:bg-black/70 text-white transition-colors"
+            aria-label="Imagen anterior"
+          >
+            <lucide-icon [name]="chevronLeftIcon" [size]="28"></lucide-icon>
+          </button>
+          <img
+            *ngIf="lightboxCurrentUrl()"
+            [src]="lightboxCurrentUrl()!"
+            [alt]="project()!.name"
+            class="w-full h-auto max-h-[85vh] object-contain block"
+          />
+          <button
+            *ngIf="allImages().length > 1"
+            type="button"
+            (click)="lightboxNext()"
+            class="absolute right-2 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-black/50 hover:bg-black/70 text-white transition-colors"
+            aria-label="Siguiente imagen"
+          >
+            <lucide-icon [name]="chevronRightIcon" [size]="28"></lucide-icon>
+          </button>
+        </div>
+      </p-dialog>
+    </ng-container>
+
+    <ng-template #notFound>
+      <div class="text-center py-16">
+        <p class="text-xl text-zinc-500 dark:text-zinc-400 mb-6" *ngIf="isLoading()">Cargando proyecto...</p>
+        <p class="text-xl text-red-500 dark:text-red-400 mb-6" *ngIf="!isLoading() && errorMessage()">{{ errorMessage() }}</p>
+        <p class="text-xl text-zinc-500 dark:text-zinc-400 mb-6" *ngIf="!isLoading() && !errorMessage()">Proyecto no encontrado.</p>
+        <a
+          routerLink="/"
+          fragment="projects"
+          class="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline"
+        >
+          <lucide-icon [name]="arrowLeftIcon" [size]="20"></lucide-icon>
+          Volver a Casos de Éxito
+        </a>
+      </div>
+    </ng-template>
+  </div>
+</div>

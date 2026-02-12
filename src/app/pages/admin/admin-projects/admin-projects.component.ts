@@ -1,7 +1,7 @@
 import { Component, inject, signal, computed, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ApiService } from '../../../core/services/api.service';
 import { AuthService } from '../../../core/services/auth.service';
@@ -13,8 +13,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MessageModule } from 'primeng/message';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { CardModule } from 'primeng/card';
 
 const PROJECT_CATEGORIES = [
   { label: 'Estaciones', value: 'ESTACIONES' },
@@ -54,6 +54,7 @@ interface Project {
   clientId: string;
   client?: { id: string; name: string; email: string };
   createdAt: string;
+  order?: number;
 }
 
 interface Paginated<T> {
@@ -72,6 +73,7 @@ interface Paginated<T> {
   imports: [
     CommonModule,
     FormsModule,
+    RouterLink,
     TableModule,
     ButtonModule,
     InputTextModule,
@@ -80,87 +82,160 @@ interface Paginated<T> {
     MessageModule,
     ConfirmDialogModule,
     ToastModule,
-    CardModule,
+    TooltipModule,
   ],
   providers: [ConfirmationService, MessageService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p-toast />
     <p-confirmDialog />
-    <p-card header="Proyectos" styleClass="shadow-2">
-      <div class="flex flex-wrap gap-2 mb-4 align-items-center">
-        <span class="p-input-icon-left search-bar">
-          <i class="pi pi-search"></i>
-          <input
-            pInputText
-            type="text"
-            [(ngModel)]="search"
-            (ngModelChange)="onSearch()"
-            placeholder="Buscar por nombre..."
-            class="search-input"
-          />
-        </span>
-        @if (isAdmin()) {
-          <p-dropdown
-            [options]="clients()"
-            [(ngModel)]="filterClientId"
-            (ngModelChange)="onFilterClient()"
-            optionLabel="name"
-            optionValue="id"
-            [showClear]="true"
-            placeholder="Todos los clientes"
-            styleClass="filter-dropdown-min-width"
-          />
-        }
-        @if (canCreateProject()) {
-          <p-button label="Nuevo proyecto" icon="pi pi-plus" size="small" styleClass="btn-new-project" (onClick)="goToNew()" />
-        }
+    <div>
+      <!-- Header (estilo dashboard) -->
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold mb-2 text-white">Proyectos</h1>
+        <p class="text-zinc-400">Gestiona y edita tus proyectos</p>
       </div>
-      @if (errorMessage()) {
-        <p-message severity="error" [text]="errorMessage()" styleClass="mb-3" />
-      }
-      <p-table
-        [value]="projects()"
-        [lazy]="true"
-        [paginator]="true"
-        [first]="firstRowIndex()"
-        [rows]="limit()"
-        [totalRecords]="total()"
-        (onLazyLoad)="load($event)"
-        [loading]="loading()"
-        [rowsPerPageOptions]="[5, 10, 25]"
-        [showCurrentPageReport]="true"
-        [currentPageReportTemplate]="reportTemplate"
-        styleClass="p-datatable-sm"
-      >
-        <ng-template pTemplate="header">
-          <tr>
-            <th>Nombre</th>
-            <th>Categoría</th>
-            <th>Estado</th>
-            <th>Cliente</th>
-            <th style="width: 10rem">Acciones</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-p>
-          <tr>
-            <td>{{ p.name }}</td>
-            <td>{{ p.category || '-' }}</td>
-            <td>{{ p.status }}</td>
-            <td>{{ p.client?.name || '-' }}</td>
-            <td>
-              <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" severity="info" (onClick)="goToEdit(p)" />
+
+      <!-- Contenedor tabla (estilo dashboard) -->
+      <div class="projects-table-wrapper bg-zinc-800 rounded-lg border border-zinc-700">
+        <div class="p-6 border-b border-zinc-700">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div class="flex flex-wrap items-center gap-4">
+              <div class="relative">
+                <input
+                  type="text"
+                  [(ngModel)]="search"
+                  (ngModelChange)="onSearch()"
+                  placeholder="Buscar proyectos..."
+                  class="pl-10 pr-4 py-2 bg-zinc-700 border border-zinc-600 rounded-lg text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-64"
+                />
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+              </div>
               @if (isAdmin()) {
-                <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" (onClick)="confirmDelete(p)" />
+                <p-dropdown
+                  [options]="clients()"
+                  [(ngModel)]="filterClientId"
+                  (ngModelChange)="onFilterClient()"
+                  optionLabel="name"
+                  optionValue="id"
+                  [showClear]="true"
+                  placeholder="Todos los clientes"
+                  styleClass="projects-client-dropdown"
+                />
               }
-            </td>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
-          <tr><td colspan="5">No hay proyectos.</td></tr>
-        </ng-template>
-      </p-table>
-    </p-card>
+            </div>
+            @if (canCreateProject()) {
+              <a
+                [routerLink]="['/admin/projects', 'new', 'edit']"
+                class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors no-underline"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                <span>Nuevo proyecto</span>
+              </a>
+            }
+          </div>
+        </div>
+
+        @if (errorMessage()) {
+          <div class="px-6 pt-4">
+            <p-message severity="error" [text]="errorMessage()" />
+          </div>
+        }
+
+        <div class="p-6 pt-0">
+          <p-table
+            [value]="projects()"
+            [lazy]="true"
+            [paginator]="true"
+            [first]="firstRowIndex()"
+            [rows]="limit()"
+            [totalRecords]="total()"
+            (onLazyLoad)="load($event)"
+            [loading]="loading()"
+            [rowsPerPageOptions]="[5, 10, 25]"
+            [showCurrentPageReport]="true"
+            [currentPageReportTemplate]="getReportTemplate()"
+            styleClass="p-datatable-sm projects-datatable"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="width: 4rem">Orden</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Estado</th>
+                <th>Cliente</th>
+                <th style="width: 12rem">Acciones</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-p>
+              <tr class="cursor-pointer" (click)="goToEdit(p)">
+                <td (click)="$event.stopPropagation()">
+                  <span class="font-semibold text-white" [innerText]="displayOrder(p)"></span>
+                  <div class="flex gap-1 mt-1">
+                    <button
+                      type="button"
+                      class="p-1.5 rounded bg-zinc-600 hover:bg-zinc-500 text-zinc-300 disabled:opacity-40 disabled:cursor-not-allowed"
+                      [disabled]="isFirstOrder(p)"
+                      (click)="moveUp(p); $event.stopPropagation()"
+                      pTooltip="Subir"
+                    >
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+                    </button>
+                    <button
+                      type="button"
+                      class="p-1.5 rounded bg-zinc-600 hover:bg-zinc-500 text-zinc-300"
+                      (click)="moveDown(p); $event.stopPropagation()"
+                      pTooltip="Bajar"
+                    >
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                  </div>
+                </td>
+                <td class="text-white font-medium">{{ p.name }}</td>
+                <td class="text-zinc-400">{{ p.category || '-' }}</td>
+                <td>
+                  <span
+                    class="px-2 py-1 text-xs rounded"
+                    [ngClass]="getStatusClasses(p)"
+                  >{{ p.status }}</span>
+                </td>
+                <td class="text-zinc-400">{{ p.client?.name || '-' }}</td>
+                <td (click)="$event.stopPropagation()">
+                  <div class="flex items-center gap-1">
+                    <a
+                      [routerLink]="['/admin/projects', p.id, 'edit']"
+                      class="inline-flex items-center gap-1 px-3 py-1.5 bg-zinc-600 hover:bg-zinc-500 text-white text-sm rounded transition-colors no-underline"
+                      (click)="$event.stopPropagation()"
+                    >
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                      <span>Editar</span>
+                    </a>
+                    @if (isAdmin()) {
+                      <button
+                        type="button"
+                        class="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-red-600/20 hover:bg-red-600/40 text-red-400 text-sm transition-colors"
+                        (click)="confirmDelete(p); $event.stopPropagation()"
+                        pTooltip="Eliminar proyecto"
+                      >
+                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        <span>Eliminar</span>
+                      </button>
+                    }
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr><td colspan="6" class="text-zinc-400 text-center py-8">No hay proyectos.</td></tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
 
     <p-dialog
       [visible]="dialogVisible()"
@@ -218,27 +293,39 @@ interface Paginated<T> {
     :host { display: block; }
     :host ::ng-deep .dialog-w-32 { width: 32rem; }
     :host ::ng-deep .w-full { width: 100%; }
-    :host ::ng-deep .filter-dropdown-min-width { min-width: 12rem; }
-    :host ::ng-deep .btn-new-project { padding: 0.4rem 0.75rem; }
-    .search-bar {
-      flex: 1 1 auto;
+    :host ::ng-deep .projects-client-dropdown .p-dropdown {
+      background: rgb(63 63 70);
+      border-color: rgb(82 82 91);
       min-width: 12rem;
-      max-width: 20rem;
     }
-    :host ::ng-deep .search-bar.p-input-icon-left {
-      display: block;
+    :host ::ng-deep .projects-client-dropdown .p-dropdown-label,
+    :host ::ng-deep .projects-client-dropdown .p-dropdown-placeholder {
+      color: rgb(161 161 170);
     }
-    :host ::ng-deep .search-bar .p-inputtext,
-    :host ::ng-deep .search-bar input.search-input {
-      width: 100%;
+    :host ::ng-deep .projects-datatable .p-datatable-header,
+    :host ::ng-deep .projects-datatable .p-datatable-thead > tr > th {
+      background: rgb(63 63 70) !important;
+      border-color: rgb(82 82 91) !important;
+      color: rgb(212 212 216) !important;
     }
-    :host ::ng-deep .search-bar.p-input-icon-left i {
-      left: 0.75rem;
-      top: 50%;
-      transform: translateY(-50%);
+    :host ::ng-deep .projects-datatable .p-datatable-tbody > tr > td {
+      background: rgb(39 39 42) !important;
+      border-color: rgb(63 63 70) !important;
     }
-    :host ::ng-deep .search-bar.p-input-icon-left .p-inputtext {
-      padding-left: 2.25rem;
+    :host ::ng-deep .projects-datatable .p-datatable-tbody > tr:hover > td {
+      background: rgb(63 63 70) !important;
+    }
+    :host ::ng-deep .projects-datatable .p-paginator {
+      background: rgb(63 63 70) !important;
+      border-color: rgb(82 82 91) !important;
+      color: rgb(212 212 216) !important;
+    }
+    :host ::ng-deep .projects-datatable .p-paginator .p-paginator-element {
+      color: rgb(212 212 216);
+    }
+    :host ::ng-deep .projects-datatable .p-paginator .p-paginator-element:hover {
+      background: rgb(82 82 91);
+      color: white;
     }
   `],
 })
@@ -284,8 +371,26 @@ export class AdminProjectsComponent {
     status: 'DRAFT',
     description: '',
   };
-  readonly reportTemplate = 'Mostrando {first} a {last} de {totalRecords}';
   readonly firstRowIndex = computed(() => (this.page() - 1) * this.limit());
+
+  getReportTemplate(): string {
+    return 'Mostrando {first} a {last} de {totalRecords}';
+  }
+
+  getStatusClasses(p: Project): string {
+    if (p.status === 'DRAFT') return 'bg-yellow-600/20 text-yellow-400';
+    if (p.status === 'PUBLISHED') return 'bg-green-600/20 text-green-400';
+    if (p.status === 'PENDING') return 'bg-orange-600/20 text-orange-400';
+    return '';
+  }
+
+  displayOrder(p: Project): number {
+    return (p.order != null ? p.order : 0) + 1;
+  }
+
+  isFirstOrder(p: Project): boolean {
+    return (p.order ?? 0) === 0;
+  }
 
   constructor() {
     const user = this.authService.currentUser();
@@ -417,9 +522,10 @@ export class AdminProjectsComponent {
         next: (created) => {
           this.message.add({ severity: 'success', summary: 'Proyecto creado' });
           this.closeDialog();
-          this.fetch();
           if (created?.id) {
             this.router.navigate(['/admin/projects', created.id, 'edit']);
+          } else {
+            this.fetch();
           }
         },
         error: (err) => this.message.add({ severity: 'error', summary: err?.error?.message || 'Error al crear' }),
@@ -443,6 +549,31 @@ export class AdminProjectsComponent {
         this.fetch();
       },
       error: (err) => this.message.add({ severity: 'error', summary: err?.error?.message || 'Error al eliminar' }),
+    });
+  }
+
+  moveUp(project: Project): void {
+    const currentOrder = project.order ?? 0;
+    if (currentOrder <= 0) return;
+    const newOrder = currentOrder - 1;
+    this.api.patch(`projects/${project.id}/order/${newOrder}`, {}).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: () => {
+        this.message.add({ severity: 'success', summary: 'Orden actualizado' });
+        this.fetch();
+      },
+      error: (err) => this.message.add({ severity: 'error', summary: err?.error?.message || 'Error al cambiar orden' }),
+    });
+  }
+
+  moveDown(project: Project): void {
+    const currentOrder = project.order ?? 0;
+    const newOrder = currentOrder + 1;
+    this.api.patch(`projects/${project.id}/order/${newOrder}`, {}).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: () => {
+        this.message.add({ severity: 'success', summary: 'Orden actualizado' });
+        this.fetch();
+      },
+      error: (err) => this.message.add({ severity: 'error', summary: err?.error?.message || 'Error al cambiar orden' }),
     });
   }
 }

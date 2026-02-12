@@ -52,7 +52,6 @@ import { ProjectEditContextService } from '../project-edit-context.service';
           <ng-container *ngIf="!isNew()">
             <a [routerLink]="['/admin/projects', projectId(), 'edit', 'desafio-solucion']" routerLinkActive="active" class="tab-link">Desafío y solución</a>
             <a [routerLink]="['/admin/projects', projectId(), 'edit', 'ubicacion']" routerLinkActive="active" class="tab-link">Ubicación</a>
-            <a [routerLink]="['/admin/projects', projectId(), 'edit', 'enlaces']" routerLinkActive="active" class="tab-link">Enlaces</a>
             <a [routerLink]="['/admin/projects', projectId(), 'edit', 'contacto']" routerLinkActive="active" class="tab-link">Contacto</a>
             <a [routerLink]="['/admin/projects', projectId(), 'edit', 'presupuesto']" routerLinkActive="active" class="tab-link">Presupuesto</a>
             <a [routerLink]="['/admin/projects', projectId(), 'edit', 'galeria']" routerLinkActive="active" class="tab-link">Galería</a>

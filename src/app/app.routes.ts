@@ -5,6 +5,7 @@ import { projectEditTabGuard } from './core/guards/project-edit-tab.guard';
 
 export const routes: Routes = [
   { path: '', loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent) },
+  { path: 'proyecto/:id', loadComponent: () => import('./components/project-detail/project-detail.component').then(m => m.ProjectDetailComponent) },
   { path: 'login', loadComponent: () => import('./components/auth/login/login.component').then(m => m.LoginComponent) },
   {
     path: 'admin',
@@ -27,7 +28,7 @@ export const routes: Routes = [
           { path: 'informacion', loadComponent: () => import('./pages/admin/admin-projects/admin-project-edit/project-edit-informacion-tab.component').then(m => m.ProjectEditInformacionTabComponent) },
           { path: 'desafio-solucion', loadComponent: () => import('./pages/admin/admin-projects/admin-project-edit/project-edit-desafio-solucion-tab.component').then(m => m.ProjectEditDesafioSolucionTabComponent), canActivate: [projectEditTabGuard] },
           { path: 'ubicacion', loadComponent: () => import('./pages/admin/admin-projects/admin-project-edit/project-edit-ubicacion-tab.component').then(m => m.ProjectEditUbicacionTabComponent), canActivate: [projectEditTabGuard] },
-          { path: 'enlaces', loadComponent: () => import('./pages/admin/admin-projects/admin-project-edit/project-edit-enlaces-tab.component').then(m => m.ProjectEditEnlacesTabComponent), canActivate: [projectEditTabGuard] },
+          { path: 'enlaces', redirectTo: 'informacion', pathMatch: 'full' },
           { path: 'contacto', loadComponent: () => import('./pages/admin/admin-projects/admin-project-edit/project-edit-contacto-tab.component').then(m => m.ProjectEditContactoTabComponent), canActivate: [projectEditTabGuard] },
           { path: 'presupuesto', loadComponent: () => import('./pages/admin/admin-projects/admin-project-edit/project-edit-presupuesto-tab.component').then(m => m.ProjectEditPresupuestoTabComponent), canActivate: [projectEditTabGuard] },
           { path: 'galeria', loadComponent: () => import('./pages/admin/admin-projects/admin-project-edit/project-edit-galeria-tab.component').then(m => m.ProjectEditGaleriaTabComponent), canActivate: [projectEditTabGuard] },

@@ -12,6 +12,7 @@ import { ProjectGalleryEditorComponent } from '../project-gallery-editor/project
         <app-project-gallery-editor
           [projectId]="ctx.project()!.id"
           [gallery]="ctx.project()!.gallery ?? []"
+          [coverImageId]="ctx.project()!.coverImageId ?? null"
           (updated)="onUpdated()"
         />
       </section>
