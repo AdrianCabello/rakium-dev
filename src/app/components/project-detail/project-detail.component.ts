@@ -1,8 +1,8 @@
 import { Component, inject, computed, OnInit, signal, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { LucideAngularModule, ArrowLeft, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-angular';
+import { LucideAngularModule, ArrowLeft, ChevronLeft, ChevronRight, ExternalLink, X } from 'lucide-angular';
 import { DialogModule } from 'primeng/dialog';
 import { ProjectsService, RakiumProject } from '../../core/services/projects.service';
 import { HeaderComponent } from '../header/header.component';
@@ -21,11 +21,19 @@ const CATEGORY_LABELS: Record<string, string> = {
   standalone: true,
   imports: [CommonModule, RouterLink, LucideAngularModule, HeaderComponent, DialogModule],
   templateUrl: './project-detail.component.html',
+  styles: [
+    `
+      :host ::ng-deep .p-dialog-no-header .p-dialog-header {
+        display: none;
+      }
+    `,
+  ],
 })
 export class ProjectDetailComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly projectsService = inject(ProjectsService);
   private readonly sanitizer = inject(DomSanitizer);
+  private readonly viewportScroller = inject(ViewportScroller);
 
   private readonly id = signal<string | null>(null);
   readonly project = computed<RakiumProject | undefined>(() => {
@@ -78,6 +86,7 @@ export class ProjectDetailComponent implements OnInit {
   externalLinkIcon = ExternalLink;
   chevronLeftIcon = ChevronLeft;
   chevronRightIcon = ChevronRight;
+  closeIcon = X;
 
   readonly lightboxVisible = signal(false);
   readonly lightboxIndex = signal(0);
@@ -164,6 +173,7 @@ export class ProjectDetailComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       this.id.set(id);
+      this.viewportScroller.scrollToPosition([0, 0]);
       if (id && !this.projectsService.getProjectById(id)) {
         this.projectsService.loadProjectById(id);
       }

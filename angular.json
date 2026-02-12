@@ -75,7 +75,7 @@
                   "maximumError": "8kb"
                 }
               ],
-              "outputHashing": "none",
+              "outputHashing": "all",
               "baseHref": "/",
               "deployUrl": "/"
             },
