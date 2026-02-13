@@ -54,6 +54,44 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
+## Testing SSR (Server-Side Rendering)
+
+### 1. Probar SSR en local (sin Docker)
+
+Desde la raíz del proyecto `rakium-dev`:
+
+```bash
+# Build de la app (browser + server)
+npm run build:ssr
+
+# Levantar el servidor Node con SSR (puerto 4000 por defecto)
+npm run serve:ssr
+```
+
+Abrí **http://localhost:4000**. La app se sirve desde Node con renderizado en el servidor. Para comprobar que es SSR, inspeccioná el HTML de la página (View Source): deberías ver el contenido ya renderizado en lugar de un `<app-root>` vacío.
+
+### 2. Probar con Docker
+
+Desde la raíz del proyecto `rakium-dev`:
+
+```bash
+# Construir la imagen
+docker build -t rakium-dev .
+
+# Ejecutar el contenedor (mapea el puerto 4000)
+docker run -p 4000:4000 rakium-dev
+```
+
+Abrí **http://localhost:4000**. Es el mismo resultado que `serve:ssr`, pero dentro del contenedor.
+
+Para usar otro puerto en el host, por ejemplo 8080:
+
+```bash
+docker run -p 8080:4000 -e PORT=4000 rakium-dev
+```
+
+Y entrá a **http://localhost:8080**.
+
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
