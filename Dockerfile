@@ -21,7 +21,7 @@ WORKDIR /app
 # Copiar solo lo necesario para ejecutar
 COPY --from=builder /app/dist/rakium-dev ./dist/rakium-dev
 COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/package-lock.json* ./package-lock.json*
+COPY --from=builder /app/package-lock.json ./package-lock.json
 
 # Asegurar que exista dist/rakium-dev/browser (por si Dokploy inyecta .env ahí)
 RUN mkdir -p dist/rakium-dev/browser && touch dist/rakium-dev/browser/.env
