@@ -33,5 +33,5 @@ RUN npm ci --omit=dev
 ENV PORT=4000
 EXPOSE 4000
 
-# Comando para iniciar el servidor SSR
+# Comando para iniciar el servidor
 CMD ["node", "dist/rakium-dev/server/main.js"]
