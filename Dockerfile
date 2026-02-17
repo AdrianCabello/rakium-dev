@@ -34,4 +34,4 @@ ENV PORT=4000
 EXPOSE 4000
 
 # Comando para iniciar el servidor
-CMD ["node", "dist/rakium-dev/server/main.js"]
+CMD ["node", "dist/rakium-dev/server/server.mjs"]
