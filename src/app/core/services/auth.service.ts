@@ -1,4 +1,5 @@
-import { inject, Injectable, signal, computed } from '@angular/core';
+import { inject, Injectable, signal, computed, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap, catchError, of } from 'rxjs';
@@ -16,6 +17,7 @@ export interface LoginResponse {
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
+  private readonly platformId = inject(PLATFORM_ID);
   private readonly baseUrl = environment.apiUrl;
 
   private readonly token = signal<string | null>(this.getStoredToken());
@@ -25,10 +27,12 @@ export class AuthService {
   readonly currentUser = this.user.asReadonly();
 
   private getStoredToken(): string | null {
+    if (!isPlatformBrowser(this.platformId)) return null;
     return localStorage.getItem(TOKEN_KEY);
   }
 
   private getStoredUser(): LoginResponse['user'] | null {
+    if (!isPlatformBrowser(this.platformId)) return null;
     const raw = localStorage.getItem(USER_KEY);
     if (!raw) return null;
     try {
@@ -53,8 +57,10 @@ export class AuthService {
       .post<LoginResponse>(`${this.baseUrl}/auth/login`, { email, password })
       .pipe(
         tap((res) => {
-          localStorage.setItem(TOKEN_KEY, res.access_token);
-          localStorage.setItem(USER_KEY, JSON.stringify(res.user));
+          if (isPlatformBrowser(this.platformId)) {
+            localStorage.setItem(TOKEN_KEY, res.access_token);
+            localStorage.setItem(USER_KEY, JSON.stringify(res.user));
+          }
           this.token.set(res.access_token);
           this.user.set(res.user);
         })
@@ -62,8 +68,10 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(USER_KEY);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_KEY);
+    }
     this.token.set(null);
     this.user.set(null);
     this.router.navigate(['/login']);

@@ -1,55 +1,70 @@
-import { APP_BASE_HREF } from '@angular/common';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/app.component';
-import { config } from './app/app.config.server';
+import {
+  AngularNodeAppEngine,
+  createNodeRequestHandler,
+  isMainModule,
+  writeResponseToNodeResponse,
+} from '@angular/ssr/node';
 import express from 'express';
-import { fileURLToPath } from 'url';
-import { dirname, join, resolve } from 'path';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-// The Express app is exported so that it can be used by serverless Functions.
-export function app(): express.Express {
-  const server = express();
-  const serverDistFolder = dirname(fileURLToPath(import.meta.url));
-  const browserDistFolder = resolve(serverDistFolder, '../browser');
-  const indexHtml = join(serverDistFolder, 'index.server.html');
+const serverDistFolder = dirname(fileURLToPath(import.meta.url));
+const browserDistFolder = resolve(serverDistFolder, '../browser');
 
-  server.set('view engine', 'html');
-  server.set('views', browserDistFolder);
+const app = express();
+const angularApp = new AngularNodeAppEngine();
 
-  // Serve static files from /browser
-  server.get('*.*', express.static(browserDistFolder, {
-    maxAge: '1y'
-  }));
+/**
+ * Serve static files from /browser
+ */
+app.use(
+  express.static(browserDistFolder, {
+    maxAge: '1y',
+    index: false,
+    redirect: false,
+    etag: false,
+    lastModified: false,
+    setHeaders: (res, path) => {
+      if (path.endsWith('.html')) {
+        res.setHeader('Cache-Control', 'no-store');
+      }
+    },
+  })
+);
 
-  // All regular routes use the Universal engine
-  server.get('*', async (req, res, next) => {
-    const { protocol, originalUrl, baseUrl, headers } = req;
+/**
+ * Handle all other requests by rendering the Angular application.
+ */
+app.get('*', (req, res, next) => {
+  const hostname = req.get('host') || '';
 
-    try {
-      const html = await bootstrapApplication(AppComponent, {
-        ...config,
-        providers: [
-          ...config.providers,
-          { provide: APP_BASE_HREF, useValue: baseUrl }
-        ]
-      });
-      res.send(html);
-    } catch (err) {
-      next(err);
-    }
-  });
+  // Establecer el hostname en globalThis para que Angular SSR pueda accederlo (opcional)
+  (globalThis as unknown as { __SSR_HOSTNAME__?: string }).__SSR_HOSTNAME__ = hostname;
 
-  return server;
-}
+  angularApp
+    .handle(req)
+    .then((response) => {
+      delete (globalThis as unknown as { __SSR_HOSTNAME__?: string }).__SSR_HOSTNAME__;
+      return response ? writeResponseToNodeResponse(response, res) : next();
+    })
+    .catch((error) => {
+      delete (globalThis as unknown as { __SSR_HOSTNAME__?: string }).__SSR_HOSTNAME__;
+      console.error('SSR Error:', error);
+      next(error);
+    });
+});
 
-function run(): void {
+/**
+ * Start the server if this module is the main entry point.
+ */
+if (isMainModule(import.meta.url)) {
   const port = process.env['PORT'] || 4000;
-
-  // Start up the Node server
-  const server = app();
-  server.listen(port, () => {
+  app.listen(port, () => {
     console.log(`Node Express server listening on http://localhost:${port}`);
   });
 }
 
-run(); 
+/**
+ * Request handler used by the Angular CLI (for dev-server and during build).
+ */
+export const reqHandler = createNodeRequestHandler(app);
