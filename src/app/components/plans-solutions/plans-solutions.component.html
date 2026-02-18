@@ -1,0 +1,224 @@
+<section id="planes" class="w-full py-24 bg-zinc-950 text-white">
+  <div class="container mx-auto px-4 max-w-6xl">
+    <!-- Section Header -->
+    <div class="text-center mb-20">
+      <span class="inline-block text-blue-400 text-sm font-medium tracking-wider uppercase mb-4">Planes y soluciones</span>
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+        Soluciones digitales que impulsan tu negocio
+      </h2>
+      <p class="text-zinc-400 text-lg max-w-2xl mx-auto">
+        Diseño, desarrollo web, e-commerce, sistemas a medida y automatización para empresas en Argentina y Latinoamérica.
+      </p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- 0) SERVICIOS DE DISEÑO -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="mb-24">
+      <div class="flex items-center gap-3 mb-12">
+        <div class="w-10 h-10 rounded-lg bg-blue-600/20 flex items-center justify-center">
+          <i-lucide [name]="paletteIcon" class="text-blue-400" size="20"></i-lucide>
+        </div>
+        <h3 class="text-2xl font-bold text-white">Servicios de Diseño</h3>
+      </div>
+      <p class="text-zinc-400 mb-10 max-w-2xl">
+        Diseño que comunica tu marca. Identidad visual, contenido para redes y piezas para eventos. Todo con una mirada coherente y profesional.
+      </p>
+      <div class="grid md:grid-cols-3 gap-6">
+        @for (sol of designSolutions; track sol.id) {
+          <article class="plan-card rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 flex flex-col">
+            <h4 class="text-xl font-bold text-white mb-3">{{ sol.name }}</h4>
+            <p class="text-zinc-400 text-sm">{{ sol.description }}</p>
+          </article>
+        }
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- 1) WEB INSTITUCIONAL -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="mb-24">
+      <div class="flex items-center gap-3 mb-12">
+        <div class="w-10 h-10 rounded-lg bg-blue-600/20 flex items-center justify-center">
+          <i-lucide [name]="globeIcon" class="text-blue-400" size="20"></i-lucide>
+        </div>
+        <h3 class="text-2xl font-bold text-white">Web Institucional</h3>
+      </div>
+
+      <!-- Tabla comparativa (oculta en mobile) -->
+      <div class="hidden md:block overflow-x-auto rounded-xl border border-zinc-800 mb-12">
+        <table class="w-full min-w-[640px]">
+          <thead>
+            <tr class="border-b border-zinc-800">
+              <th class="text-left py-4 px-6 text-zinc-400 font-medium text-sm">Funcionalidad</th>
+              @for (plan of webPlans; track plan.id) {
+                <th class="text-center py-4 px-6 font-semibold text-white">
+                  {{ plan.name }}
+                  @if (plan.recommended) {
+                    <span class="block text-xs text-blue-400 font-normal mt-1">Recomendado</span>
+                  }
+                </th>
+              }
+            </tr>
+          </thead>
+          <tbody>
+            @for (i of tableRowIndices; track i) {
+              <tr class="border-b border-zinc-800/80 hover:bg-zinc-900/50 transition-colors">
+                <td class="py-4 px-6 text-zinc-300 text-sm">{{ getTableRowLabel(i) }}</td>
+                @for (plan of webPlans; track plan.id) {
+                  <td class="text-center py-4 px-6">
+                    @if (plan.tableFeatures?.[i]?.included) {
+                      <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400">
+                        <i-lucide [name]="checkIcon" size="14"></i-lucide>
+                      </span>
+                    } @else {
+                      <span class="text-zinc-600">—</span>
+                    }
+                  </td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Cards detalladas -->
+      <div class="grid md:grid-cols-3 gap-6">
+        @for (plan of webPlans; track plan.id) {
+          <article
+            class="plan-card rounded-2xl border bg-zinc-900/50 p-6 flex flex-col"
+            [class.plan-recommended]="plan.recommended"
+            [class.border-blue-500]="plan.recommended"
+            [class.border-zinc-800]="!plan.recommended"
+          >
+            @if (plan.recommended) {
+              <span class="self-start text-xs font-semibold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full mb-4">Recomendado</span>
+            }
+            <h4 class="text-xl font-bold text-white mb-1">{{ plan.name }}</h4>
+            <p class="text-sm text-zinc-400 mb-4">{{ plan.tagline }}</p>
+            <p class="text-zinc-500 text-sm mb-4 flex-grow">{{ plan.problem }}</p>
+            <ul class="space-y-2 mb-6 text-sm text-zinc-300">
+              @for (f of plan.features; track f) {
+                <li class="flex items-start gap-2">
+                  <i-lucide [name]="checkIcon" class="text-emerald-500 shrink-0 mt-0.5" size="16"></i-lucide>
+                  {{ f }}
+                </li>
+              }
+            </ul>
+            <div class="border-t border-zinc-800 pt-4 space-y-2 text-xs text-zinc-500">
+              <p><span class="text-zinc-400">Diferencial:</span> {{ plan.diferencial }}</p>
+              <p><span class="text-zinc-400">Modelo:</span> {{ plan.model }}</p>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- 2) E-COMMERCE -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="mb-24">
+      <div class="flex items-center gap-3 mb-12">
+        <div class="w-10 h-10 rounded-lg bg-blue-600/20 flex items-center justify-center">
+          <i-lucide [name]="shoppingCartIcon" class="text-blue-400" size="20"></i-lucide>
+        </div>
+        <h3 class="text-2xl font-bold text-white">E-commerce</h3>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        @for (sol of ecommerceSolutions; track sol.id) {
+          <article class="plan-card rounded-2xl border border-zinc-800 bg-zinc-900/50 p-8 flex flex-col">
+            <h4 class="text-xl font-bold text-white mb-2">{{ sol.name }}</h4>
+            <p class="text-zinc-400 text-sm mb-4">{{ sol.tagline }}</p>
+            <p class="text-zinc-500 text-sm mb-4">{{ sol.problem }}</p>
+            <div class="mb-4">
+              <span class="text-xs font-medium text-zinc-500 uppercase tracking-wide">Ideal para</span>
+              <p class="text-zinc-400 text-sm mt-1">{{ sol.idealFor.join(' · ') }}</p>
+            </div>
+            <ul class="space-y-2 mb-6 text-sm text-zinc-300 flex-grow">
+              @for (f of sol.features; track f) {
+                <li class="flex items-start gap-2">
+                  <i-lucide [name]="checkIcon" class="text-emerald-500 shrink-0 mt-0.5" size="16"></i-lucide>
+                  {{ f }}
+                </li>
+              }
+            </ul>
+            <div class="border-t border-zinc-800 pt-4 space-y-2 text-xs text-zinc-500 mb-4">
+              <p><span class="text-zinc-400">Diferencial:</span> {{ sol.diferencial }}</p>
+              <p><span class="text-zinc-400">Modelo:</span> {{ sol.model }}</p>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- 3) SISTEMAS Y PLATAFORMAS DIGITALES -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="mb-24">
+      <div class="flex items-center gap-3 mb-12">
+        <div class="w-10 h-10 rounded-lg bg-blue-600/20 flex items-center justify-center">
+          <i-lucide [name]="layersIcon" class="text-blue-400" size="20"></i-lucide>
+        </div>
+        <h3 class="text-2xl font-bold text-white">Sistemas y plataformas digitales</h3>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for (sol of sistemasSolutions; track sol.id) {
+          <article class="plan-card rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 flex flex-col">
+            <h4 class="text-lg font-bold text-white mb-2">{{ sol.name }}</h4>
+            <p class="text-zinc-400 text-sm mb-3">{{ sol.tagline }}</p>
+            <p class="text-zinc-500 text-xs mb-3 line-clamp-2">{{ sol.problem }}</p>
+            <ul class="space-y-1.5 mb-4 text-xs text-zinc-400 flex-grow">
+              @for (f of sol.features; track f) {
+                <li class="flex items-start gap-2">
+                  <i-lucide [name]="checkIcon" class="text-emerald-500 shrink-0 mt-0.5" size="14"></i-lucide>
+                  {{ f }}
+                </li>
+              }
+            </ul>
+            <p class="text-xs text-zinc-500 mb-3 line-clamp-2"><span class="text-zinc-400">Diferencial:</span> {{ sol.diferencial }}</p>
+          </article>
+        }
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- 4) AUTOMATIZACIÓN E INTEGRACIONES -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div>
+      <div class="flex items-center gap-3 mb-12">
+        <div class="w-10 h-10 rounded-lg bg-blue-600/20 flex items-center justify-center">
+          <i-lucide [name]="zapIcon" class="text-blue-400" size="20"></i-lucide>
+        </div>
+        <h3 class="text-2xl font-bold text-white">Automatización e integraciones</h3>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        @for (sol of automatizacionSolutions; track sol.id) {
+          <article class="plan-card rounded-2xl border border-zinc-800 bg-zinc-900/50 p-8 flex flex-col">
+            <h4 class="text-xl font-bold text-white mb-2">{{ sol.name }}</h4>
+            <p class="text-zinc-400 text-sm mb-4">{{ sol.tagline }}</p>
+            <p class="text-zinc-500 text-sm mb-4">{{ sol.problem }}</p>
+            <div class="mb-4">
+              <span class="text-xs font-medium text-zinc-500 uppercase tracking-wide">Ideal para</span>
+              <p class="text-zinc-400 text-sm mt-1">{{ sol.idealFor.join(' · ') }}</p>
+            </div>
+            <ul class="space-y-2 mb-6 text-sm text-zinc-300 flex-grow">
+              @for (f of sol.features; track f) {
+                <li class="flex items-start gap-2">
+                  <i-lucide [name]="checkIcon" class="text-emerald-500 shrink-0 mt-0.5" size="16"></i-lucide>
+                  {{ f }}
+                </li>
+              }
+            </ul>
+            <div class="border-t border-zinc-800 pt-4 space-y-2 text-xs text-zinc-500 mb-4">
+              <p><span class="text-zinc-400">Diferencial:</span> {{ sol.diferencial }}</p>
+              <p><span class="text-zinc-400">Modelo:</span> {{ sol.model }}</p>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </div>
+</section>
