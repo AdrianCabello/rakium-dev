@@ -1,8 +1,10 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LucideAngularModule, Globe, ImageOff } from 'lucide-angular';
+import { GalleriaModule } from 'primeng/galleria';
 import { ProjectsService } from '../../core/services/projects.service';
+import { SafeHtmlPipe } from '../../core/pipes/safe-html.pipe';
 
 const CATEGORY_LABELS: Record<string, string> = {
   ESTACIONES: 'Estaciones',
@@ -14,7 +16,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, GalleriaModule, SafeHtmlPipe],
   templateUrl: './projects.component.html',
 })
 export class ProjectsComponent implements OnInit {
@@ -27,19 +29,24 @@ export class ProjectsComponent implements OnInit {
   readonly errorMessage = this.projectsService.errorMessage;
   readonly hasMoreProjects = this.projectsService.hasMoreProjects;
 
-  currentImageIndex = signal<Record<string, number>>({});
-
   globeIcon = Globe;
+
+  /** Convierte las URLs del proyecto al formato que Galleria espera */
+  getGalleriaImages(project: { images: string[] }): { itemImageSrc: string; thumbnailImageSrc: string }[] {
+    return (project.images || []).map((url) => ({ itemImageSrc: url, thumbnailImageSrc: url }));
+  }
+
+  /** Opciones responsivas para Galleria (basado en ejemplo PrimeNG) */
+  readonly responsiveOptions = [
+    { breakpoint: '1024px', numVisible: 5 },
+    { breakpoint: '768px', numVisible: 3 },
+    { breakpoint: '560px', numVisible: 1 },
+  ];
   imageOffIcon = ImageOff;
 
   /** Etiqueta legible para categoría/type (ej. SITIO_WEB → "Sitio web"). */
   getCategoryLabel(value: string): string {
     return CATEGORY_LABELS[value] ?? value;
-  }
-
-  /** Índice actual de imagen para un proyecto (0 en primera carga). */
-  getImageIndex(projectId: string): number {
-    return this.currentImageIndex()[projectId] ?? 0;
   }
 
   ngOnInit(): void {
@@ -52,36 +59,5 @@ export class ProjectsComponent implements OnInit {
 
   goToProject(id: string): void {
     this.router.navigate(['/proyecto', id]);
-  }
-
-  prevImage(projectId: string, event: Event): void {
-    event.stopPropagation();
-    const list = this.projects().find((p) => p.id === projectId);
-    if (!list) return;
-    const total = list.images.length;
-    if (total <= 1) return;
-    this.currentImageIndex.update((idx) => {
-      const key = String(projectId);
-      const next = (idx[key] ?? 0) - 1 + total;
-      return { ...idx, [key]: next % total };
-    });
-  }
-
-  nextImage(projectId: string, event: Event): void {
-    event.stopPropagation();
-    const list = this.projects().find((p) => p.id === projectId);
-    if (!list) return;
-    const total = list.images.length;
-    if (total <= 1) return;
-    this.currentImageIndex.update((idx) => {
-      const key = String(projectId);
-      const next = (idx[key] ?? 0) + 1;
-      return { ...idx, [key]: next % total };
-    });
-  }
-
-  goToImage(projectId: string, index: number, event: Event): void {
-    event.stopPropagation();
-    this.currentImageIndex.update((idx) => ({ ...idx, [String(projectId)]: index }));
   }
 }

@@ -1,6 +1,7 @@
 import { Component, inject, computed, OnInit, signal, HostListener } from '@angular/core';
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { SafeHtmlPipe } from '../../core/pipes/safe-html.pipe';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { LucideAngularModule, ArrowLeft, ChevronLeft, ChevronRight, ExternalLink, X } from 'lucide-angular';
 import { DialogModule } from 'primeng/dialog';
@@ -19,12 +20,38 @@ const CATEGORY_LABELS: Record<string, string> = {
 @Component({
   selector: 'app-project-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, LucideAngularModule, HeaderComponent, DialogModule],
+  imports: [CommonModule, RouterLink, LucideAngularModule, HeaderComponent, DialogModule, SafeHtmlPipe],
   templateUrl: './project-detail.component.html',
   styles: [
     `
       :host ::ng-deep .p-dialog-no-header .p-dialog-header {
         display: none;
+      }
+      .prose-content {
+        min-width: 0;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+      .prose-content ::ng-deep p {
+        margin-bottom: 1rem;
+      }
+      .prose-content ::ng-deep p:last-child {
+        margin-bottom: 0;
+      }
+      .prose-content ::ng-deep ul,
+      .prose-content ::ng-deep ol {
+        margin: 1rem 0;
+        padding-left: 1.5rem;
+      }
+      .prose-content ::ng-deep li {
+        margin-bottom: 0.5rem;
+      }
+      .prose-content ::ng-deep h1,
+      .prose-content ::ng-deep h2,
+      .prose-content ::ng-deep h3 {
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+        font-weight: 600;
       }
     `,
   ],

@@ -13,9 +13,9 @@
         </div>
         <h3 class="text-2xl font-bold text-zinc-900 dark:text-white mb-3">Contáctanos por WhatsApp</h3>
         <p class="text-zinc-600 dark:text-zinc-400 mb-6">
-          ¿Querés cotizar tu web, app o proyecto digital? Escribinos por WhatsApp y recibí una propuesta profesional y personalizada en menos de 24 horas.
+          ¿Querés cotizar tu web, app, diseño (branding, redes, flyers) o proyecto digital? Escribinos por WhatsApp y recibí una propuesta profesional y personalizada en menos de 24 horas.
         </p>
-        <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer"
+        <a [href]="whatsappUrl()" target="_blank" rel="noopener noreferrer"
           class="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-full transition-colors w-full max-w-xs">
           <i-lucide [name]="messageIcon" class="w-5 h-5"></i-lucide>
           Pedir presupuesto
@@ -32,14 +32,15 @@
           Seguinos para conocer nuestros proyectos, novedades y tendencias en desarrollo digital.
         </p>
         <div class="flex gap-4 justify-center">
-          <a [href]="instagramUrl" target="_blank" rel="noopener noreferrer"
-            class="w-12 h-12 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-full flex items-center justify-center transition-colors">
-            <i-lucide [name]="instagramIcon" class="w-6 h-6 text-zinc-900 dark:text-white"></i-lucide>
-          </a>
-          <a [href]="linkedinUrl" target="_blank" rel="noopener noreferrer"
-            class="w-12 h-12 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-full flex items-center justify-center transition-colors">
-            <i-lucide [name]="linkedinIcon" class="w-6 h-6 text-zinc-900 dark:text-white"></i-lucide>
-          </a>
+          @for (red of socialNetworks(); track red.id) {
+            @if (red.url) {
+              <a [href]="red.url" target="_blank" rel="noopener noreferrer"
+                class="w-12 h-12 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-full flex items-center justify-center transition-colors"
+                [attr.aria-label]="red.name">
+                <i-lucide [name]="red.icon" class="w-6 h-6 text-zinc-900 dark:text-white"></i-lucide>
+              </a>
+            }
+          }
         </div>
       </div>
     </div>

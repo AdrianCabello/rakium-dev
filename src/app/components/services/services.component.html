@@ -5,8 +5,57 @@
 
       <h2 class="text-4xl font-bold mb-6">Soluciones Personalizadas</h2>
       <p class="text-lg text-zinc-600 dark:text-zinc-400">
-        Desarrollamos soluciones web a medida para impulsar tu negocio
+        Desarrollamos soluciones web y de diseño a medida para impulsar tu negocio
       </p>
+    </div>
+
+    <!-- Servicios de Diseño -->
+    <div class="max-w-5xl mx-auto mb-12">
+      <div
+        class="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-700 overflow-hidden transition-all duration-300">
+        <div class="px-8 pt-10 pb-6 text-center">
+          <div
+            class="inline-block mb-4 px-4 py-1.5 rounded-full bg-violet-50 dark:bg-violet-950/50 text-violet-600 dark:text-violet-400 font-medium text-sm">
+            Servicios de Diseño
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-2 text-zinc-900 dark:text-white">Diseño que comunica tu marca</h2>
+          <p class="text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
+            Identidad visual, contenido para redes y piezas para eventos. Todo con una mirada coherente y profesional.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-zinc-200 dark:border-zinc-800">
+          <!-- Branding -->
+          <div class="p-8 flex flex-col border-b md:border-b-0 md:border-r border-zinc-200 dark:border-zinc-800">
+            <div class="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center mb-4">
+              <lucide-icon [name]="paletteIcon" class="text-violet-600 dark:text-violet-400" size="24"></lucide-icon>
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-zinc-900 dark:text-white">Branding</h3>
+            <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
+              Desarrollo de sistemas visuales completos que incluyen logo, paleta de colores, tipografía y aplicaciones gráficas para construir una marca coherente y memorable.
+            </p>
+          </div>
+          <!-- Diseño para Redes Sociales -->
+          <div class="p-8 flex flex-col border-b md:border-b-0 md:border-r border-zinc-200 dark:border-zinc-800">
+            <div class="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center mb-4">
+              <lucide-icon [name]="share2Icon" class="text-violet-600 dark:text-violet-400" size="24"></lucide-icon>
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-zinc-900 dark:text-white">Diseño para Redes Sociales</h3>
+            <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
+              Creación de contenido visual y organización de tu feed para transmitir de forma clara lo que hacés y generar una presencia digital sólida y auténtica.
+            </p>
+          </div>
+          <!-- Flyers para Eventos -->
+          <div class="p-8 flex flex-col">
+            <div class="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center mb-4">
+              <lucide-icon [name]="imageIcon" class="text-violet-600 dark:text-violet-400" size="24"></lucide-icon>
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-zinc-900 dark:text-white">Flyers para Eventos</h3>
+            <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
+              Diseño de flyers impactantes y adaptados al estilo de cada evento, pensados para captar la atención del público y potenciar la comunicación.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Bloque unificado Portafolio / Web Institucional -->
@@ -96,7 +145,62 @@
     </div>
     <!-- Fin bloque unificado -->
 
-    <!-- Bloque unificado Sistema de Reservas / Sitio para Inmobiliarias -->
+    <!-- Servicios configurables desde admin -->
+    @if (configurableServices().length) {
+      <div class="max-w-5xl mx-auto mb-12">
+        <div
+          class="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-700 overflow-hidden transition-all duration-300">
+          <div class="px-8 pt-10 pb-6 text-center">
+            <div
+              class="inline-block mb-4 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 font-medium text-sm">
+              Soluciones Especializadas
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 text-zinc-900 dark:text-white">Sistemas a medida para tu
+              negocio</h2>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-zinc-200 dark:border-zinc-800">
+            @for (srv of configurableServices(); track srv.id) {
+              <div class="p-8 flex flex-col border-b md:border-b-0 border-r border-zinc-200 dark:border-zinc-800 last:border-r-0">
+                <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4">
+                  <i-lucide [name]="srv.icon" class="text-blue-600 dark:text-blue-400" size="24"></i-lucide>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-zinc-900 dark:text-white">{{ srv.title }}</h3>
+                <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-2">{{ srv.subtitle }}</p>
+                <p class="text-zinc-600 dark:text-zinc-400 text-sm mb-4">{{ srv.description }}</p>
+                @if (srv.idealFor.length) {
+                  <div class="mb-2">
+                    <span class="block text-xs font-medium text-zinc-600 dark:text-zinc-300 mb-1">Ideal para:</span>
+                    <div class="flex flex-wrap gap-1">
+                      @for (item of srv.idealFor; track item) {
+                        <span class="bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-200 rounded-full px-2 py-0.5 text-xs">{{ item }}</span>
+                      }
+                    </div>
+                  </div>
+                }
+                @if (srv.incluye.length) {
+                  <div class="mt-2">
+                    <span class="block text-xs font-medium text-zinc-600 dark:text-zinc-300 mb-1">Incluye:</span>
+                    <ul class="list-disc list-inside text-zinc-600 dark:text-zinc-400 text-xs space-y-0.5">
+                      @for (item of srv.incluye; track item) {
+                        <li>{{ item }}</li>
+                      }
+                    </ul>
+                  </div>
+                }
+                @if (srv.precioEstatico || srv.precioAutogestionable) {
+                  <div class="mt-4 text-xs text-zinc-500 dark:text-zinc-400 italic">
+                    {{ srv.precioEstatico || srv.precioAutogestionable }}
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Bloque unificado Sistema de Reservas / Sitio para Inmobiliarias (fallback estático si no hay servicios configurados) -->
+    @if (!configurableServices().length) {
     <div class="max-w-5xl mx-auto mb-12">
       <div
         class="bg-white dark:bg-zinc-900 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-700 overflow-hidden transition-all duration-300">
@@ -173,6 +277,7 @@
         </div>
       </div>
     </div>
+    }
     <!-- Fin bloque unificado -->
 
     <!-- Bloque unificado E-commerce -->

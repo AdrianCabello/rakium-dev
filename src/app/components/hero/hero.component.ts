@@ -1,6 +1,7 @@
-import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, Inject, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { LucideAngularModule, Palette, Code, Search, Settings, Sparkles, ArrowRight, Globe } from 'lucide-angular';
+import { SiteSettingsService } from '../../core/services/site-settings.service';
 
 @Component({
   selector: 'app-hero',
@@ -10,6 +11,7 @@ import { LucideAngularModule, Palette, Code, Search, Settings, Sparkles, ArrowRi
   styleUrl: './hero.component.scss'
 })
 export class HeroComponent implements OnInit {
+  readonly siteSettings = inject(SiteSettingsService);
   isLoaded = false;
   isBrowser: boolean;
   

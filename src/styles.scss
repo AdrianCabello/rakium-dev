@@ -20,3 +20,24 @@
     @apply m-0 font-sans antialiased bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white transition-colors duration-300;
   }
 }
+
+/* Galleria en proyectos: thumbnails visibles y sin recorte */
+.projects-galleria {
+
+  .p-galleria-content,
+  .p-galleria-item-wrapper,
+  .p-galleria-thumbnails-wrapper {
+    overflow: visible !important;
+  }
+
+  .p-galleria-thumbnail-item img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
+* {
+  margin: 0;
+}

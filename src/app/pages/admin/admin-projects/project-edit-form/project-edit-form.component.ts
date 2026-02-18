@@ -6,6 +6,7 @@ import { ApiService } from '../../../../core/services/api.service';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
+import { EditorModule } from 'primeng/editor';
 import type { ProjectFull } from '../project-edit.types';
 
 const PROJECT_CATEGORIES = [
@@ -39,7 +40,7 @@ const PROJECT_STATUSES = [
 @Component({
   selector: 'app-project-edit-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, DropdownModule],
+  imports: [CommonModule, FormsModule, ButtonModule, InputTextModule, DropdownModule, EditorModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h2 class="form-title">Datos del proyecto</h2>
@@ -87,7 +88,7 @@ const PROJECT_STATUSES = [
       </div>
       <div class="form-field">
         <label for="longDescription">Descripción extendida</label>
-        <textarea pInputText id="longDescription" [(ngModel)]="form.longDescription" name="longDescription" rows="5" placeholder="Texto completo del proyecto para la ficha pública" class="textarea-resize"></textarea>
+        <p-editor [(ngModel)]="form.longDescription" name="longDescription" [style]="{ height: '320px' }" />
       </div>
 
       <h3 class="form-subtitle">Fechas y duración</h3>
@@ -181,7 +182,8 @@ const PROJECT_STATUSES = [
     }
     .form-field input,
     .form-field textarea,
-    .form-field ::ng-deep .p-dropdown { width: 100%; }
+    .form-field ::ng-deep .p-dropdown,
+    .form-field ::ng-deep .p-editor-container { width: 100%; }
     .textarea-resize {
       resize: vertical;
       min-height: 6rem;

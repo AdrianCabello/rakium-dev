@@ -1,6 +1,6 @@
 <div class="min-h-screen flex flex-col bg-zinc-50 dark:bg-zinc-950 transition-colors duration-300">
   <app-header></app-header>
-  <div class="container mx-auto px-4 py-8 flex-grow pt-24 md:pt-28">
+  <div class="container mx-auto px-4 py-8 flex-grow pt-24 md:pt-28 min-w-0">
     <a
       routerLink="/"
       fragment="projects"
@@ -11,7 +11,7 @@
     </a>
 
     <ng-container *ngIf="project(); else notFound">
-      <article class="max-w-4xl mx-auto">
+      <article class="w-full min-w-0">
         <h1 class="!text-3xl md:!text-4xl font-bold text-zinc-900 dark:text-white mb-4">{{ project()!.name }}</h1>
         <p class="text-xl text-zinc-600 dark:text-zinc-400 mb-6" *ngIf="project()!.category">
           <span class="text-blue-600 dark:text-blue-400 font-medium">{{ getCategoryLabel(project()!.category!) }}</span>
@@ -33,13 +33,17 @@
           </p>
         </div>
 
-        <div class="prose prose-zinc dark:prose-invert max-w-none mb-10">
-          <p class="text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed" *ngIf="project()!.description">
-            {{ project()!.description }}
-          </p>
-          <p class="text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4" *ngIf="project()!.longDescription">
-            {{ project()!.longDescription }}
-          </p>
+        <div class="prose prose-zinc dark:prose-invert max-w-none mb-10 prose-content">
+          <div
+            class="text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed"
+            *ngIf="project()!.description"
+            [innerHTML]="project()!.description | safeHtml"
+          ></div>
+          <div
+            class="text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4"
+            *ngIf="project()!.longDescription"
+            [innerHTML]="project()!.longDescription | safeHtml"
+          ></div>
         </div>
 
         <!-- Imágenes del proyecto (antes/después) -->

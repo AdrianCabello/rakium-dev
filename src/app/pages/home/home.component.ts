@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 import { HeaderComponent } from '../../components/header/header.component';
 import { HeroComponent } from '../../components/hero/hero.component';
+import { SobreNosotrosComponent } from '../../components/sobre-nosotros/sobre-nosotros.component';
 import { ServicesComponent } from '../../components/services/services.component';
 import { SolutionsComponent } from '../../components/solutions/solutions.component';
 import { ProjectsComponent } from '../../components/projects-section/projects.component';
@@ -15,6 +16,7 @@ import { SeoService } from '../../core/services/seo.service';
   imports: [
     HeaderComponent,
     HeroComponent,
+    SobreNosotrosComponent,
     ServicesComponent,
     SolutionsComponent,
     ProjectsComponent,

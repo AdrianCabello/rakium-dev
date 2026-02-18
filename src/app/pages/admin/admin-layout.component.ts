@@ -47,7 +47,7 @@ import { AuthService } from '../../core/services/auth.service';
               >
                 Usuarios
               </a>
-              <a
+<a
                 [routerLink]="['/admin/categories']"
                 routerLinkActive="bg-blue-600 text-white"
                 class="px-4 py-2 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-700 transition-colors no-underline"
@@ -55,6 +55,13 @@ import { AuthService } from '../../core/services/auth.service';
                 Categorías
               </a>
             }
+            <a
+              [routerLink]="['/admin/site-settings']"
+              routerLinkActive="bg-blue-600 text-white"
+              class="px-4 py-2 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-700 transition-colors no-underline"
+            >
+              Configuración Sitio
+            </a>
             <a
               [routerLink]="['/admin/projects']"
               routerLinkActive="bg-blue-600 text-white"

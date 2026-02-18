@@ -19,6 +19,7 @@ export const routes: Routes = [
       { path: 'clients/:id/edit', canActivate: [adminRoleGuard], loadComponent: () => import('./pages/admin/admin-clients/admin-client-edit/admin-client-edit.component').then(m => m.AdminClientEditComponent) },
       { path: 'categories', canActivate: [adminRoleGuard], loadComponent: () => import('./pages/admin/admin-categories/admin-categories.component').then(m => m.AdminCategoriesComponent) },
       { path: 'categories/:id/edit', canActivate: [adminRoleGuard], loadComponent: () => import('./pages/admin/admin-categories/admin-category-edit/admin-category-edit.component').then(m => m.AdminCategoryEditComponent) },
+      { path: 'site-settings', loadComponent: () => import('./pages/admin/admin-site-settings/admin-site-settings.component').then(m => m.AdminSiteSettingsComponent) },
       { path: 'projects', loadComponent: () => import('./pages/admin/admin-projects/admin-projects.component').then(m => m.AdminProjectsComponent) },
       {
         path: 'projects/:id/edit',
