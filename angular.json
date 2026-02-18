@@ -15,91 +15,53 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/rakium-dev/browser",
+            "outputPath": "dist/rakium-dev",
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "browser": "src/main.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "src/assets",
-                "output": "/assets/"
-              },
-              {
-                "glob": "favicon.ico",
-                "input": "src",
-                "output": "/"
-              },
-              {
-                "glob": "robots.txt",
-                "input": "src/assets",
-                "output": "/"
-              },
-              {
-                "glob": "sitemap.xml",
-                "input": "src/assets",
-                "output": "/"
-              },
-              {
-                "glob": "404.html",
-                "input": "src",
-                "output": "/"
-              }
+              {"glob": "**/*", "input": "src/assets", "output": "/assets/"},
+              {"glob": "favicon.ico", "input": "src", "output": "/"},
+              {"glob": "robots.txt", "input": "src/assets", "output": "/"},
+              {"glob": "sitemap.xml", "input": "src/assets", "output": "/"},
+              {"glob": "404.html", "input": "src", "output": "/"}
             ],
             "styles": [
               "node_modules/primeicons/primeicons.css",
               "src/styles.scss"
             ],
             "scripts": [],
-            "baseHref": "/",
-            "outputHashing": "none",
-            "deployUrl": "/"
+            "server": "src/main.server.ts",
+            "outputMode": "server",
+            "ssr": {
+              "entry": "src/server.ts"
+            }
           },
           "configurations": {
             "production": {
               "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "3mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kb",
-                  "maximumError": "8kb"
-                }
+                {"type": "initial", "maximumWarning": "2.2mb", "maximumError": "3mb"},
+                {"type": "anyComponentStyle", "maximumWarning": "4kb", "maximumError": "8kb"}
               ],
-              "outputHashing": "all",
-              "baseHref": "/",
-              "deployUrl": "/"
+              "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
-              "baseHref": "/",
-              "outputHashing": "none",
-              "deployUrl": "/"
+              "outputHashing": "all"
             },
             "local": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
-              "baseHref": "/",
-              "outputHashing": "none",
-              "deployUrl": "/",
+              "outputHashing": "all",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -112,9 +74,6 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "buildTarget": "rakium-dev:build"
-          },
           "configurations": {
             "production": {
               "buildTarget": "rakium-dev:build:production"
@@ -129,88 +88,18 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "rakium-dev:build"
-          }
+          "builder": "@angular-devkit/build-angular:extract-i18n"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "node_modules/primeicons/primeicons.css",
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["node_modules/primeicons/primeicons.css", "src/styles.scss"],
             "scripts": []
           }
-        },
-        "server": {
-          "builder": "@angular-devkit/build-angular:server",
-          "options": {
-            "outputPath": "dist/rakium-dev/server",
-            "main": "server.ts",
-            "tsConfig": "tsconfig.server.json"
-          },
-          "configurations": {
-            "production": {
-              "outputHashing": "media",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ]
-            },
-            "development": {
-              "optimization": false,
-              "sourceMap": true,
-              "extractLicenses": false
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve-ssr": {
-          "builder": "@nguniversal/builders:ssr-dev-server",
-          "configurations": {
-            "development": {
-              "browserTarget": "rakium-dev:build:development",
-              "serverTarget": "rakium-dev:server:development"
-            },
-            "production": {
-              "browserTarget": "rakium-dev:build:production",
-              "serverTarget": "rakium-dev:server:production"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "prerender": {
-          "builder": "@nguniversal/builders:prerender",
-          "options": {
-            "routes": [
-              "/"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "rakium-dev:build:production",
-              "serverTarget": "rakium-dev:server:production"
-            },
-            "development": {
-              "browserTarget": "rakium-dev:build:development",
-              "serverTarget": "rakium-dev:server:development"
-            }
-          },
-          "defaultConfiguration": "production"
         }
       }
     }

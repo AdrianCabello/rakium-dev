@@ -8,9 +8,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "dev:ssr": "ng run rakium-dev:serve-ssr",
-    "serve:ssr": "node dist/rakium-dev/server/main.js",
-    "build:ssr": "ng build && ng run rakium-dev:server",
+    "dev:ssr": "npm run build:ssr && npm run serve:ssr",
+    "serve:ssr": "node dist/rakium-dev/server/server.mjs",
+    "serve:ssr:client": "node scripts/serve-client-only.js",
+    "build:ssr": "ng build",
     "prerender": "ng run rakium-dev:prerender"
   },
   "private": true,
