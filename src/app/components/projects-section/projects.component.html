@@ -30,24 +30,43 @@
                 </div>
               </ng-container>
               <ng-template #hasImages>
-                <div class="card h-full min-h-[280px] md:min-h-[520px]">
-                  <p-galleria
-                    [value]="getGalleriaImages(project)"
-                    [showItemNavigators]="project.images.length > 1"
-                    [showIndicators]="project.images.length > 1"
-                    [showIndicatorsOnItem]="false"
-                    [indicatorsPosition]="'bottom'"
-                    [showThumbnails]="false"
-                    [responsiveOptions]="responsiveOptions"
-                    [circular]="true"
-                    [numVisible]="5"
-                    [containerStyle]="{ 'max-width': '100%', height: '100%' }"
-                    styleClass="projects-galleria"
+                <div
+                  class="project-slider h-full min-h-[280px] md:min-h-[520px]"
+                  (touchstart)="onTouchStart(project.id, $event)"
+                  (touchend)="onTouchEnd(project.id, project.images.length, $event)"
+                >
+                  <div
+                    class="project-slider-track"
+                    [style.transform]="'translate3d(-' + (getImageIndex(project.id, project.images.length) * 100) + '%, 0, 0)'"
                   >
-                    <ng-template pTemplate="item" let-item>
-                      <img [src]="item.itemImageSrc" [alt]="project.title" style="width: 100%; display: block;" class="object-contain bg-zinc-300 dark:bg-zinc-800" />
-                    </ng-template>
-                  </p-galleria>
+                    <img
+                      *ngFor="let imageUrl of project.images; let i = index"
+                      [src]="imageUrl"
+                      [alt]="project.title + ' imagen ' + (i + 1)"
+                      class="project-slider-image object-cover bg-zinc-300 dark:bg-zinc-800"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+
+                  <ng-container *ngIf="project.images.length > 1">
+                    <button
+                      type="button"
+                      class="project-slider-nav project-slider-nav-prev"
+                      (click)="prevImage(project.id, project.images.length); $event.stopPropagation()"
+                      aria-label="Imagen anterior"
+                    >
+                      ‹
+                    </button>
+                    <button
+                      type="button"
+                      class="project-slider-nav project-slider-nav-next"
+                      (click)="nextImage(project.id, project.images.length); $event.stopPropagation()"
+                      aria-label="Imagen siguiente"
+                    >
+                      ›
+                    </button>
+                  </ng-container>
                 </div>
               </ng-template>
             </div>

@@ -114,44 +114,6 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════ -->
-    <!-- 2) E-COMMERCE -->
-    <!-- ═══════════════════════════════════════════════ -->
-    <div class="mb-24">
-      <div class="flex items-center gap-3 mb-12">
-        <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-600/20 flex items-center justify-center">
-          <i-lucide [name]="shoppingCartIcon" class="text-blue-600 dark:text-blue-400" size="20"></i-lucide>
-        </div>
-        <h3 class="text-2xl font-bold text-zinc-900 dark:text-white">E-commerce</h3>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-6">
-        @for (sol of ecommerceSolutions; track sol.id) {
-          <article class="plan-card rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-8 flex flex-col">
-            <h4 class="text-xl font-bold text-zinc-900 dark:text-white mb-2">{{ sol.name }}</h4>
-            <p class="text-zinc-600 dark:text-zinc-400 text-sm mb-4">{{ sol.tagline }}</p>
-            <p class="text-zinc-500 text-sm mb-4">{{ sol.problem }}</p>
-            <div class="mb-4">
-              <span class="text-xs font-medium text-zinc-500 uppercase tracking-wide">Ideal para</span>
-              <p class="text-zinc-600 dark:text-zinc-400 text-sm mt-1">{{ sol.idealFor.join(' · ') }}</p>
-            </div>
-            <ul class="space-y-2 mb-6 text-sm text-zinc-600 dark:text-zinc-300 flex-grow">
-              @for (f of sol.features; track f) {
-                <li class="flex items-start gap-2">
-                  <i-lucide [name]="checkIcon" class="text-emerald-600 dark:text-emerald-500 shrink-0 mt-0.5" size="16"></i-lucide>
-                  {{ f }}
-                </li>
-              }
-            </ul>
-            <div class="border-t border-zinc-200 dark:border-zinc-800 pt-4 space-y-2 text-xs text-zinc-500 mb-4">
-              <p><span class="text-zinc-600 dark:text-zinc-400">Diferencial:</span> {{ sol.diferencial }}</p>
-              <p><span class="text-zinc-600 dark:text-zinc-400">Modelo:</span> {{ sol.model }}</p>
-            </div>
-          </article>
-        }
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════ -->
     <!-- 3) SISTEMAS Y PLATAFORMAS DIGITALES -->
     <!-- ═══════════════════════════════════════════════ -->
     <div class="mb-24">
@@ -185,7 +147,7 @@
     <!-- ═══════════════════════════════════════════════ -->
     <!-- 4) AUTOMATIZACIÓN E INTEGRACIONES -->
     <!-- ═══════════════════════════════════════════════ -->
-    <div>
+    <div class="mb-24">
       <div class="flex items-center gap-3 mb-12">
         <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-600/20 flex items-center justify-center">
           <i-lucide [name]="zapIcon" class="text-blue-600 dark:text-blue-400" size="20"></i-lucide>
@@ -195,6 +157,44 @@
 
       <div class="grid md:grid-cols-2 gap-6">
         @for (sol of automatizacionSolutions; track sol.id) {
+          <article class="plan-card rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-8 flex flex-col">
+            <h4 class="text-xl font-bold text-zinc-900 dark:text-white mb-2">{{ sol.name }}</h4>
+            <p class="text-zinc-600 dark:text-zinc-400 text-sm mb-4">{{ sol.tagline }}</p>
+            <p class="text-zinc-500 text-sm mb-4">{{ sol.problem }}</p>
+            <div class="mb-4">
+              <span class="text-xs font-medium text-zinc-500 uppercase tracking-wide">Ideal para</span>
+              <p class="text-zinc-600 dark:text-zinc-400 text-sm mt-1">{{ sol.idealFor.join(' · ') }}</p>
+            </div>
+            <ul class="space-y-2 mb-6 text-sm text-zinc-600 dark:text-zinc-300 flex-grow">
+              @for (f of sol.features; track f) {
+                <li class="flex items-start gap-2">
+                  <i-lucide [name]="checkIcon" class="text-emerald-600 dark:text-emerald-500 shrink-0 mt-0.5" size="16"></i-lucide>
+                  {{ f }}
+                </li>
+              }
+            </ul>
+            <div class="border-t border-zinc-200 dark:border-zinc-800 pt-4 space-y-2 text-xs text-zinc-500 mb-4">
+              <p><span class="text-zinc-600 dark:text-zinc-400">Diferencial:</span> {{ sol.diferencial }}</p>
+              <p><span class="text-zinc-600 dark:text-zinc-400">Modelo:</span> {{ sol.model }}</p>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- 5) E-COMMERCE -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div>
+      <div class="flex items-center gap-3 mb-12">
+        <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-600/20 flex items-center justify-center">
+          <i-lucide [name]="shoppingCartIcon" class="text-blue-600 dark:text-blue-400" size="20"></i-lucide>
+        </div>
+        <h3 class="text-2xl font-bold text-zinc-900 dark:text-white">E-commerce</h3>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        @for (sol of ecommerceSolutions; track sol.id) {
           <article class="plan-card rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-8 flex flex-col">
             <h4 class="text-xl font-bold text-zinc-900 dark:text-white mb-2">{{ sol.name }}</h4>
             <p class="text-zinc-600 dark:text-zinc-400 text-sm mb-4">{{ sol.tagline }}</p>

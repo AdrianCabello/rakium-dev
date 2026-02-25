@@ -43,10 +43,14 @@ interface Solution {
     .plan-card {
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .plan-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.25);
+
+    @media (hover: hover) and (pointer: fine) {
+      .plan-card:not(.plan-recommended):hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.25);
+      }
     }
+
     .plan-recommended {
       box-shadow: 0 0 0 2px rgb(59 130 246), 0 12px 40px -12px rgba(59, 130, 246, 0.3);
     }
@@ -202,45 +206,12 @@ export class PlansSolutionsComponent {
 
   readonly sistemasSolutions: Solution[] = [
     {
-      id: 'educativa',
-      name: 'Plataforma Educativa / Academia Online',
-      tagline: 'Monetizá tu conocimiento con una academia que escala.',
-      idealFor: ['Capacitadores', 'Universidades', 'Creadores de contenido', 'Empresas con programas de formación'],
-      problem: 'Necesitás un espacio propio para vender cursos, gestionar alumnos y entregar contenido sin depender de plataformas de terceros.',
-      features: ['Cursos con módulos y lecciones', 'Videos, PDFs, evaluaciones', 'Inscripciones y pagos online', 'Certificados automáticos', 'Panel para instructores y alumnos'],
-      diferencial: 'Experiencia de aprendizaje pensada para retención. No es solo un LMS: es tu marca educativa con UX que impulsa finalización.',
-      model: 'Plataforma a medida escalable',
-      price: 'Desde USD 4.500',
-    },
-    {
-      id: 'membresia',
-      name: 'Plataforma de Membresía',
-      tagline: 'Ingresos recurrentes con contenido exclusivo para tus miembros.',
-      idealFor: ['Comunidades', 'Clubes', 'Suscribers', 'Marcas con oferta premium'],
-      problem: 'Querés generar ingresos predecibles con contenido exclusivo, acceso por niveles o beneficios recurrentes. Necesitás la herramienta que lo haga posible.',
-      features: ['Planes de membresía flexibles', 'Contenido por nivel de acceso', 'Cobros recurrentes (Mercado Pago, Stripe)', 'Área de miembros con login', 'Gestión de suscripciones'],
-      diferencial: 'Modelo de negocio primero. Diseñamos la estructura de planes y permisos según tu estrategia comercial, no al revés.',
-      model: 'Plataforma a medida escalable',
-      price: 'Desde USD 3.800',
-    },
-    {
-      id: 'marketplace',
-      name: 'Marketplace Multi-Vendor',
-      tagline: 'Conectá compradores y vendedores en tu propia plataforma.',
-      idealFor: ['Marcas que quieren ampliar catálogo', 'Sector inmobiliario', 'Servicios', 'Industrias con múltiples oferentes'],
-      problem: 'Querés ser el intermediario: tu plataforma, tus reglas, tu margen. Necesitás tecnología que gestione múltiples vendedores, pagos y comisiones.',
-      features: ['Multi-vendedor con paneles independientes', 'Gestión de pedidos y comisiones', 'Reviews y reputación', 'Integración de pagos split', 'Analytics por vendedor'],
-      diferencial: 'Experiencia comprador y vendedor equilibrada. Construimos la gobernanza del marketplace para que crezca sin fricciones operativas.',
-      model: 'Plataforma a medida escalable',
-      price: 'Desde USD 8.000',
-    },
-    {
       id: 'dashboard',
       name: 'Dashboard de Gestión Empresarial',
       tagline: 'Métricas, reportes y control en un solo lugar.',
       idealFor: ['Empresas con múltiples canales', 'Franquicias', 'Gerencia que necesita visibilidad', 'Equipos comerciales distribuidos'],
       problem: 'Los datos están dispersos en planillas, CRM y sistemas legacy. Necesitás un centro de comando que unifique y visualice lo que importa.',
-      features: ['KPIs en tiempo (casi) real', 'Gráficos y reportes personalizados', 'Alertas y notificaciones', 'Exportación PDF/Excel', 'Acceso por roles'],
+      features: ['KPIs en tiempo real', 'Gráficos y reportes personalizados', 'Alertas y notificaciones', 'Exportación PDF/Excel', 'Acceso por roles'],
       diferencial: 'Diseño de información, no solo pantallas. Priorizamos qué mostrar y cómo para que las decisiones sean más rápidas.',
       model: 'Desarrollo a medida',
       price: 'Desde USD 5.000',
@@ -266,6 +237,39 @@ export class PlansSolutionsComponent {
       diferencial: 'Implementación por fases. Empezamos por el dolor más grande y sumamos módulos sin reescribir todo. Crecimiento controlado.',
       model: 'Desarrollo a medida por fases',
       price: 'Desde USD 7.000',
+    },
+    {
+      id: 'inmobiliaria',
+      name: 'Plataforma Inmobiliaria',
+      tagline: 'Mostrá y gestioná tus propiedades desde un solo lugar.',
+      idealFor: ['Inmobiliarias', 'Corredores', 'Constructoras', 'Desarrolladores'],
+      problem: 'Necesitás publicar propiedades de forma profesional, actualizarlas rápido y centralizar consultas sin depender de planillas o portales externos.',
+      features: ['Listado de propiedades con filtros', 'Ficha completa con galería y ubicación', 'Destacados y propiedades relacionadas', 'Formulario de contacto por propiedad', 'Panel de administración con login'],
+      diferencial: 'Pensada para conversión inmobiliaria: estructura clara, navegación ágil y foco en generar más consultas calificadas.',
+      model: 'Plataforma a medida escalable',
+      price: 'Desde USD 4.200',
+    },
+    {
+      id: 'educativa',
+      name: 'Plataforma para Artistas',
+      tagline: 'Centralizá tu carrera en un espacio profesional y autogestionable.',
+      idealFor: ['Músicos', 'Bandas', 'DJ/producers', 'Artistas visuales'],
+      problem: 'Necesitás una web propia para mostrar tu identidad, organizar tu contenido y actualizar tu perfil sin depender de redes o terceros.',
+      features: ['Perfil artístico completo y biografía', 'Galería de fotos y videos administrable', 'Sección de música y lanzamientos', 'Gestión de trabajos y proyectos', 'Panel de administración para autogestión'],
+      diferencial: 'Pensada para potenciar tu marca personal: diseño a medida, contenido editable y estructura lista para crecer con tu carrera.',
+      model: 'Plataforma a medida escalable',
+      price: 'Desde USD 4.500',
+    },
+    {
+      id: 'marketplace',
+      name: 'Plataforma de Eventos para Productoras',
+      tagline: 'Tu Eventloop propio, 100% personalizado para tu operación.',
+      idealFor: ['Productoras de eventos', 'Colectivos y sellos', 'Festivales', 'Empresas de entretenimiento'],
+      problem: 'Necesitás una plataforma propia para publicar eventos, vender entradas, gestionar accesos y centralizar métricas sin depender de soluciones genéricas.',
+      features: ['Gestión de eventos y fechas', 'Venta de entradas con pasarela integrada', 'Panel para validación y control de accesos', 'Comisiones y liquidaciones configurables', 'Reportes y analytics en tiempo real'],
+      diferencial: 'Diseño y lógica a medida de tu productora: branding, flujos y reglas de negocio totalmente personalizadas.',
+      model: 'Plataforma a medida escalable',
+      price: 'Desde USD 9.000',
     },
   ];
 
