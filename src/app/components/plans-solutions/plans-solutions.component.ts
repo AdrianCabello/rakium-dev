@@ -3,11 +3,6 @@ import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Globe, ShoppingCart, Layers, Zap, Check, ArrowRight, Palette } from 'lucide-angular';
 import { SiteSettingsService } from '../../core/services/site-settings.service';
 
-interface PlanFeature {
-  text: string;
-  included: boolean;
-}
-
 interface Plan {
   id: string;
   name: string;
@@ -19,7 +14,6 @@ interface Plan {
   model: string;
   price: string;
   recommended?: boolean;
-  tableFeatures?: PlanFeature[];
 }
 
 interface Solution {
@@ -103,14 +97,6 @@ export class PlansSolutionsComponent {
       diferencial: 'Diseño exclusivo, no plantilla. Entregamos en 2-3 semanas con un proceso claro y sin sorpresas.',
       model: 'Proyecto cerrado a medida',
       price: 'Desde USD 800',
-      tableFeatures: [
-        { text: 'Páginas estándar (Home, Nosotros, Servicios, Contacto)', included: true },
-        { text: 'Diseño personalizado', included: true },
-        { text: 'Responsive + SEO básico', included: true },
-        { text: 'Panel de administración', included: false },
-        { text: 'Galería editable', included: false },
-        { text: 'Blog o noticias', included: false },
-      ],
     },
     {
       id: 'profesional',
@@ -129,14 +115,6 @@ export class PlansSolutionsComponent {
       model: 'Proyecto escalable a medida',
       price: 'Desde USD 1.400',
       recommended: true,
-      tableFeatures: [
-        { text: 'Páginas estándar (Home, Nosotros, Servicios, Contacto)', included: true },
-        { text: 'Diseño personalizado', included: true },
-        { text: 'Responsive + SEO básico', included: true },
-        { text: 'Panel de administración', included: true },
-        { text: 'Galería editable', included: true },
-        { text: 'Blog o noticias', included: true },
-      ],
     },
     {
       id: 'premium',
@@ -154,16 +132,6 @@ export class PlansSolutionsComponent {
       diferencial: 'Mirada estratégica de producto. No solo diseñamos: analizamos flujos, métricas y oportunidades para que tu web genere resultados medibles.',
       model: 'Proyecto estratégico a medida',
       price: 'Desde USD 2.800',
-      tableFeatures: [
-        { text: 'Páginas estándar (Home, Nosotros, Servicios, Contacto)', included: true },
-        { text: 'Diseño personalizado', included: true },
-        { text: 'Responsive + SEO básico', included: true },
-        { text: 'Panel de administración', included: true },
-        { text: 'Galería editable', included: true },
-        { text: 'Blog o noticias', included: true },
-        { text: 'UX/UI estratégico + landing pages', included: true },
-        { text: 'Integraciones (CRM, marketing)', included: true },
-      ],
     },
   ];
 
@@ -272,19 +240,6 @@ export class PlansSolutionsComponent {
       price: 'Desde USD 9.000',
     },
   ];
-
-  /** Índices para la tabla comparativa (basado en el plan con más filas) */
-  get tableRowIndices(): number[] {
-    const max = Math.max(...this.webPlans.map((p) => p.tableFeatures?.length ?? 0));
-    return Array.from({ length: max }, (_, i) => i);
-  }
-
-  getTableRowLabel(index: number): string {
-    const planWithMost = this.webPlans.reduce((a, b) =>
-      (a.tableFeatures?.length ?? 0) >= (b.tableFeatures?.length ?? 0) ? a : b
-    );
-    return planWithMost?.tableFeatures?.[index]?.text ?? '';
-  }
 
   readonly automatizacionSolutions: Solution[] = [
     {
