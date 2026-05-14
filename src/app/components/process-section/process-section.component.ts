@@ -25,12 +25,12 @@ import { Component } from '@angular/core';
 
         <div class="relative grid gap-5 md:grid-cols-5">
           @for (step of steps; track step.number) {
-            <article class="relative z-10 flex min-h-[232px] overflow-hidden rounded-[1.35rem] border border-zinc-200/70 bg-white/90 p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 dark:border-white/10 dark:!bg-zinc-950 dark:shadow-[0_18px_55px_rgba(0,0,0,0.18)]">
+            <article class="relative z-10 flex min-h-[232px] overflow-hidden rounded-[1.35rem] border border-zinc-200/70 bg-white/90 p-7 shadow-sm transition-all duration-300 hover:-translate-y-0.5 dark:border-white/10 dark:!bg-zinc-950 dark:shadow-[0_18px_55px_rgba(0,0,0,0.18)] md:p-6">
               <span class="absolute -right-2 -top-9 text-8xl font-bold tracking-[-0.06em] text-blue-600/[0.026] dark:text-blue-300/[0.032]">{{ step.number }}</span>
               <div class="relative flex h-full flex-col">
-                <span class="text-sm font-bold tracking-[-0.01em] text-blue-600 dark:text-blue-400">{{ step.number }}</span>
-                <h3 class="mt-6 text-[1.08rem] font-extrabold leading-[1.08] tracking-[-0.02em] text-zinc-950 dark:text-white">{{ step.title }}</h3>
-                <p class="mt-5 text-[0.94rem] leading-[1.55] text-zinc-600 dark:text-zinc-400" [innerHTML]="step.description"></p>
+                <span class="text-base font-bold tracking-[-0.01em] text-blue-600 dark:text-blue-400 md:text-sm">{{ step.number }}</span>
+                <h3 class="mt-7 text-[1.42rem] font-extrabold leading-[1.08] tracking-[-0.02em] text-zinc-950 dark:text-white md:mt-6 md:text-[1.12rem]">{{ step.title }}</h3>
+                <p class="mt-5 text-[1.12rem] leading-[1.55] text-zinc-600 dark:text-zinc-400 md:text-[0.98rem]" [innerHTML]="step.description"></p>
               </div>
             </article>
           }

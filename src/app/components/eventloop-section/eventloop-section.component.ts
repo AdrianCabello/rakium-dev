@@ -19,13 +19,13 @@ import { LucideAngularModule } from 'lucide-angular';
             Proyecto destacado
           </span>
           <h2 class="mt-6 text-balance text-4xl font-bold leading-[0.98] tracking-[-0.03em] text-white md:text-6xl">
-            Eventloop — Un producto real, desarrollado desde cero.
+            Eventloop — Un <strong class="font-black text-white">producto real</strong>, desarrollado desde cero.
           </h2>
           <p class="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-zinc-300 md:text-xl">
-            Construimos Eventloop para centralizar la venta de entradas, el control de accesos, los equipos y la operación completa de eventos en una sola plataforma.
+            Construimos Eventloop para centralizar la <strong class="font-bold text-white">venta de entradas</strong>, el <strong class="font-bold text-white">control de accesos</strong>, los equipos y la <strong class="font-bold text-white">operación completa</strong> de eventos en una sola plataforma.
           </p>
           <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-zinc-400">
-            Un producto digital real, diseñado y desarrollado para productoras que necesitaban dejar atrás planillas, mensajes y controles manuales.
+            Un producto digital real, diseñado y desarrollado para productoras que necesitaban dejar atrás <strong class="font-semibold text-zinc-200">planillas, mensajes y controles manuales</strong>.
           </p>
         </div>
 
