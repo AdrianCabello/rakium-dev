@@ -114,7 +114,7 @@ import { LucideAngularModule } from 'lucide-angular';
                 href="https://eventloop.ar"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center justify-center rounded-full border border-blue-300/24 bg-blue-300/[0.06] px-6 py-3.5 text-sm font-bold text-white transition-colors hover:border-blue-200/35 hover:bg-blue-300/[0.09]"
+                class="inline-flex items-center justify-center rounded-full border border-blue-300/28 bg-[linear-gradient(135deg,rgba(56,139,255,0.24),rgba(132,84,255,0.12))] px-6 py-3.5 text-sm font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-colors hover:border-blue-200/45 hover:bg-[linear-gradient(135deg,rgba(56,139,255,0.32),rgba(132,84,255,0.16))]"
               >
                 Ver Eventloop
               </a>
@@ -122,7 +122,7 @@ import { LucideAngularModule } from 'lucide-angular';
                 href="https://wa.me/542262497993"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/[0.025] px-6 py-3.5 text-sm font-bold text-white backdrop-blur transition-colors hover:border-white/18 hover:bg-white/[0.055]"
+                class="inline-flex items-center justify-center rounded-full border border-white/12 bg-[linear-gradient(135deg,rgba(255,255,255,0.055),rgba(255,255,255,0.018))] px-6 py-3.5 text-sm font-bold text-white backdrop-blur transition-colors hover:border-white/22 hover:bg-[linear-gradient(135deg,rgba(255,255,255,0.075),rgba(255,255,255,0.03))]"
               >
                 Quiero algo así
               </a>
