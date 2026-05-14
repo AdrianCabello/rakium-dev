@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, Globe, ShoppingCart, Layers, Zap, Check, ArrowRight, Palette } from 'lucide-angular';
+import { LucideAngularModule, Check } from 'lucide-angular';
 import { SiteSettingsService } from '../../core/services/site-settings.service';
 
 interface Plan {
@@ -53,14 +53,13 @@ interface Solution {
 export class PlansSolutionsComponent {
   readonly siteSettings = inject(SiteSettingsService);
   readonly whatsappUrl = this.siteSettings.whatsappUrl;
+  readonly activeCategory = signal('sistemas');
 
-  globeIcon = Globe;
-  shoppingCartIcon = ShoppingCart;
-  layersIcon = Layers;
-  zapIcon = Zap;
   checkIcon = Check;
-  arrowRightIcon = ArrowRight;
-  paletteIcon = Palette;
+
+  toggleCategory(id: string): void {
+    this.activeCategory.set(this.activeCategory() === id ? '' : id);
+  }
 
   readonly designSolutions: { id: string; name: string; description: string }[] = [
     {

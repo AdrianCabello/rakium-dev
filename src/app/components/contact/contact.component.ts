@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LucideAngularModule, MessageCircle, Hash } from 'lucide-angular';
+import { LucideAngularModule, MessageCircle, Hash, Mail } from 'lucide-angular';
 import { SiteSettingsService } from '../../core/services/site-settings.service';
 
 @Component({
@@ -14,6 +14,8 @@ export class ContactComponent {
   readonly whatsappUrl = this.siteSettings.whatsappUrl;
   readonly contact = this.siteSettings.contact;
   readonly socialNetworks = this.siteSettings.socialNetworks;
+  readonly emailUrl = 'mailto:contacto@rakium.dev';
   messageIcon = MessageCircle;
   hashIcon = Hash;
+  mailIcon = Mail;
 }

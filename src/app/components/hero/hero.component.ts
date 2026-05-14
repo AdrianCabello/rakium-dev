@@ -1,6 +1,6 @@
 import { Component, OnInit, PLATFORM_ID, Inject, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { LucideAngularModule, Palette, Code, Search, Settings, Sparkles, ArrowRight, Globe } from 'lucide-angular';
+import { LucideAngularModule, Sparkles, Globe, Ticket, BarChart3, Smartphone } from 'lucide-angular';
 import { SiteSettingsService } from '../../core/services/site-settings.service';
 
 @Component({
@@ -16,13 +16,11 @@ export class HeroComponent implements OnInit {
   isBrowser: boolean;
   
   // Iconos
-  paletteIcon = Palette;
-  codeIcon = Code;
-  searchIcon = Search;
-  settingsIcon = Settings;
   sparklesIcon = Sparkles;
-  arrowRightIcon = ArrowRight;
   globeIcon = Globe;
+  ticketIcon = Ticket;
+  chartIcon = BarChart3;
+  phoneIcon = Smartphone;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);

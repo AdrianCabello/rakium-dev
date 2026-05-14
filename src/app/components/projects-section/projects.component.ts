@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LucideAngularModule, Globe, ImageOff } from 'lucide-angular';
@@ -23,7 +23,12 @@ export class ProjectsComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly touchStartByProject = new Map<string, number>();
 
-  readonly projects = this.projectsService.projects;
+  readonly projects = computed(() =>
+    this.projectsService.projects().filter((project) => !/eventloop/i.test(project.title))
+  );
+  readonly showFallbackProjects = computed(() =>
+    !this.isLoading() && (Boolean(this.errorMessage()) || this.projects().length === 0)
+  );
   readonly isLoading = this.projectsService.isLoading;
   readonly isLoadingMore = this.projectsService.isLoadingMore;
   readonly errorMessage = this.projectsService.errorMessage;
@@ -31,6 +36,29 @@ export class ProjectsComponent implements OnInit {
   readonly imageIndexByProject = signal<Record<string, number>>({});
 
   globeIcon = Globe;
+  fallbackProjects = [
+    {
+      title: 'Kamak',
+      type: 'Web institucional',
+      description: 'Una presencia digital clara para presentar marca, servicios y canales de contacto.',
+      image: '/assets/clients/necotec/1.png',
+      url: '#',
+    },
+    {
+      title: 'Adrian Cabello',
+      type: 'Portfolio profesional',
+      description: 'Portfolio personal orientado a mostrar experiencia, proyectos y perfil profesional.',
+      image: '/assets/clients/jc-cosmetology/1.png',
+      url: '#',
+    },
+    {
+      title: 'Lautaro Vulcano',
+      type: 'Portfolio creativo',
+      description: 'Sitio visual para ordenar obra, identidad y comunicacion de un proyecto creativo.',
+      image: '/assets/clients/lautaro-vulcano-portfolio/1.png',
+      url: '#',
+    },
+  ];
 
   getImageIndex(projectId: string, imageCount: number): number {
     const current = this.imageIndexByProject()[projectId] ?? 0;
@@ -76,7 +104,7 @@ export class ProjectsComponent implements OnInit {
 
   imageOffIcon = ImageOff;
 
-  /** Etiqueta legible para categoría/type (ej. SITIO_WEB → "Sitio web"). */
+  /** Etiqueta legible para category/type (ej. SITIO_WEB -> "Sitio web"). */
   getCategoryLabel(value: string): string {
     return CATEGORY_LABELS[value] ?? value;
   }

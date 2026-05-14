@@ -7,11 +7,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        white: '#fefefe',
         primary: '#071a14',
         accent: '#00ff9d',
       },
       fontFamily: {
-        sans: ['Roboto', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'sans-serif'],
       },
       fontWeight: {
         normal: 400,

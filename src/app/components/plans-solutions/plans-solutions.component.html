@@ -1,186 +1,153 @@
-<section id="planes" class="w-full py-24 bg-zinc-100 dark:bg-zinc-950 text-zinc-900 dark:text-white transition-colors duration-300">
-  <div class="container mx-auto px-4 max-w-6xl">
-    <!-- Section Header -->
-    <div class="text-center mb-20">
-      <span class="inline-block text-blue-600 dark:text-blue-400 text-sm font-medium tracking-wider uppercase mb-4">Planes y soluciones</span>
+<section id="planes" class="relative w-full overflow-hidden bg-zinc-100 py-24 text-zinc-900 transition-colors duration-300 dark:bg-[#07080C] dark:text-white md:py-32">
+  <div class="absolute left-0 top-24 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl"></div>
+  <div class="absolute right-0 bottom-24 h-80 w-80 rounded-full bg-violet-500/10 blur-3xl"></div>
+  <div class="container relative mx-auto px-4 max-w-6xl">
+    <div class="mb-14 max-w-3xl">
+      <span class="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-blue-700 dark:border-white/10 dark:bg-white/[0.04] dark:text-blue-200">Servicios</span>
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-zinc-900 dark:text-white">
-        Soluciones digitales que impulsan tu negocio
+        Lo que podemos construir para tu proyecto.
       </h2>
-      <p class="text-zinc-600 dark:text-zinc-400 text-lg max-w-2xl mx-auto">
-        Diseño, desarrollo web, e-commerce, sistemas a medida y automatización para empresas en Argentina y Latinoamérica.
+      <p class="text-zinc-600 dark:text-zinc-400 text-lg">
+        Cada proyecto necesita una solución distinta. Por eso trabajamos desde sitios web simples hasta plataformas, sistemas e integraciones a medida.
       </p>
     </div>
 
-    <!-- ═══════════════════════════════════════════════ -->
-    <!-- 0) SERVICIOS DE DISEÑO -->
-    <!-- ═══════════════════════════════════════════════ -->
-    <div class="mb-24">
-      <div class="flex items-center gap-3 mb-12">
-        <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-600/20 flex items-center justify-center">
-          <i-lucide [name]="paletteIcon" class="text-blue-600 dark:text-blue-400" size="20"></i-lucide>
-        </div>
-        <h3 class="text-2xl font-bold text-zinc-900 dark:text-white">Servicios de Diseño</h3>
-      </div>
-      <p class="text-zinc-600 dark:text-zinc-400 mb-10 max-w-2xl">
-        Diseño que comunica tu marca. Identidad visual, contenido para redes y piezas para eventos. Todo con una mirada coherente y profesional.
-      </p>
-      <div class="grid md:grid-cols-3 gap-6">
-        @for (sol of designSolutions; track sol.id) {
-          <article class="plan-card rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-6 flex flex-col">
-            <h4 class="text-xl font-bold text-zinc-900 dark:text-white mb-3">{{ sol.name }}</h4>
-            <p class="text-zinc-600 dark:text-zinc-400 text-sm">{{ sol.description }}</p>
-          </article>
-        }
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════ -->
-    <!-- 1) WEB INSTITUCIONAL -->
-    <!-- ═══════════════════════════════════════════════ -->
-    <div class="mb-24">
-      <div class="flex items-center gap-3 mb-12">
-        <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-600/20 flex items-center justify-center">
-          <i-lucide [name]="globeIcon" class="text-blue-600 dark:text-blue-400" size="20"></i-lucide>
-        </div>
-        <h3 class="text-2xl font-bold text-zinc-900 dark:text-white">Web Institucional</h3>
-      </div>
-
-      <!-- Cards detalladas -->
-      <div class="grid md:grid-cols-3 gap-6">
-        @for (plan of webPlans; track plan.id) {
-          <article
-            class="plan-card rounded-2xl border bg-white dark:bg-zinc-900/50 border-zinc-200 dark:border-zinc-800 p-6 flex flex-col"
-            [class.plan-recommended]="plan.recommended"
-            [class.border-blue-500]="plan.recommended"
-          >
-            @if (plan.recommended) {
-              <span class="self-start text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-500/10 px-2.5 py-1 rounded-full mb-4">Recomendado</span>
+    <div class="space-y-5">
+      <article class="overflow-hidden rounded-[1.4rem] border border-zinc-200 bg-white/80 transition-all duration-300 hover:border-blue-300/50 dark:border-white/10 dark:bg-white/[0.035] dark:hover:border-blue-300/25">
+        <button type="button" class="flex w-full items-center justify-between gap-4 p-6 text-left" (click)="toggleCategory('sistemas')">
+          <span class="flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl border border-blue-300/15 bg-blue-500/10 text-[11px] font-black tracking-[0.08em] text-blue-200">SYS</span>
+            <span>
+              <span class="block text-xl font-bold">Plataformas y sistemas</span>
+              <span class="text-sm text-zinc-500 dark:text-zinc-400">Dashboards, CRMs, sistemas internos y plataformas a medida.</span>
+            </span>
+          </span>
+          <span class="rounded-full border border-blue-500/20 px-3 py-1 text-sm font-semibold text-blue-600 dark:text-blue-300">{{ activeCategory() === 'sistemas' ? 'Cerrar' : 'Ver' }}</span>
+        </button>
+        @if (activeCategory() === 'sistemas') {
+          <div class="grid gap-5 border-t border-zinc-200 p-6 dark:border-white/10 md:grid-cols-2 lg:grid-cols-3">
+            @for (sol of sistemasSolutions; track sol.id) {
+              <article class="plan-card rounded-2xl border border-zinc-200 bg-zinc-50 p-6 dark:border-white/10 dark:bg-[#08090D]/70">
+                <h4 class="text-lg font-bold">{{ sol.name }}</h4>
+                <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{{ sol.tagline }}</p>
+                <ul class="mt-4 space-y-2 text-sm text-zinc-600 dark:text-zinc-300">
+                  @for (f of sol.features.slice(0, 3); track f) {
+                    <li class="flex gap-2"><i-lucide [name]="checkIcon" class="mt-0.5 shrink-0 text-emerald-500" size="15"></i-lucide>{{ f }}</li>
+                  }
+                </ul>
+                <p class="mt-4 text-xs text-zinc-500"><span class="text-zinc-700 dark:text-zinc-300">Diferencial:</span> {{ sol.diferencial }}</p>
+              </article>
             }
-            <h4 class="text-xl font-bold text-zinc-900 dark:text-white mb-1">{{ plan.name }}</h4>
-            <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-4">{{ plan.tagline }}</p>
-            <p class="text-zinc-500 dark:text-zinc-500 text-sm mb-4 flex-grow">{{ plan.problem }}</p>
-            <ul class="space-y-2 mb-6 text-sm text-zinc-600 dark:text-zinc-300">
-              @for (f of plan.features; track f) {
-                <li class="flex items-start gap-2">
-                  <i-lucide [name]="checkIcon" class="text-emerald-600 dark:text-emerald-500 shrink-0 mt-0.5" size="16"></i-lucide>
-                  {{ f }}
-                </li>
-              }
-            </ul>
-            <div class="border-t border-zinc-200 dark:border-zinc-800 pt-4 space-y-2 text-xs text-zinc-500">
-              <p><span class="text-zinc-600 dark:text-zinc-400">Diferencial:</span> {{ plan.diferencial }}</p>
-              <p><span class="text-zinc-600 dark:text-zinc-400">Modelo:</span> {{ plan.model }}</p>
-            </div>
-          </article>
+          </div>
         }
-      </div>
-    </div>
+      </article>
 
-    <!-- ═══════════════════════════════════════════════ -->
-    <!-- 3) SISTEMAS Y PLATAFORMAS DIGITALES -->
-    <!-- ═══════════════════════════════════════════════ -->
-    <div class="mb-24">
-      <div class="flex items-center gap-3 mb-12">
-        <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-600/20 flex items-center justify-center">
-          <i-lucide [name]="layersIcon" class="text-blue-600 dark:text-blue-400" size="20"></i-lucide>
-        </div>
-        <h3 class="text-2xl font-bold text-zinc-900 dark:text-white">Sistemas y plataformas digitales</h3>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        @for (sol of sistemasSolutions; track sol.id) {
-          <article class="plan-card rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-6 flex flex-col">
-            <h4 class="text-lg font-bold text-zinc-900 dark:text-white mb-2">{{ sol.name }}</h4>
-            <p class="text-zinc-600 dark:text-zinc-400 text-sm mb-3">{{ sol.tagline }}</p>
-            <p class="text-zinc-500 text-xs mb-3 line-clamp-2">{{ sol.problem }}</p>
-            <ul class="space-y-1.5 mb-4 text-xs text-zinc-600 dark:text-zinc-400 flex-grow">
-              @for (f of sol.features; track f) {
-                <li class="flex items-start gap-2">
-                  <i-lucide [name]="checkIcon" class="text-emerald-600 dark:text-emerald-500 shrink-0 mt-0.5" size="14"></i-lucide>
-                  {{ f }}
-                </li>
-              }
-            </ul>
-            <p class="text-xs text-zinc-500 mb-3 line-clamp-2"><span class="text-zinc-600 dark:text-zinc-400">Diferencial:</span> {{ sol.diferencial }}</p>
-          </article>
+      <article class="overflow-hidden rounded-[1.4rem] border border-zinc-200 bg-white/80 transition-all duration-300 hover:border-violet-300/50 dark:border-white/10 dark:bg-white/[0.035] dark:hover:border-violet-300/25">
+        <button type="button" class="flex w-full items-center justify-between gap-4 p-6 text-left" (click)="toggleCategory('automatizacion')">
+          <span class="flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl border border-violet-300/15 bg-violet-500/10 text-[11px] font-black tracking-[0.08em] text-violet-200">API</span>
+            <span>
+              <span class="block text-xl font-bold">Automatización e integraciones</span>
+              <span class="text-sm text-zinc-500 dark:text-zinc-400">Procesos, APIs, pagos, WhatsApp, email y sistemas conectados.</span>
+            </span>
+          </span>
+          <span class="rounded-full border border-violet-500/20 px-3 py-1 text-sm font-semibold text-violet-600 dark:text-violet-300">{{ activeCategory() === 'automatizacion' ? 'Cerrar' : 'Ver' }}</span>
+        </button>
+        @if (activeCategory() === 'automatizacion') {
+          <div class="grid gap-5 border-t border-zinc-200 p-6 dark:border-white/10 md:grid-cols-2">
+            @for (sol of automatizacionSolutions; track sol.id) {
+              <article class="plan-card rounded-2xl border border-zinc-200 bg-zinc-50 p-6 dark:border-white/10 dark:bg-[#08090D]/70">
+                <h4 class="text-lg font-bold">{{ sol.name }}</h4>
+                <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{{ sol.tagline }}</p>
+                <p class="mt-4 text-xs text-zinc-500"><span class="text-zinc-700 dark:text-zinc-300">Ideal para:</span> {{ sol.idealFor.join(' / ') }}</p>
+                <p class="mt-3 text-xs text-zinc-500"><span class="text-zinc-700 dark:text-zinc-300">Diferencial:</span> {{ sol.diferencial }}</p>
+              </article>
+            }
+          </div>
         }
-      </div>
-    </div>
+      </article>
 
-    <!-- ═══════════════════════════════════════════════ -->
-    <!-- 4) AUTOMATIZACIÓN E INTEGRACIONES -->
-    <!-- ═══════════════════════════════════════════════ -->
-    <div class="mb-24">
-      <div class="flex items-center gap-3 mb-12">
-        <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-600/20 flex items-center justify-center">
-          <i-lucide [name]="zapIcon" class="text-blue-600 dark:text-blue-400" size="20"></i-lucide>
-        </div>
-        <h3 class="text-2xl font-bold text-zinc-900 dark:text-white">Automatización e integraciones</h3>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-6">
-        @for (sol of automatizacionSolutions; track sol.id) {
-          <article class="plan-card rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-8 flex flex-col">
-            <h4 class="text-xl font-bold text-zinc-900 dark:text-white mb-2">{{ sol.name }}</h4>
-            <p class="text-zinc-600 dark:text-zinc-400 text-sm mb-4">{{ sol.tagline }}</p>
-            <p class="text-zinc-500 text-sm mb-4">{{ sol.problem }}</p>
-            <div class="mb-4">
-              <span class="text-xs font-medium text-zinc-500 uppercase tracking-wide">Ideal para</span>
-              <p class="text-zinc-600 dark:text-zinc-400 text-sm mt-1">{{ sol.idealFor.join(' · ') }}</p>
-            </div>
-            <ul class="space-y-2 mb-6 text-sm text-zinc-600 dark:text-zinc-300 flex-grow">
-              @for (f of sol.features; track f) {
-                <li class="flex items-start gap-2">
-                  <i-lucide [name]="checkIcon" class="text-emerald-600 dark:text-emerald-500 shrink-0 mt-0.5" size="16"></i-lucide>
-                  {{ f }}
-                </li>
-              }
-            </ul>
-            <div class="border-t border-zinc-200 dark:border-zinc-800 pt-4 space-y-2 text-xs text-zinc-500 mb-4">
-              <p><span class="text-zinc-600 dark:text-zinc-400">Diferencial:</span> {{ sol.diferencial }}</p>
-              <p><span class="text-zinc-600 dark:text-zinc-400">Modelo:</span> {{ sol.model }}</p>
-            </div>
-          </article>
+      <article class="overflow-hidden rounded-[1.4rem] border border-zinc-200 bg-white/80 transition-all duration-300 hover:border-emerald-300/50 dark:border-white/10 dark:bg-white/[0.035] dark:hover:border-emerald-300/25">
+        <button type="button" class="flex w-full items-center justify-between gap-4 p-6 text-left" (click)="toggleCategory('ecommerce')">
+          <span class="flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-300/15 bg-cyan-500/10 text-[11px] font-black tracking-[0.08em] text-cyan-200">COM</span>
+            <span>
+              <span class="block text-xl font-bold">E-commerce</span>
+              <span class="text-sm text-zinc-500 dark:text-zinc-400">Tiendas listas para vender o comercios a medida.</span>
+            </span>
+          </span>
+          <span class="rounded-full border border-emerald-500/20 px-3 py-1 text-sm font-semibold text-emerald-600 dark:text-emerald-300">{{ activeCategory() === 'ecommerce' ? 'Cerrar' : 'Ver' }}</span>
+        </button>
+        @if (activeCategory() === 'ecommerce') {
+          <div class="grid gap-5 border-t border-zinc-200 p-6 dark:border-white/10 md:grid-cols-2">
+            @for (sol of ecommerceSolutions; track sol.id) {
+              <article class="plan-card rounded-2xl border border-zinc-200 bg-zinc-50 p-6 dark:border-white/10 dark:bg-[#08090D]/70">
+                <h4 class="text-lg font-bold">{{ sol.name }}</h4>
+                <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{{ sol.tagline }}</p>
+                <ul class="mt-4 space-y-2 text-sm text-zinc-600 dark:text-zinc-300">
+                  @for (f of sol.features.slice(0, 3); track f) {
+                    <li class="flex gap-2"><i-lucide [name]="checkIcon" class="mt-0.5 shrink-0 text-emerald-500" size="15"></i-lucide>{{ f }}</li>
+                  }
+                </ul>
+              </article>
+            }
+          </div>
         }
-      </div>
-    </div>
+      </article>
 
-    <!-- ═══════════════════════════════════════════════ -->
-    <!-- 5) E-COMMERCE -->
-    <!-- ═══════════════════════════════════════════════ -->
-    <div>
-      <div class="flex items-center gap-3 mb-12">
-        <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-600/20 flex items-center justify-center">
-          <i-lucide [name]="shoppingCartIcon" class="text-blue-600 dark:text-blue-400" size="20"></i-lucide>
-        </div>
-        <h3 class="text-2xl font-bold text-zinc-900 dark:text-white">E-commerce</h3>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-6">
-        @for (sol of ecommerceSolutions; track sol.id) {
-          <article class="plan-card rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 p-8 flex flex-col">
-            <h4 class="text-xl font-bold text-zinc-900 dark:text-white mb-2">{{ sol.name }}</h4>
-            <p class="text-zinc-600 dark:text-zinc-400 text-sm mb-4">{{ sol.tagline }}</p>
-            <p class="text-zinc-500 text-sm mb-4">{{ sol.problem }}</p>
-            <div class="mb-4">
-              <span class="text-xs font-medium text-zinc-500 uppercase tracking-wide">Ideal para</span>
-              <p class="text-zinc-600 dark:text-zinc-400 text-sm mt-1">{{ sol.idealFor.join(' · ') }}</p>
-            </div>
-            <ul class="space-y-2 mb-6 text-sm text-zinc-600 dark:text-zinc-300 flex-grow">
-              @for (f of sol.features; track f) {
-                <li class="flex items-start gap-2">
-                  <i-lucide [name]="checkIcon" class="text-emerald-600 dark:text-emerald-500 shrink-0 mt-0.5" size="16"></i-lucide>
-                  {{ f }}
-                </li>
-              }
-            </ul>
-            <div class="border-t border-zinc-200 dark:border-zinc-800 pt-4 space-y-2 text-xs text-zinc-500 mb-4">
-              <p><span class="text-zinc-600 dark:text-zinc-400">Diferencial:</span> {{ sol.diferencial }}</p>
-              <p><span class="text-zinc-600 dark:text-zinc-400">Modelo:</span> {{ sol.model }}</p>
-            </div>
-          </article>
+      <article class="overflow-hidden rounded-[1.4rem] border border-zinc-200 bg-white/80 transition-all duration-300 hover:border-sky-300/50 dark:border-white/10 dark:bg-white/[0.035] dark:hover:border-sky-300/25">
+        <button type="button" class="flex w-full items-center justify-between gap-4 p-6 text-left" (click)="toggleCategory('web')">
+          <span class="flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl border border-sky-300/15 bg-sky-500/10 text-[11px] font-black tracking-[0.08em] text-sky-200">WEB</span>
+            <span>
+              <span class="block text-xl font-bold">Web institucional</span>
+              <span class="text-sm text-zinc-500 dark:text-zinc-400">Presencia digital clara, editable y orientada a conversión.</span>
+            </span>
+          </span>
+          <span class="rounded-full border border-sky-500/20 px-3 py-1 text-sm font-semibold text-sky-600 dark:text-sky-300">{{ activeCategory() === 'web' ? 'Cerrar' : 'Ver' }}</span>
+        </button>
+        @if (activeCategory() === 'web') {
+          <div class="grid gap-5 border-t border-zinc-200 p-6 dark:border-white/10 md:grid-cols-3">
+            @for (plan of webPlans; track plan.id) {
+              <article class="plan-card rounded-2xl border border-zinc-200 bg-zinc-50 p-6 dark:border-white/10 dark:bg-[#08090D]/70" [class.border-blue-500]="plan.recommended">
+                @if (plan.recommended) {
+                  <span class="mb-3 inline-block rounded-full bg-blue-500/10 px-2.5 py-1 text-xs font-semibold text-blue-600 dark:text-blue-400">Recomendado</span>
+                }
+                <h4 class="text-lg font-bold">{{ plan.name }}</h4>
+                <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{{ plan.tagline }}</p>
+                <ul class="mt-4 space-y-2 text-sm text-zinc-600 dark:text-zinc-300">
+                  @for (f of plan.features.slice(0, 3); track f) {
+                    <li class="flex gap-2"><i-lucide [name]="checkIcon" class="mt-0.5 shrink-0 text-emerald-500" size="15"></i-lucide>{{ f }}</li>
+                  }
+                </ul>
+              </article>
+            }
+          </div>
         }
-      </div>
+      </article>
+
+      <article class="overflow-hidden rounded-[1.4rem] border border-zinc-200 bg-white/80 transition-all duration-300 hover:border-violet-300/50 dark:border-white/10 dark:bg-white/[0.035] dark:hover:border-violet-300/25">
+        <button type="button" class="flex w-full items-center justify-between gap-4 p-6 text-left" (click)="toggleCategory('diseno')">
+          <span class="flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl border border-violet-300/15 bg-violet-500/10 text-[11px] font-black tracking-[0.08em] text-violet-200">VIS</span>
+            <span>
+              <span class="block text-xl font-bold">Diseño</span>
+              <span class="text-sm text-zinc-500 dark:text-zinc-400">Identidad, redes y piezas visuales para comunicar mejor.</span>
+            </span>
+          </span>
+          <span class="rounded-full border border-violet-500/20 px-3 py-1 text-sm font-semibold text-violet-600 dark:text-violet-300">{{ activeCategory() === 'diseno' ? 'Cerrar' : 'Ver' }}</span>
+        </button>
+        @if (activeCategory() === 'diseno') {
+          <div class="grid gap-5 border-t border-zinc-200 p-6 dark:border-white/10 md:grid-cols-3">
+            @for (sol of designSolutions; track sol.id) {
+              <article class="plan-card rounded-2xl border border-zinc-200 bg-zinc-50 p-6 dark:border-white/10 dark:bg-[#08090D]/70">
+                <h4 class="text-lg font-bold">{{ sol.name }}</h4>
+                <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{{ sol.description }}</p>
+              </article>
+            }
+          </div>
+        }
+      </article>
     </div>
   </div>
 </section>
