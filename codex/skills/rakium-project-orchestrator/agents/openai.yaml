@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rakium Project Orchestrator"
+  short_description: "Create, publish, deploy, and QA Angular projects"
+  default_prompt: "Use $rakium-project-orchestrator to create a new Angular project end to end."
