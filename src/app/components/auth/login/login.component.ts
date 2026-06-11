@@ -1,7 +1,7 @@
 import { Component, inject, signal, effect, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { MessageModule } from 'primeng/message';
 import { LucideAngularModule, Eye, EyeOff, Loader2 } from 'lucide-angular';
@@ -9,7 +9,7 @@ import { LucideAngularModule, Eye, EyeOff, Loader2 } from 'lucide-angular';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, MessageModule, LucideAngularModule],
+  imports: [CommonModule, FormsModule, RouterLink, MessageModule, LucideAngularModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
@@ -66,6 +66,15 @@ import { LucideAngularModule, Eye, EyeOff, Loader2 } from 'lucide-angular';
                     <lucide-icon [name]="showPassword() ? eyeOffIcon : eyeIcon" size="20"></lucide-icon>
                   </button>
                 </div>
+              </div>
+
+              <div class="flex justify-end">
+                <a
+                  routerLink="/forgot-password"
+                  class="text-sm font-medium text-blue-300 hover:text-blue-200 transition-colors"
+                >
+                  Olvidé mi contraseña
+                </a>
               </div>
 
               <!-- Error Message -->
