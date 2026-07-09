@@ -1,5 +1,6 @@
 export type LeadStatus = 'NEW' | 'QUALIFIED' | 'CONTACTED' | 'REPLIED' | 'MEETING' | 'WON' | 'LOST' | 'ARCHIVED';
 export type LeadActivityType = 'NOTE' | 'INSTAGRAM_SENT' | 'WHATSAPP_SENT' | 'EMAIL_SENT' | 'CALLED' | 'REPLIED' | 'FOLLOW_UP' | 'STATUS_CHANGE';
+export type LeadContactFilter = 'any' | 'instagram' | 'email' | 'phone';
 
 export interface LeadActivity {
   id: string;

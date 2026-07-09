@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../core/services/api.service';
-import { Lead, LeadActivity, LeadChecklist, LeadStats, LeadStatus, PIPELINE, Paginated, STATUS_LABELS, messageForLead as buildLeadMessage, normalizeInstagram, normalizeUrl } from './lead-shared';
+import { Lead, LeadActivity, LeadChecklist, LeadContactFilter, LeadStats, LeadStatus, PIPELINE, Paginated, STATUS_LABELS, messageForLead as buildLeadMessage, normalizeInstagram, normalizeUrl } from './lead-shared';
 
 @Component({
   selector: 'app-admin-leads',
@@ -79,7 +79,7 @@ import { Lead, LeadActivity, LeadChecklist, LeadStats, LeadStatus, PIPELINE, Pag
 
       <div class="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_420px]">
         <section class="rounded-lg border border-zinc-700 bg-zinc-800">
-          <div class="grid gap-3 border-b border-zinc-700 p-4 md:grid-cols-4">
+          <div class="grid gap-3 border-b border-zinc-700 p-4 md:grid-cols-2 xl:grid-cols-5">
             <input class="rounded border border-zinc-600 bg-zinc-900 px-3 py-2 text-sm" placeholder="Buscar local, rubro, Instagram..." [(ngModel)]="search" (ngModelChange)="onFilterChange()" />
             <select class="rounded border border-zinc-600 bg-zinc-900 px-3 py-2 text-sm" [(ngModel)]="city" (ngModelChange)="onFilterChange()">
               <option value="">Todas las ciudades</option>
@@ -93,6 +93,12 @@ import { Lead, LeadActivity, LeadChecklist, LeadStats, LeadStatus, PIPELINE, Pag
                 <option [value]="option">{{ statusLabel(option) }}</option>
               }
             </select>
+            <select class="rounded border border-zinc-600 bg-zinc-900 px-3 py-2 text-sm" [(ngModel)]="contact" (ngModelChange)="onFilterChange()">
+              <option value="">Todos los contactos</option>
+              @for (option of contactFilters; track option.value) {
+                <option [value]="option.value">{{ option.label }}</option>
+              }
+            </select>
             <select class="rounded border border-zinc-600 bg-zinc-900 px-3 py-2 text-sm" [(ngModel)]="category" (ngModelChange)="onFilterChange()">
               <option value="">Todos los rubros</option>
               @for (row of stats()?.byCategory ?? []; track row.category) {
@@ -102,11 +108,12 @@ import { Lead, LeadActivity, LeadChecklist, LeadStats, LeadStatus, PIPELINE, Pag
           </div>
 
           <div class="overflow-x-auto">
-            <table class="w-full min-w-[980px] text-left text-sm">
+            <table class="w-full min-w-[1120px] text-left text-sm">
               <thead class="bg-zinc-900 text-xs uppercase text-zinc-400">
                 <tr>
                   <th class="px-4 py-3">Local</th>
                   <th class="px-4 py-3">Rubro</th>
+                  <th class="px-4 py-3">Contacto</th>
                   <th class="px-4 py-3">Digital</th>
                   <th class="px-4 py-3">Estado</th>
                   <th class="px-4 py-3">Seguimiento</th>
@@ -123,9 +130,30 @@ import { Lead, LeadActivity, LeadChecklist, LeadStats, LeadStatus, PIPELINE, Pag
                         @if (lead.googleMapsUrl) { <a class="text-xs text-blue-300 hover:text-blue-200" [href]="lead.googleMapsUrl" target="_blank" rel="noopener">Maps</a> }
                         @if (lead.website) { <a class="text-xs text-blue-300 hover:text-blue-200" [href]="normalizeUrl(lead.website)" target="_blank" rel="noopener">Web</a> }
                         @if (lead.instagram) { <a class="text-xs text-pink-300 hover:text-pink-200" [href]="normalizeInstagram(lead.instagram)" target="_blank" rel="noopener">Instagram</a> }
+                        @if (lead.email) { <a class="text-xs text-emerald-300 hover:text-emerald-200" [href]="'mailto:' + lead.email">Email</a> }
+                        @if (lead.phone) { <a class="text-xs text-green-300 hover:text-green-200" [href]="phoneHref(lead.phone)">Telefono</a> }
                       </div>
                     </td>
                     <td class="px-4 py-3 text-zinc-300">{{ lead.category || '-' }}</td>
+                    <td class="px-4 py-3">
+                      <div class="space-y-1 text-xs">
+                        @if (lead.phone) {
+                          <a class="block text-green-300 hover:text-green-200" [href]="phoneHref(lead.phone)">{{ lead.phone }}</a>
+                        } @else {
+                          <span class="block text-zinc-500">Sin telefono</span>
+                        }
+                        @if (lead.email) {
+                          <a class="block text-blue-300 hover:text-blue-200" [href]="'mailto:' + lead.email">{{ lead.email }}</a>
+                        } @else {
+                          <span class="block text-zinc-500">Sin email</span>
+                        }
+                        @if (lead.instagram) {
+                          <a class="block text-pink-300 hover:text-pink-200" [href]="normalizeInstagram(lead.instagram)" target="_blank" rel="noopener">{{ lead.instagram }}</a>
+                        } @else {
+                          <span class="block text-zinc-500">Sin Instagram</span>
+                        }
+                      </div>
+                    </td>
                     <td class="px-4 py-3">
                       <div class="h-2 w-28 rounded bg-zinc-700">
                         <div class="h-2 rounded bg-orange-400" [style.width.%]="lead.digitalPresenceScore"></div>
@@ -154,7 +182,7 @@ import { Lead, LeadActivity, LeadChecklist, LeadStats, LeadStatus, PIPELINE, Pag
                     </td>
                   </tr>
                 } @empty {
-                  <tr><td class="px-4 py-8 text-center text-zinc-400" colspan="6">Todavia no hay leads cargados.</td></tr>
+                  <tr><td class="px-4 py-8 text-center text-zinc-400" colspan="7">Todavia no hay leads cargados.</td></tr>
                 }
               </tbody>
             </table>
@@ -221,17 +249,31 @@ import { Lead, LeadActivity, LeadChecklist, LeadStats, LeadStatus, PIPELINE, Pag
             @if ((stats()?.mapLeads?.length ?? 0) > 0) {
               <div class="mt-3 grid gap-2">
                 @for (lead of stats()?.mapLeads ?? []; track lead.id) {
-                  <button
-                    class="flex items-center justify-between rounded border border-zinc-700 bg-zinc-900 px-3 py-2 text-left text-xs hover:border-blue-400"
-                    type="button"
-                    (click)="openLeadPage(lead)"
-                  >
-                    <span class="truncate">
-                      <span class="font-semibold text-white">{{ lead.name }}</span>
-                      <span class="text-zinc-400"> / {{ lead.city }}</span>
-                    </span>
-                    <span class="ml-2 rounded px-2 py-1" [ngClass]="mapBadgeClass(lead)">{{ statusLabel(lead.status) }}</span>
-                  </button>
+                  <div class="rounded border border-zinc-700 bg-zinc-900 px-3 py-2 text-xs">
+                    <button class="flex w-full items-center justify-between gap-3 text-left hover:text-blue-300" type="button" (click)="openLeadPage(lead)">
+                      <span class="min-w-0">
+                        <span class="block truncate font-semibold text-white">{{ lead.name }}</span>
+                        <span class="block truncate text-zinc-400">{{ lead.city }} @if (lead.address) { <span> / {{ lead.address }}</span> }</span>
+                      </span>
+                      <span class="ml-2 shrink-0 rounded px-2 py-1" [ngClass]="mapBadgeClass(lead)">{{ statusLabel(lead.status) }}</span>
+                    </button>
+                    <div class="mt-2 grid gap-1 text-[11px] text-zinc-400">
+                      @if (lead.phone) {
+                        <a class="truncate text-green-300 hover:text-green-200" [href]="phoneHref(lead.phone)">{{ lead.phone }}</a>
+                      }
+                      @if (lead.email) {
+                        <a class="truncate text-blue-300 hover:text-blue-200" [href]="'mailto:' + lead.email">{{ lead.email }}</a>
+                      }
+                      @if (lead.instagram) {
+                        <a class="truncate text-pink-300 hover:text-pink-200" [href]="normalizeInstagram(lead.instagram)" target="_blank" rel="noopener">{{ lead.instagram }}</a>
+                      }
+                      <div class="flex flex-wrap gap-2 pt-1">
+                        @if (lead.googleMapsUrl) { <a class="text-blue-300 hover:text-blue-200" [href]="lead.googleMapsUrl" target="_blank" rel="noopener">Maps</a> }
+                        @if (lead.website) { <a class="text-blue-300 hover:text-blue-200" [href]="normalizeUrl(lead.website)" target="_blank" rel="noopener">Web</a> }
+                        @if (!lead.phone && !lead.email && !lead.instagram && !lead.website) { <span class="text-zinc-500">Sin datos de contacto cargados</span> }
+                      </div>
+                    </div>
+                  </div>
                 }
               </div>
             }
@@ -272,6 +314,12 @@ export class AdminLeadsComponent {
   readonly showImport = signal(false);
 
   readonly statuses: LeadStatus[] = ['NEW', 'QUALIFIED', 'CONTACTED', 'REPLIED', 'MEETING', 'WON', 'LOST', 'ARCHIVED'];
+  readonly contactFilters: Array<{ value: LeadContactFilter; label: string }> = [
+    { value: 'any', label: 'Con algun contacto' },
+    { value: 'instagram', label: 'Con Instagram' },
+    { value: 'email', label: 'Con email' },
+    { value: 'phone', label: 'Con telefono' },
+  ];
   readonly pipeline = PIPELINE;
   readonly maxCityTotal = computed(() => Math.max(1, ...(this.stats()?.byCity ?? []).map((row) => row.total)));
   readonly topLeads = computed(() =>
@@ -285,6 +333,7 @@ export class AdminLeadsComponent {
   city = '';
   category = '';
   status = '';
+  contact: LeadContactFilter | '' = '';
   importJson = '';
   draftNote = '';
   private updateTimers = new Map<string, ReturnType<typeof setTimeout>>();
@@ -323,6 +372,7 @@ export class AdminLeadsComponent {
         city: this.city || undefined,
         category: this.category || undefined,
         status: this.status || undefined,
+        contact: this.contact || undefined,
       })
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
@@ -515,6 +565,11 @@ export class AdminLeadsComponent {
     if (/^https?:\/\//i.test(value)) return value;
     const handle = value.replace(/^@/, '');
     return `https://www.instagram.com/${handle}`;
+  }
+
+  phoneHref(phone: string): string {
+    const normalized = phone.replace(/[^\d+]/g, '');
+    return `tel:${normalized}`;
   }
 
   dateInputValue(value?: string): string {

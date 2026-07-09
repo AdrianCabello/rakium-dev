@@ -21,6 +21,9 @@ export const routes: Routes = [
       { path: 'categories/:id/edit', canActivate: [adminRoleGuard], loadComponent: () => import('./pages/admin/admin-categories/admin-category-edit/admin-category-edit.component').then(m => m.AdminCategoryEditComponent) },
       { path: 'leads', canActivate: [adminRoleGuard], loadComponent: () => import('./pages/admin/admin-leads/admin-leads.component').then(m => m.AdminLeadsComponent) },
       { path: 'leads/:id', canActivate: [adminRoleGuard], loadComponent: () => import('./pages/admin/admin-leads/admin-lead-detail.component').then(m => m.AdminLeadDetailComponent) },
+      { path: 'sellers', canActivate: [adminRoleGuard], loadComponent: () => import('./pages/admin/admin-sellers/admin-sellers.component').then(m => m.AdminSellersComponent) },
+      { path: 'sellers/:id', canActivate: [adminRoleGuard], loadComponent: () => import('./pages/admin/admin-sellers/admin-seller-detail.component').then(m => m.AdminSellerDetailComponent) },
+      { path: 'instagram-inbox', canActivate: [adminRoleGuard], loadComponent: () => import('./pages/admin/admin-instagram-inbox/admin-instagram-inbox.component').then(m => m.AdminInstagramInboxComponent) },
       { path: 'site-settings', loadComponent: () => import('./pages/admin/admin-site-settings/admin-site-settings.component').then(m => m.AdminSiteSettingsComponent) },
       { path: 'projects', loadComponent: () => import('./pages/admin/admin-projects/admin-projects.component').then(m => m.AdminProjectsComponent) },
       {

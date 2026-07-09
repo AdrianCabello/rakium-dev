@@ -103,6 +103,22 @@ import { AuthService } from '../../core/services/auth.service';
               >
                 Captaci&oacute;n
               </a>
+              <a
+                [routerLink]="['/admin/sellers']"
+                routerLinkActive="border-[#639BF0] bg-[#639BF0]/15 text-white"
+                class="block rounded border border-transparent px-3 py-3 text-sm font-medium text-[#A0A0A0] no-underline hover:bg-[#2C3550] hover:text-white"
+                (click)="closeMenu()"
+              >
+                Vendedores
+              </a>
+              <a
+                [routerLink]="['/admin/instagram-inbox']"
+                routerLinkActive="border-[#639BF0] bg-[#639BF0]/15 text-white"
+                class="block rounded border border-transparent px-3 py-3 text-sm font-medium text-[#A0A0A0] no-underline hover:bg-[#2C3550] hover:text-white"
+                (click)="closeMenu()"
+              >
+                Respuestas IG
+              </a>
             }
             <a
               [routerLink]="['/admin/site-settings']"
