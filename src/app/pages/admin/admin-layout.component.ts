@@ -1,93 +1,147 @@
-import { Component, inject, computed, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { DrawerModule } from 'primeng/drawer';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, ButtonModule, DrawerModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="min-h-screen bg-zinc-900 text-white">
-      <!-- Top Navigation Bar -->
-      <div class="bg-zinc-800 border-b border-zinc-700">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <!-- Left: Logo -->
-          <div class="flex items-center space-x-3">
-            <a [routerLink]="['/admin']" class="flex items-center space-x-2 no-underline text-white hover:text-zinc-300">
-              <span class="text-zinc-400">&lt; /&gt;</span>
-              <span class="text-lg font-semibold">Rakium Dashboard</span>
+    <div class="min-h-screen bg-[#1A1C20] text-white">
+      <header class="sticky top-0 z-30 border-b border-[#666666] bg-[#1A1C20]/95 backdrop-blur">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+          <div class="flex min-w-0 items-center gap-3">
+            <p-button
+              label="Menu"
+              icon="pi pi-bars"
+              severity="primary"
+              size="small"
+              type="button"
+              ariaLabel="Abrir menu"
+              styleClass="rakium-menu-button"
+              (onClick)="openMenu()"
+            />
+            <a [routerLink]="['/admin']" class="flex min-w-0 items-center gap-2 no-underline text-white hover:text-zinc-300">
+              <span class="font-mono text-[#639BF0]">&lt;/&gt;</span>
+              <span class="truncate text-base font-semibold sm:text-lg">Rakium Dashboard</span>
             </a>
-            <a [routerLink]="['/']" class="ml-4 text-zinc-400 hover:text-white text-sm no-underline">Inicio</a>
           </div>
 
-          <!-- Center: Navigation Tabs -->
-          <div class="flex space-x-1">
+          <div class="flex min-w-0 items-center gap-3">
+            <span class="hidden max-w-56 truncate text-sm text-[#A0A0A0] sm:block">{{ currentUserEmail() }}</span>
+            <p-button
+              label="Cerrar sesi&oacute;n"
+              icon="pi pi-sign-out"
+              severity="danger"
+              size="small"
+              type="button"
+              (onClick)="logout()"
+            />
+          </div>
+        </div>
+      </header>
+
+      <p-drawer
+        [visible]="menuOpen()"
+        (visibleChange)="menuOpen.set($event)"
+        position="left"
+        header="Menu principal"
+        [modal]="true"
+        [blockScroll]="true"
+        styleClass="rakium-admin-drawer"
+      >
+        <div class="flex h-full flex-col">
+          <div class="mb-4">
+            <p class="text-xs uppercase tracking-wide text-[#639BF0]">Admin</p>
+            <p class="mt-1 truncate text-sm text-[#A0A0A0]">{{ currentUserEmail() }}</p>
+          </div>
+
+          <nav class="flex-1 space-y-1 overflow-y-auto">
             <a
               [routerLink]="['/admin']"
-              routerLinkActive="bg-blue-600 text-white"
+              routerLinkActive="border-[#639BF0] bg-[#639BF0]/15 text-white"
               [routerLinkActiveOptions]="{ exact: true }"
-              class="px-4 py-2 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-700 transition-colors no-underline"
+              class="block rounded border border-transparent px-3 py-3 text-sm font-medium text-[#A0A0A0] no-underline hover:bg-[#2C3550] hover:text-white"
+              (click)="closeMenu()"
             >
               Dashboard
             </a>
             @if (isAdmin()) {
               <a
                 [routerLink]="['/admin/clients']"
-                routerLinkActive="bg-blue-600 text-white"
-                class="px-4 py-2 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-700 transition-colors no-underline"
+                routerLinkActive="border-[#639BF0] bg-[#639BF0]/15 text-white"
+                class="block rounded border border-transparent px-3 py-3 text-sm font-medium text-[#A0A0A0] no-underline hover:bg-[#2C3550] hover:text-white"
+                (click)="closeMenu()"
               >
-                Gestión de Clientes
+                Gesti&oacute;n de clientes
               </a>
               <a
                 [routerLink]="['/admin/users']"
-                routerLinkActive="bg-blue-600 text-white"
-                class="px-4 py-2 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-700 transition-colors no-underline"
+                routerLinkActive="border-[#639BF0] bg-[#639BF0]/15 text-white"
+                class="block rounded border border-transparent px-3 py-3 text-sm font-medium text-[#A0A0A0] no-underline hover:bg-[#2C3550] hover:text-white"
+                (click)="closeMenu()"
               >
                 Usuarios
               </a>
-<a
+              <a
                 [routerLink]="['/admin/categories']"
-                routerLinkActive="bg-blue-600 text-white"
-                class="px-4 py-2 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-700 transition-colors no-underline"
+                routerLinkActive="border-[#639BF0] bg-[#639BF0]/15 text-white"
+                class="block rounded border border-transparent px-3 py-3 text-sm font-medium text-[#A0A0A0] no-underline hover:bg-[#2C3550] hover:text-white"
+                (click)="closeMenu()"
               >
-                Categorías
+                Categor&iacute;as
+              </a>
+              <a
+                [routerLink]="['/admin/leads']"
+                routerLinkActive="border-[#639BF0] bg-[#639BF0]/15 text-white"
+                class="block rounded border border-transparent px-3 py-3 text-sm font-medium text-[#A0A0A0] no-underline hover:bg-[#2C3550] hover:text-white"
+                (click)="closeMenu()"
+              >
+                Captaci&oacute;n
               </a>
             }
             <a
               [routerLink]="['/admin/site-settings']"
-              routerLinkActive="bg-blue-600 text-white"
-              class="px-4 py-2 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-700 transition-colors no-underline"
+              routerLinkActive="border-[#639BF0] bg-[#639BF0]/15 text-white"
+              class="block rounded border border-transparent px-3 py-3 text-sm font-medium text-[#A0A0A0] no-underline hover:bg-[#2C3550] hover:text-white"
+              (click)="closeMenu()"
             >
-              Configuración Sitio
+              Configuraci&oacute;n del sitio
             </a>
             <a
               [routerLink]="['/admin/projects']"
-              routerLinkActive="bg-blue-600 text-white"
-              class="px-4 py-2 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-700 transition-colors no-underline"
+              routerLinkActive="border-[#639BF0] bg-[#639BF0]/15 text-white"
+              class="block rounded border border-transparent px-3 py-3 text-sm font-medium text-[#A0A0A0] no-underline hover:bg-[#2C3550] hover:text-white"
+              (click)="closeMenu()"
             >
               Proyectos
             </a>
-          </div>
-
-          <!-- Right: User and Logout -->
-          <div class="flex items-center space-x-4">
-            <span class="text-sm text-zinc-400">{{ currentUserEmail() }}</span>
-            <button
-              (click)="logout()"
-              class="flex items-center space-x-2 px-3 py-1 bg-red-600 hover:bg-red-700 rounded text-sm transition-colors"
+            <a
+              [routerLink]="['/']"
+              class="block rounded border border-transparent px-3 py-3 text-sm font-medium text-[#A0A0A0] no-underline hover:bg-[#2C3550] hover:text-white"
+              (click)="closeMenu()"
             >
-              <span>Cerrar Sesión</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-              </svg>
-            </button>
+              Ir al sitio
+            </a>
+          </nav>
+
+          <div class="border-t border-[#666666] pt-4">
+            <p-button
+              label="Cerrar sesi&oacute;n"
+              icon="pi pi-sign-out"
+              severity="danger"
+              styleClass="w-full"
+              (onClick)="logout()"
+            />
           </div>
         </div>
-      </div>
+      </p-drawer>
 
-      <main class="max-w-7xl mx-auto p-6">
+      <main class="mx-auto max-w-7xl p-4 sm:p-6">
         <router-outlet />
       </main>
     </div>
@@ -96,8 +150,17 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class AdminLayoutComponent {
   readonly authService = inject(AuthService);
+  readonly menuOpen = signal(false);
   readonly currentUserEmail = () => this.authService.currentUser()?.email ?? '';
   readonly isAdmin = computed(() => this.authService.currentUser()?.role === 'ADMIN');
+
+  openMenu(): void {
+    this.menuOpen.set(true);
+  }
+
+  closeMenu(): void {
+    this.menuOpen.set(false);
+  }
 
   logout(): void {
     this.authService.logout();

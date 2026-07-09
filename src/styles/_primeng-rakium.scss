@@ -3,6 +3,19 @@
  * Colores: azul primario #639BF0, fondo #1A1C20 / #1E1E1E, cards #2C3550.
  */
 
+:root {
+  --rakium-bg: #1A1C20;
+  --rakium-surface: #1E1E1E;
+  --rakium-card: #2C3550;
+  --rakium-border: #666666;
+  --rakium-primary: #639BF0;
+  --rakium-primary-hover: #7aa8f2;
+  --rakium-text: #ffffff;
+  --rakium-muted: #A0A0A0;
+  --rakium-success: #5ACD80;
+  --rakium-danger: #ef4444;
+}
+
 /* Fondo y superficie para rutas admin/login */
 .surface-ground {
   background-color: #1A1C20 !important;
@@ -46,6 +59,52 @@
   .p-menubar-start,
   .p-menubar-end {
     color: #ffffff !important;
+  }
+}
+
+/* Admin shell */
+.rakium-menu-button.p-button {
+  background: var(--rakium-primary) !important;
+  border-color: var(--rakium-primary) !important;
+  color: var(--rakium-text) !important;
+  min-width: 5.25rem;
+
+  .p-button-icon,
+  .p-button-label {
+    color: var(--rakium-text) !important;
+  }
+}
+.rakium-menu-button.p-button:hover {
+  background: var(--rakium-primary-hover) !important;
+  border-color: var(--rakium-primary-hover) !important;
+}
+
+.rakium-admin-drawer.p-drawer {
+  width: min(340px, calc(100vw - 32px)) !important;
+  background: var(--rakium-bg) !important;
+  border-color: var(--rakium-border) !important;
+  color: var(--rakium-text) !important;
+
+  .p-drawer-header {
+    background: var(--rakium-bg) !important;
+    border-bottom: 1px solid var(--rakium-border) !important;
+    color: var(--rakium-text) !important;
+    padding: 1rem 1.25rem !important;
+  }
+
+  .p-drawer-title {
+    color: var(--rakium-text) !important;
+    font-weight: 700 !important;
+  }
+
+  .p-drawer-content {
+    background: var(--rakium-bg) !important;
+    color: var(--rakium-text) !important;
+    padding: 1rem !important;
+  }
+
+  .p-drawer-close-button {
+    color: var(--rakium-text) !important;
   }
 }
 

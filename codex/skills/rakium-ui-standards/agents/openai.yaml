@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rakium UI Standards"
+  short_description: "Rakium admin colors and UI rules"
+  default_prompt: "Use Rakium UI Standards for this UI change."
