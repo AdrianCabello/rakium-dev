@@ -12,7 +12,7 @@ param(
   [switch]$UseRakiumBackend,
   [string]$ClientId,
   [string]$ApiUrl = "http://localhost:3000/api",
-  [string]$ProductionApiUrl = "https://rakium-be-production.up.railway.app/api",
+  [string]$ProductionApiUrl = "https://api.rakium.dev/api",
   [string]$Domain,
   [string]$Description,
 
